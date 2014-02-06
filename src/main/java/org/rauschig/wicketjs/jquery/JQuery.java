@@ -3,6 +3,7 @@ package org.rauschig.wicketjs.jquery;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.wicket.Component;
 import org.rauschig.wicketjs.IJsExpression;
 import org.rauschig.wicketjs.JsCall;
 import org.rauschig.wicketjs.JsExpression;
@@ -26,6 +27,10 @@ public class JQuery extends JsExpression {
         super("");
     }
 
+    public JQuery(Component component) {
+        this("#" + component.getMarkupId());
+    }
+
     public JQuery(String selector) {
         this(new JsLiteral.JsString(selector));
     }
@@ -39,6 +44,10 @@ public class JQuery extends JsExpression {
         return new JQuery();
     }
 
+    public static JQuery jQuery(Component component) {
+        return new JQuery(component);
+    }
+
     public static JQuery jQuery(String selector) {
         return new JQuery(selector);
     }
@@ -49,6 +58,10 @@ public class JQuery extends JsExpression {
 
     public static JQuery $() {
         return jQuery();
+    }
+
+    public static JQuery $(Component component) {
+        return jQuery(component);
     }
 
     public static JQuery $(String selector) {

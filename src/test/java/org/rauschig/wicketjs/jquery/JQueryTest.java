@@ -3,7 +3,9 @@ package org.rauschig.wicketjs.jquery;
 import static org.junit.Assert.assertEquals;
 import static org.rauschig.wicketjs.jquery.JQuery.$;
 
+import org.apache.wicket.Component;
 import org.junit.Test;
+import org.mockito.Mockito;
 import org.rauschig.wicketjs.JsCall;
 import org.rauschig.wicketjs.JsIdentifier;
 
@@ -20,6 +22,14 @@ public class JQueryTest {
     @Test
     public void singleSelector_compilesCorrectly() throws Exception {
         compileAndAssert("$('#id')", $("#id"));
+    }
+
+    @Test
+    public void componentSelector_compilesCorrectly() throws Exception {
+        Component c = Mockito.mock(Component.class);
+        Mockito.when(c.getMarkupId()).thenReturn("id");
+
+        compileAndAssert("$('#id')", $(c));
     }
 
     @Test

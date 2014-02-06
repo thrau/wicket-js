@@ -57,4 +57,16 @@ public abstract class JsLiteral<T> implements IJsExpression {
         }
     }
 
+    public static class ObjectLiteral extends JsLiteral<Object> {
+
+        public ObjectLiteral(Object value) {
+            super(value);
+        }
+
+        @Override
+        public void accept(IJsExpressionVisitor visitor) {
+            visitor.visit(this);
+        }
+    }
+
 }

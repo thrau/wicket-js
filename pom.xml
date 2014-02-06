@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.sonatype.oss</groupId>
+    <artifactId>oss-parent</artifactId>
+    <version>7</version>
+  </parent>
 
   <groupId>org.rauschig</groupId>
   <artifactId>wicket-js</artifactId>
@@ -31,7 +37,7 @@
     <developerConnection></developerConnection>
   </scm>
   -->
-  
+
   <developers>
     <developer>
       <id>thrau</id>
@@ -47,7 +53,7 @@
     <license.year>2014</license.year>
     <license.name>Thomas Rausch</license.name>
 
-    <bundle.symbolicName>${project.groupId}.wicketjs</bundle.symbolicName>
+    <bundle.symbolicName>${project.groupId}.${project.artifactId}</bundle.symbolicName>
     <bundle.namespace>${project.groupId}.wicketjs</bundle.namespace>
 
     <junit.version>4.11</junit.version>
@@ -117,8 +123,8 @@
             <Embed-Dependency>*;scope=compile|runtime;type=!pom;inline=true</Embed-Dependency>
             <Import-Package>*;resolution:=optional</Import-Package>
             <Export-Package>${bundle.namespace}.*;version="${project.version}"</Export-Package>
-            <Private-Package>!*</Private-Package>
-            <_include>-osgi.bnd</_include>
+            <!--<Private-Package>!*</Private-Package>-->
+            <!--<_include>-osgi.bnd</_include>-->
           </instructions>
         </configuration>
       </plugin>

@@ -1,7 +1,7 @@
 package org.rauschig.wicketjs;
 
 /**
- * IJsExpressionVisitor
+ * A visitor of the IJsExpression hierarchy.
  */
 public interface IJsExpressionVisitor {
 
@@ -10,6 +10,8 @@ public interface IJsExpressionVisitor {
     void visit(JsLiteral.JsBoolean visitable);
 
     void visit(JsLiteral.JsString visitable);
+
+    void visit(JsLiteral.ObjectLiteral visitable);
 
     void visit(JsIdentifier visitable);
 

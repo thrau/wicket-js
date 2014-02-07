@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Anonymous function definition.
  */
-public class JsFunction implements IJsExpression {
+public class JsFunction extends AbstractJsExpression {
 
     private List<JsIdentifier> parameters;
     private IJsExpression body;

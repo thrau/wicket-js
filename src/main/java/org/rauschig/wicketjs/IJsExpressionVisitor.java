@@ -1,9 +1,11 @@
 package org.rauschig.wicketjs;
 
+import java.io.Serializable;
+
 /**
  * A visitor of the IJsExpression hierarchy.
  */
-public interface IJsExpressionVisitor {
+public interface IJsExpressionVisitor extends Serializable {
 
     void visit(JsLiteral.JsNumber visitable);
 
@@ -22,4 +24,6 @@ public interface IJsExpressionVisitor {
     void visit(JsFunction visitable);
 
     void visit(JsNamedFunction visitable);
+
+    void visit(JsExpressionList visitable);
 }

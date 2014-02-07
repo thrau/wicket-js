@@ -75,6 +75,12 @@ public abstract class AbstractJsExpressionCompiler implements IJsExpressionVisit
         visitFunctionParametersAndBody(visitable);
     }
 
+    @Override
+    public void visit(JsExpressionList visitable) {
+        visitAndJoin(";", visitable.getExpressions());
+        js.append(";");
+    }
+
     protected void visitArguments(JsCall visitable) {
         js.append("(");
         visitAndJoin(",", visitable.getArguments());

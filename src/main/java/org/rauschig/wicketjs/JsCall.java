@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * JsCall
  */
-public class JsCall implements IJsExpression {
+public class JsCall extends AbstractJsExpression {
 
     private IJsExpression function;
     private List<IJsExpression> arguments;

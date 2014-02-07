@@ -3,7 +3,7 @@ package org.rauschig.wicketjs;
 /**
  * A raw expression that may contain arbitrary JavaScript code.
  */
-public class JsExpression implements IJsExpression {
+public class JsExpression extends AbstractJsExpression {
 
     public static final JsExpression NULL = new JsExpression("null");
     public static final JsExpression THIS = new JsExpression("this");

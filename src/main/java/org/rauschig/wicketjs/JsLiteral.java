@@ -3,7 +3,7 @@ package org.rauschig.wicketjs;
 /**
  * JsLiteral
  */
-public abstract class JsLiteral<T> implements IJsExpression {
+public abstract class JsLiteral<T> extends AbstractJsExpression {
     private T value;
 
     public JsLiteral(T value) {

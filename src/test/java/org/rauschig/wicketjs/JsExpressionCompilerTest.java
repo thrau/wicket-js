@@ -126,6 +126,25 @@ public class JsExpressionCompilerTest {
         compileAndAssert(expected, function);
     }
 
+    @Test
+    public void compileJsExpressionList_withSingleExpression_compilesCorrectly() throws Exception {
+        String expected = "foo=bar;";
+        IJsExpression expr = new JsExpressionList(new JsExpression("foo=bar"));
+
+        compileAndAssert(expected, expr);
+    }
+
+    @Test
+    public void compileJsExpressionList_withMultipleExpression_compilesCorrectly() throws Exception {
+        String expected = "foo=bar;foo();call();";
+        JsExpression expr = new JsExpression("foo=bar");
+
+        JsExpressionList list = expr._(new JsCall("foo"));
+        list._(new JsCall("call"));
+
+        compileAndAssert(expected, list);
+    }
+
     protected static void compileAndAssert(String expected, IJsExpression expression) {
         assertEquals(expected, new JsExpressionCompiler(expression).compile());
     }

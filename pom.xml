@@ -53,6 +53,7 @@
     <license.year>2014</license.year>
     <license.name>Thomas Rausch</license.name>
 
+    <bundle.name>${project.groupId} :: ${project.artifactId}</bundle.name>
     <bundle.symbolicName>${project.groupId}.${project.artifactId}</bundle.symbolicName>
     <bundle.namespace>${project.groupId}.wicketjs</bundle.namespace>
 
@@ -120,12 +121,14 @@
         <configuration>
           <instructions>
             <Bundle-SymbolicName>${bundle.symbolicName}</Bundle-SymbolicName>
+            <Bundle-Name>${bundle.name}</Bundle-Name>
             <Bundle-Version>${project.version}</Bundle-Version>
             <Embed-Dependency>*;scope=compile|runtime;type=!pom;inline=true</Embed-Dependency>
-            <Import-Package>*;resolution:=optional</Import-Package>
+            <Import-Package>
+              org.apache.wicket,
+              *;resolution:=optional
+            </Import-Package>
             <Export-Package>${bundle.namespace}.*;version="${project.version}"</Export-Package>
-            <!--<Private-Package>!*</Private-Package>-->
-            <!--<_include>-osgi.bnd</_include>-->
           </instructions>
         </configuration>
       </plugin>

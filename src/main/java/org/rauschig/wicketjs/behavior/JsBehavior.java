@@ -22,6 +22,9 @@ import org.rauschig.wicketjs.compiler.JsExpressionCompiler;
  * JsBehavior.
  */
 public abstract class JsBehavior extends AbstractJsBehavior {
+
+    private static final long serialVersionUID = -4036050499449407153L;
+
     @Override
     protected CharSequence domReadyScript() {
         return new JsExpressionCompiler(domReadyJs()).compile();

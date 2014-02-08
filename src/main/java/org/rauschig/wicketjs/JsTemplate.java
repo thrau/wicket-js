@@ -26,6 +26,8 @@ import org.apache.wicket.util.template.TextTemplate;
  */
 public class JsTemplate extends JsExpression {
 
+    private static final long serialVersionUID = -3406739800398789055L;
+
     private TextTemplate template;
 
     private Map<String, Object> variables;

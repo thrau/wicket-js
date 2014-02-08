@@ -20,6 +20,8 @@ package org.rauschig.wicketjs;
  */
 public class JsExpression extends AbstractJsExpression {
 
+    private static final long serialVersionUID = -8493639793137369591L;
+
     public static final JsExpression NULL = new JsExpression("null");
     public static final JsExpression THIS = new JsExpression("this");
 

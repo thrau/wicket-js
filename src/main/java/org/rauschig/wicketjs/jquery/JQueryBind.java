@@ -26,6 +26,7 @@ import org.rauschig.wicketjs.JsIdentifier;
 public class JQueryBind extends JsCall {
 
     public static final JsIdentifier EVENT_OBJECT = new JsIdentifier("eventObject");
+    private static final long serialVersionUID = 2699505604920707203L;
 
     public JQueryBind(String event, String callbackBody) {
         this(event, new JsFunction(callbackBody));

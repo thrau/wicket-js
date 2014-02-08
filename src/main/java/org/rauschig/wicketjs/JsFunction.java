@@ -25,6 +25,8 @@ import org.rauschig.wicketjs.util.JsExpressionUtils;
  */
 public class JsFunction extends AbstractJsExpression {
 
+    private static final long serialVersionUID = -2514816269156224568L;
+
     private List<JsIdentifier> parameters;
     private IJsExpression body;
 

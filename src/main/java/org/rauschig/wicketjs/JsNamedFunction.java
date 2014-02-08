@@ -23,6 +23,8 @@ import java.util.List;
  */
 public class JsNamedFunction extends JsFunction {
 
+    private static final long serialVersionUID = 2365745891851116336L;
+
     private JsIdentifier identifier;
 
     public JsNamedFunction(String identifier, String[] parameters, String body) {

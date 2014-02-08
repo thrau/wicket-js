@@ -19,6 +19,9 @@ package org.rauschig.wicketjs;
  * JsLiteral
  */
 public abstract class JsLiteral<T> extends AbstractJsExpression {
+
+    private static final long serialVersionUID = -8362618585257944508L;
+
     private T value;
 
     public JsLiteral(T value) {
@@ -34,6 +37,7 @@ public abstract class JsLiteral<T> extends AbstractJsExpression {
     }
 
     public static class JsString extends JsLiteral<String> {
+        private static final long serialVersionUID = -8368594256531244265L;
 
         public JsString(String value) {
             super(value);
@@ -49,6 +53,7 @@ public abstract class JsLiteral<T> extends AbstractJsExpression {
 
         public static final JsBoolean FALSE = new JsBoolean(false);
         public static final JsBoolean TRUE = new JsBoolean(true);
+        private static final long serialVersionUID = -2484075331556045893L;
 
         public JsBoolean(Boolean value) {
             super(value);
@@ -61,6 +66,7 @@ public abstract class JsLiteral<T> extends AbstractJsExpression {
     }
 
     public static class JsNumber extends JsLiteral<Number> {
+        private static final long serialVersionUID = 8998703899729389745L;
 
         public JsNumber(Number value) {
             super(value);
@@ -73,6 +79,7 @@ public abstract class JsLiteral<T> extends AbstractJsExpression {
     }
 
     public static class ObjectLiteral extends JsLiteral<Object> {
+        private static final long serialVersionUID = -1093930669617979141L;
 
         public ObjectLiteral(Object value) {
             super(value);

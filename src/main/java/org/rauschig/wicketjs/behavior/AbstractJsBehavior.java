@@ -28,6 +28,8 @@ import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
  */
 public abstract class AbstractJsBehavior extends AbstractAjaxBehavior {
 
+    private static final long serialVersionUID = 3962087472473146564L;
+
     /**
      * Returns the markup id of the component this Behavior is bound to.
      * 

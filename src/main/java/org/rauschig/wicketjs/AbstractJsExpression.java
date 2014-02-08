@@ -20,6 +20,8 @@ package org.rauschig.wicketjs;
  */
 public abstract class AbstractJsExpression implements IJsExpression {
 
+    private static final long serialVersionUID = 3563470453408826790L;
+
     public JsExpressionList _(IJsExpression expression) {
         return add(expression);
     }

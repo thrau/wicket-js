@@ -23,6 +23,7 @@ import org.rauschig.wicketjs.IJsExpression;
  * JsExpressionJoiner
  */
 public class JsExpressionJoiner extends AbstractJsExpressionCompiler {
+
     private List<IJsExpression> expressions;
     private String delimiter;
 

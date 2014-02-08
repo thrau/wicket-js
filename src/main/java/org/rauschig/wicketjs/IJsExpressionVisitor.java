@@ -15,12 +15,10 @@
  */
 package org.rauschig.wicketjs;
 
-import java.io.Serializable;
-
 /**
  * A visitor of the IJsExpression hierarchy.
  */
-public interface IJsExpressionVisitor extends Serializable {
+public interface IJsExpressionVisitor {
 
     void visit(JsLiteral.JsNumber visitable);
 

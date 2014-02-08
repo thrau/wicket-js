@@ -23,6 +23,8 @@ import org.rauschig.wicketjs.jquery.JQuery;
  */
 public abstract class JQueryEventBehavior extends JsBehavior {
 
+    private static final long serialVersionUID = 3948469775808421408L;
+
     private String event;
     private String selector;
 

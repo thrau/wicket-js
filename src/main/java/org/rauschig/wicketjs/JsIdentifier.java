@@ -20,6 +20,8 @@ package org.rauschig.wicketjs;
  */
 public class JsIdentifier extends AbstractJsExpression {
 
+    private static final long serialVersionUID = 1191736085584765342L;
+
     private final String identifier;
 
     public JsIdentifier(String identifier) {

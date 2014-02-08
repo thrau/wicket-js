@@ -34,7 +34,7 @@ import org.rauschig.wicketjs.util.Strings;
  * JQuery
  */
 public class JQuery extends JsExpression {
-
+    private static final long serialVersionUID = -3713464209858405030L;
     private IJsExpression selector;
 
     private List<IJsExpression> chainedExpressions = new ArrayList<>();

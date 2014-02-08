@@ -24,6 +24,8 @@ import java.util.List;
  */
 public class JsExpressionList implements IJsExpression {
 
+    private static final long serialVersionUID = -4270940313346891683L;
+
     private List<IJsExpression> expressions;
 
     public JsExpressionList() {

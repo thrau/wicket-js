@@ -175,9 +175,10 @@
           <header>src/license/header.txt</header>
           <strictCheck>true</strictCheck>
           <excludes>
-            <exclude>.gitignore</exclude>
             <exclude>src/test/resources/**</exclude>
-            <exclude>.idea</exclude>
+            <exclude>.gitignore</exclude>
+            <exclude>README.md</exclude>
+            <exclude>.idea/**</exclude>
           </excludes>
           <properties>
             <name>${license.name}</name>

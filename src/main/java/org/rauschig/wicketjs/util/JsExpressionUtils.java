@@ -60,21 +60,17 @@ public final class JsExpressionUtils {
     }
 
     public static JsLiteral<?> asLiteral(Object value) {
-        JsLiteral<?> literal;
-
         if (value instanceof Number) {
-            literal = new JsLiteral.JsNumber((Number) value);
+            return JsLiteral.of((Number) value);
         } else if (value instanceof Boolean) {
-            literal = new JsLiteral.JsBoolean((Boolean) value);
+            return JsLiteral.of((Boolean) value);
         } else if (value instanceof String) {
-            literal = new JsLiteral.JsString((String) value);
+            return JsLiteral.of((String) value);
         } else {
-            literal = new JsLiteral.ObjectLiteral(value);
+            return JsLiteral.of(value);
         }
 
         // TODO: moar! (maps, lists,...) maybe couple this closer to JsLiteral
-
-        return literal;
     }
 
 }

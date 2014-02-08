@@ -16,7 +16,9 @@
 package org.rauschig.wicketjs;
 
 /**
- * JsLiteral
+ * A value wrapper to map literal semantics from Java to JavaScript.
+ * <p/>
+ * TODO: array/collection literals
  */
 public abstract class JsLiteral<T> extends AbstractJsExpression {
 
@@ -24,10 +26,20 @@ public abstract class JsLiteral<T> extends AbstractJsExpression {
 
     private T value;
 
+    /**
+     * Creates a new JavaScript literal for the given value.
+     * 
+     * @param value the Java value to be wrapped.
+     */
     public JsLiteral(T value) {
         setValue(value);
     }
 
+    /**
+     * Returns the Java value object.
+     * 
+     * @return the Java value object
+     */
     public T getValue() {
         return value;
     }
@@ -50,10 +62,10 @@ public abstract class JsLiteral<T> extends AbstractJsExpression {
     }
 
     public static class JsBoolean extends JsLiteral<Boolean> {
+        private static final long serialVersionUID = -2484075331556045893L;
 
         public static final JsBoolean FALSE = new JsBoolean(false);
         public static final JsBoolean TRUE = new JsBoolean(true);
-        private static final long serialVersionUID = -2484075331556045893L;
 
         public JsBoolean(Boolean value) {
             super(value);
@@ -89,6 +101,22 @@ public abstract class JsLiteral<T> extends AbstractJsExpression {
         public void accept(IJsExpressionVisitor visitor) {
             visitor.visit(this);
         }
+    }
+
+    public static JsBoolean of(Boolean bool) {
+        return (bool) ? JsBoolean.TRUE : JsBoolean.FALSE;
+    }
+
+    public static JsNumber of(Number number) {
+        return new JsNumber(number);
+    }
+
+    public static JsString of(String string) {
+        return new JsString(string);
+    }
+
+    public static ObjectLiteral of(Object obj) {
+        return new ObjectLiteral(obj);
     }
 
 }

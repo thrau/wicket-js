@@ -19,5 +19,11 @@ package org.rauschig.wicketjs;
  * A terminated JavaScript statement.
  */
 public interface IJsStatement extends IJavaScript {
+
+    /**
+     * Accept the given visitor.
+     * 
+     * @param visitor the visiting visitor
+     */
     void accept(IJsStatementVisitor visitor);
 }

@@ -16,7 +16,7 @@
 package org.rauschig.wicketjs;
 
 /**
- * JsExpressionStatement
+ * IJsExpression wrapper representing a semicolon terminated expression.
  */
 public class JsExpressionStatement implements IJsStatement {
 

@@ -18,7 +18,7 @@ package org.rauschig.wicketjs;
 /**
  * A value wrapper to map literal semantics of Java to JavaScript.
  * <p/>
- * TODO: array/collection literals
+ * TODO: array/collection literals TODO: RegularExpression
  */
 public abstract class JsLiteral<T> extends AbstractJsExpression {
 
@@ -48,6 +48,9 @@ public abstract class JsLiteral<T> extends AbstractJsExpression {
         this.value = value;
     }
 
+    /**
+     * A JavaScript String.
+     */
     public static class JsString extends JsLiteral<String> {
         private static final long serialVersionUID = -8368594256531244265L;
 
@@ -61,6 +64,9 @@ public abstract class JsLiteral<T> extends AbstractJsExpression {
         }
     }
 
+    /**
+     * A JavaScript Boolean.
+     */
     public static class JsBoolean extends JsLiteral<Boolean> {
         private static final long serialVersionUID = -2484075331556045893L;
 
@@ -77,6 +83,9 @@ public abstract class JsLiteral<T> extends AbstractJsExpression {
         }
     }
 
+    /**
+     * A JavaScript Number.
+     */
     public static class JsNumber extends JsLiteral<Number> {
         private static final long serialVersionUID = 8998703899729389745L;
 
@@ -90,10 +99,13 @@ public abstract class JsLiteral<T> extends AbstractJsExpression {
         }
     }
 
-    public static class ObjectLiteral extends JsLiteral<Object> {
+    /**
+     * A JavaScript object.
+     */
+    public static class JsObject extends JsLiteral<Object> {
         private static final long serialVersionUID = -1093930669617979141L;
 
-        public ObjectLiteral(Object value) {
+        public JsObject(Object value) {
             super(value);
         }
 
@@ -103,20 +115,45 @@ public abstract class JsLiteral<T> extends AbstractJsExpression {
         }
     }
 
+    /**
+     * Wraps the given Boolean as a JsBoolean.
+     *
+     * @param bool the value to wrap
+     * @return the JavaScript value
+     */
     public static JsBoolean of(Boolean bool) {
         return (bool) ? JsBoolean.TRUE : JsBoolean.FALSE;
     }
 
+
+    /**
+     * Wraps the given Number as a JsNumber.
+     *
+     * @param number the value to wrap
+     * @return the JavaScript value
+     */
     public static JsNumber of(Number number) {
         return new JsNumber(number);
     }
 
+    /**
+     * Wraps the given String as a JsString.
+     *
+     * @param string the value to wrap
+     * @return the JavaScript value
+     */
     public static JsString of(String string) {
         return new JsString(string);
     }
 
-    public static ObjectLiteral of(Object obj) {
-        return new ObjectLiteral(obj);
+    /**
+     * Wraps the given Object as a JsObject.
+     *
+     * @param obj the value to wrap
+     * @return the JavaScript value
+     */
+    public static JsObject of(Object obj) {
+        return new JsObject(obj);
     }
 
 }

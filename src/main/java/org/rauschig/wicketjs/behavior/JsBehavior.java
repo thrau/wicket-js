@@ -19,7 +19,7 @@ import org.rauschig.wicketjs.IJavaScript;
 import org.rauschig.wicketjs.compiler.JsCompiler;
 
 /**
- * JsBehavior.
+ * Abstract class that adds custom JavaScript as Behavior to Components.
  */
 public abstract class JsBehavior extends AbstractJsBehavior {
 
@@ -30,5 +30,10 @@ public abstract class JsBehavior extends AbstractJsBehavior {
         return new JsCompiler(domReadyJs()).compile();
     }
 
+    /**
+     * The JavaScript added as OnDomReadyHeaderItem when the component head is rendered.
+     * 
+     * @return custom JavaScript
+     */
     protected abstract IJavaScript domReadyJs();
 }

@@ -20,7 +20,7 @@ import java.util.List;
 import org.rauschig.wicketjs.IJavaScript;
 
 /**
- * JsJoiner
+ * An AbstractJsCompiler implementation that compiles a list of IJsStatement or IJsExpression using a delimiter.
  */
 public class JsJoiner<T extends IJavaScript> extends AbstractJsCompiler {
 

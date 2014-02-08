@@ -28,6 +28,13 @@ public final class Strings {
         // static utility class
     }
 
+    /**
+     * Joins the given array with the given delimiter. Empty or null arrays will return an empty string.
+     * 
+     * @param array the array to join
+     * @param delimiter the glue
+     * @return a string
+     */
     public static String join(Object[] array, String delimiter) {
         int len = array.length;
 
@@ -44,7 +51,7 @@ public final class Strings {
         for (int i = 1; i < len; i++) {
             if (array[i] != null) {
                 str.append(delimiter);
-                str.append(array[i]);
+                str.append(array[i].toString());
             }
         }
 

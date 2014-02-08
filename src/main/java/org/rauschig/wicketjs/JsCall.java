@@ -21,7 +21,7 @@ import java.util.List;
 import org.rauschig.wicketjs.util.JsExpressionUtils;
 
 /**
- * JsCall
+ * Represents a member call.
  */
 public class JsCall extends AbstractJsExpression {
 

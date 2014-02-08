@@ -23,7 +23,7 @@ import org.rauschig.wicketjs.JsIdentifier;
 import org.rauschig.wicketjs.JsLiteral;
 
 /**
- * JsExpressionUtils
+ * Utility class.
  */
 public final class JsExpressionUtils {
 
@@ -31,6 +31,12 @@ public final class JsExpressionUtils {
         // static utility class
     }
 
+    /**
+     * Wraps each given Strings as a JsIdentifier and aggregates them to a list.
+     * 
+     * @param identifiers the identifiers
+     * @return a list of JsIdentifiers
+     */
     public static List<JsIdentifier> asIdentifierList(String... identifiers) {
         ArrayList<JsIdentifier> list = new ArrayList<>(identifiers.length);
 
@@ -41,6 +47,13 @@ public final class JsExpressionUtils {
         return list;
     }
 
+    /**
+     * Casts all given objects to a form s.t. they can be used as an argument list for a JsCall. Expressions are left
+     * unchanged, cast and returned; value objects are wrapped using {@link #asLiteral(Object)}.
+     * 
+     * @param arguments the argument list
+     * @return a list of IJsExpression usable as function argument list
+     */
     public static List<IJsExpression> asArgumentList(Object... arguments) {
         ArrayList<IJsExpression> list = new ArrayList<>(arguments.length);
 
@@ -51,6 +64,13 @@ public final class JsExpressionUtils {
         return list;
     }
 
+    /**
+     * Casts the given object to a form s.t. it can be used as an argument for a JsCall. Expressions are left unchanged,
+     * cast and returned; value objects are wrapped using {@link #asLiteral(Object)}.
+     * 
+     * @param argument the argument
+     * @return a IJsExpression usable as function argument
+     */
     public static IJsExpression asArgument(Object argument) {
         if (argument instanceof IJsExpression) {
             return (IJsExpression) argument;
@@ -59,8 +79,19 @@ public final class JsExpressionUtils {
         return asLiteral(argument);
     }
 
+    /**
+     * Wraps the given value object into a JsLiteral. If the value is already a JsLiteral instance, it is cast and
+     * returned.
+     * <p/>
+     * Java types are mapped to literal types accordingly. E.g. If you call it using a number, you will get a JsNumber.
+     * 
+     * @param value the value object
+     * @return a JsLiteral representing the given value object
+     */
     public static JsLiteral<?> asLiteral(Object value) {
-        if (value instanceof Number) {
+        if (value instanceof JsLiteral) {
+            return (JsLiteral<?>) value;
+        } else if (value instanceof Number) {
             return JsLiteral.of((Number) value);
         } else if (value instanceof Boolean) {
             return JsLiteral.of((Boolean) value);

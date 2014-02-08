@@ -20,7 +20,7 @@ import java.util.List;
 import org.rauschig.wicketjs.IJsStatement;
 
 /**
- * JsStatementJoiner
+ * An AbstractJsCompiler implementation that compiles a IJsStatement or IJsExpression.
  */
 public class JsStatementJoiner extends JsJoiner<IJsStatement> {
 

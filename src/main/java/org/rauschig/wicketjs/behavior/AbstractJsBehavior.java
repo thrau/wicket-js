@@ -24,7 +24,8 @@ import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
 
 /**
- * AbstractJsBehavior.
+ * Abstract base class that adds custom JavaScript as behavior to Components. Extends AbstractAjaxBehavior for
+ * convenience reasons.
  */
 public abstract class AbstractJsBehavior extends AbstractAjaxBehavior {
 

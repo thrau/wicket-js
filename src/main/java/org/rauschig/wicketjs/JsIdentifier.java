@@ -16,7 +16,7 @@
 package org.rauschig.wicketjs;
 
 /**
- * JsIdentifier
+ * Value object representing a lexical token that names an entity, e.g. a variable or a type.
  */
 public class JsIdentifier extends AbstractJsExpression {
 

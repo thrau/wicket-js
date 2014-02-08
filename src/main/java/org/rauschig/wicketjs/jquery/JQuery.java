@@ -32,7 +32,24 @@ import org.rauschig.wicketjs.compiler.JsJoiner;
 import org.rauschig.wicketjs.util.Strings;
 
 /**
- * JQuery
+ * A (not complete) JQuery object. Allows you to conveniently build chained JQuery expressions in a JavaScript type
+ * syntax.
+ * <p/>
+ * 
+ * Example usage: (Import the {@link #$(String)} function using
+ * {@code import static org.rauschig.wicketjs.jquery.JQuery.$})
+ * 
+ * <pre>
+ * $(&quot;table&quot;).find(&quot;tr&quot;).click(&quot;console.log(this)&quot;);
+ * </pre>
+ * 
+ * Will compile to
+ * 
+ * <pre>
+ *     $('table').find('tr').click(function(eventObject) {
+ *         console.log(this)
+ *     });
+ * </pre>
  */
 public class JQuery extends JsExpression {
 
@@ -46,18 +63,61 @@ public class JQuery extends JsExpression {
         super("");
     }
 
+    /**
+     * Create a new JQuery expression using the given Component's markup id as selector.
+     * <p/>
+     * E.g. if the Component returns the markup id "table0" the initial JQuery selector will be $('#table0').
+     * 
+     * @param component the component to use in the selector
+     */
     public JQuery(Component component) {
         this("#" + component.getMarkupId());
     }
 
+    /**
+     * Create a new JQuery expression using the markup id of the Component the given Behavior is bound to.
+     * <p/>
+     * This allows convenient calls within anonymous {@code JsBehavior} definitions. E.g.
+     * 
+     * <pre>
+     * Component c;
+     * 
+     * c.add(new JQueryEventBehavior(&quot;click&quot;) {
+     *     &#064;Override
+     *     protected IJavaScript callback() {
+     *         return $(this).toggleClass(&quot;clicked&quot;);
+     *     }
+     * });
+     * </pre>
+     * 
+     * The markup id of component {@code c} will be used.
+     * 
+     * @param behavior
+     */
     public JQuery(AbstractJsBehavior behavior) {
         this("#" + behavior.id());
     }
 
+    /**
+     * Create a new JQuery expression using the given selector.
+     * <p/>
+     * Note that the selector will be treated as a JavaScript string literal when compiled, s.t. <code>$("this")</code>
+     * will compile to <code>$('this')</code>.
+     * <p/>
+     * If you need a reference to {@code this}, then use {@link #JQuery(org.rauschig.wicketjs.IJsExpression)} and
+     * {@link org.rauschig.wicketjs.JsExpression#THIS}.
+     * 
+     * @param selector the JQuery selector
+     */
     public JQuery(String selector) {
         this(new JsLiteral.JsString(selector));
     }
 
+    /**
+     * Create a new JQuery expression using the given expression as selector.
+     * 
+     * @param selector the JQuery selector
+     */
     public JQuery(IJsExpression selector) {
         super("");
         this.selector = selector;
@@ -230,6 +290,11 @@ public class JQuery extends JsExpression {
         return call("toggleClass", Strings.join(cssClass, " "));
     }
 
+    /**
+     * Returns the compiled JQuery expression.
+     * 
+     * @return the JQuery expression as plain java script
+     */
     public String js() {
         StringBuilder js = new StringBuilder();
 

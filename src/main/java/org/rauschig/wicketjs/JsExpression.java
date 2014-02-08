@@ -22,15 +22,32 @@ public class JsExpression extends AbstractJsExpression {
 
     private static final long serialVersionUID = -8493639793137369591L;
 
+    /**
+     * The "null" keyword.
+     */
     public static final JsExpression NULL = new JsExpression("null");
+
+    /**
+     * The "this" keyword.
+     */
     public static final JsExpression THIS = new JsExpression("this");
 
     private CharSequence expression;
 
+    /**
+     * Wraps a raw JavaScript expression string.
+     * 
+     * @param expression the JavaScript expression as CharSequence
+     */
     public JsExpression(CharSequence expression) {
         this.expression = expression;
     }
 
+    /**
+     * Returns the expression as CharSequence.
+     * 
+     * @return the expression
+     */
     public CharSequence getExpression() {
         return expression;
     }

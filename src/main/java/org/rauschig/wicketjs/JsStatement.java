@@ -16,7 +16,7 @@
 package org.rauschig.wicketjs;
 
 /**
- * JsStatement
+ * A raw statement that may contain arbitrary JavaScript code.
  */
 public class JsStatement implements IJsStatement {
 
@@ -24,14 +24,31 @@ public class JsStatement implements IJsStatement {
 
     private CharSequence statement;
 
+    /**
+     * Wraps a raw JavaScript statement string.
+     * 
+     * @param statement the JavaScript statement as CharSequence
+     */
     public JsStatement(CharSequence statement) {
         this.statement = statement;
     }
 
+    /**
+     * Returns the statement as CharSequence.
+     * 
+     * @return the statement
+     */
     public CharSequence getStatement() {
         return statement;
     }
 
+    /**
+     * Converts the given IJavaScript syntax tree node to a statement. If it is an expression, it will be terminated to
+     * a {@link org.rauschig.wicketjs.JsExpressionStatement}, if it is already a statement, it is cast and returned.
+     * 
+     * @param javaScript the syntax tree node
+     * @return a Statement
+     */
     public static IJsStatement of(IJavaScript javaScript) {
         if (javaScript instanceof IJsStatement) {
             return (IJsStatement) javaScript;
@@ -42,6 +59,12 @@ public class JsStatement implements IJsStatement {
         }
     }
 
+    /**
+     * Terminates the given IJsExpression to a Statement.
+     * 
+     * @param expression the expression to terminate
+     * @return a JsExpressionStatement wrapping the given expression
+     */
     public static JsExpressionStatement of(IJsExpression expression) {
         return new JsExpressionStatement(expression);
     }

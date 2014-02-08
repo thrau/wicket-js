@@ -19,7 +19,35 @@ import org.rauschig.wicketjs.IJavaScript;
 import org.rauschig.wicketjs.jquery.JQuery;
 
 /**
- * JQueryEventBehavior
+ * JsBehavior that uses JQuery's {@code bind} mechanism to bind an event handler callback to one or more DOM events.
+ * 
+ * <p/>
+ * When this behavior is added to a Wicket Component, the selector can be used to filter child elements.
+ * <p/>
+ * Example:
+ * 
+ * <pre>
+ * import static org.rauschig.wicketjs.jquery.JQuery.$;
+ * import static org.rauschig.wicketjs.JsExpression.THIS;
+ * 
+ * ...
+ * 
+ * DataTable table;
+ * 
+ * table.add(new JQueryEventBehavior(&quot;mouseenter mouseleave&quot;, &quot;tr&quot;) {
+ *     &#064;Override
+ *     protected IJavaScript callback() {
+ *         return $(THIS).toggleClass(&quot;entered&quot;);
+ *     }
+ * });
+ * </pre>
+ * 
+ * If the DataTable has the markup id <code>'table0'</code>, the JQuery will compile to
+ * <pre>
+ *     $('#table0').find('tr').bind('mouseenter mouseleave', function(eventObject){
+ *         $(this).toggleClass('entered');
+ *     });
+ * </pre>
  */
 public abstract class JQueryEventBehavior extends JsBehavior {
 
@@ -28,10 +56,22 @@ public abstract class JQueryEventBehavior extends JsBehavior {
     private String event;
     private String selector;
 
+    /**
+     * Creates a new JQueryEventBehavior for the given DOM event (e.g. {@code "click"} or
+     * {@code "mouseenter mouseleave"}).
+     * 
+     * @param event the DOM event descriptor
+     */
     public JQueryEventBehavior(String event) {
         this(event, null);
     }
 
+    /**
+     * Creates a new JQueryEventBehavior for the given DOM event (e.g. {@code "click"} or
+     * {@code "mouseenter mouseleave"}), and binds it to the elements found by the given selector.
+     * 
+     * @param event the DOM event descriptor
+     */
     public JQueryEventBehavior(String event, String selector) {
         this.event = event;
         this.selector = selector;
@@ -42,6 +82,11 @@ public abstract class JQueryEventBehavior extends JsBehavior {
         return $().bind(event, callback());
     }
 
+    /**
+     * Returns the JQuery object using the Component as main selector and optional chains the set child-selector.
+     * 
+     * @return the JQuery object
+     */
     private JQuery $() {
         JQuery $ = JQuery.$(getComponent());
 
@@ -52,5 +97,10 @@ public abstract class JQueryEventBehavior extends JsBehavior {
         return $;
     }
 
+    /**
+     * The callback for the bound event.
+     * 
+     * @return a callback
+     */
     protected abstract IJavaScript callback();
 }

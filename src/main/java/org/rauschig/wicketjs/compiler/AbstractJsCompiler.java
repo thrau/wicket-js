@@ -32,14 +32,30 @@ import org.rauschig.wicketjs.JsNamedFunction;
 import org.rauschig.wicketjs.JsStatement;
 
 /**
- * AbstractJsCompiler
+ * Abstract implementation of the {@link org.rauschig.wicketjs.IJavaScript} syntax tree visitors used to build a
+ * JavaScript string from a given syntax tree.
+ * <p/>
+ * The implementation is stateful as it uses a {@code StringBuilder} internally and <em>not</em> thread safe.
  */
 public abstract class AbstractJsCompiler implements IJsExpressionVisitor, IJsStatementVisitor {
 
+    /**
+     * The default size to initialize the StringBuilder with
+     */
     protected static final int DEFAULT_BUFFER_SIZE = 256;
 
+    /**
+     * The StringBuilder that holds the visited and compiled syntax tokens.
+     */
     protected StringBuilder js;
 
+    /**
+     * Executes the visitor and returns the compiled JavaScript as a string.
+     * <p/>
+     * The method returns the cached compilation result on multiple calls, rather than re-compiling the script.
+     * 
+     * @return JavaScript code as a String
+     */
     public String compile() {
         if (js != null) {
             return js.toString();
@@ -50,6 +66,12 @@ public abstract class AbstractJsCompiler implements IJsExpressionVisitor, IJsSta
         return js.toString();
     }
 
+    /**
+     * Called in {@link #compile()} with the initialized StringBuilder. Subclasses override this method to initialize
+     * the compilation.
+     * 
+     * @param builder the StringBuilder containing the java script
+     */
     protected abstract void compileInto(StringBuilder builder);
 
     @Override
@@ -70,7 +92,7 @@ public abstract class AbstractJsCompiler implements IJsExpressionVisitor, IJsSta
     }
 
     @Override
-    public void visit(JsLiteral.ObjectLiteral visitable) {
+    public void visit(JsLiteral.JsObject visitable) {
         // TODO: jsonify
         throw new UnsupportedOperationException("Can not yet compile object literals");
     }
@@ -116,35 +138,61 @@ public abstract class AbstractJsCompiler implements IJsExpressionVisitor, IJsSta
         js.append(";");
     }
 
+    /**
+     * Visits the Arguments of the given {@link org.rauschig.wicketjs.JsCall}..
+     * 
+     * @param visitable the JsCall to visit
+     */
     protected void visitArguments(JsCall visitable) {
         js.append("(");
         visitAndJoin(",", visitable.getArguments());
         js.append(")");
     }
 
+    /**
+     * Visit a {@link org.rauschig.wicketjs.JsFunction}s parameters and then its body.
+     * 
+     * @param visitable the JsFunction to visit
+     */
     protected void visitFunctionParametersAndBody(JsFunction visitable) {
         visitFunctionParameters(visitable);
         visitFunctionBody(visitable);
     }
 
+    /**
+     * Visit a {@link org.rauschig.wicketjs.JsFunction}s parameters.
+     * 
+     * @param visitable the JsFunction to visit
+     */
     protected void visitFunctionParameters(JsFunction visitable) {
         js.append("(");
         visitAndJoin(",", visitable.getParameters());
         js.append(")");
     }
 
+    /**
+     * Visit a {@link org.rauschig.wicketjs.JsFunction}s body.
+     * 
+     * @param visitable the JsFunction to visit
+     */
     protected void visitFunctionBody(JsFunction visitable) {
         js.append("{");
         visitable.getBody().accept(this);
         js.append("}");
     }
 
-    protected void visitAndJoin(String delimiter, Iterable<? extends IJavaScript> list) {
-        if (list == null) {
+    /**
+     * Visits each IJavaScript element within the Iterable and appends the given delimiter after each item.
+     * 
+     * @param delimiter the delimiter used to join the items
+     * @param iterable the items
+     */
+    protected void visitAndJoin(String delimiter, Iterable<? extends IJavaScript> iterable) {
+        if (iterable == null) {
             return;
         }
 
-        Iterator<? extends IJavaScript> iterator = list.iterator();
+        Iterator<? extends IJavaScript> iterator = iterable.iterator();
 
         while (iterator.hasNext()) {
             Object next = iterator.next();

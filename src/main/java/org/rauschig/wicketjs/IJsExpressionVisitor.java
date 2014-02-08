@@ -19,22 +19,66 @@ package org.rauschig.wicketjs;
  * A visitor of the IJsExpression hierarchy.
  */
 public interface IJsExpressionVisitor {
-
+    /**
+     * Visit the given Expression.
+     * 
+     * @param visitable the Expression to visit.
+     */
     void visit(JsLiteral.JsNumber visitable);
 
+    /**
+     * Visit the given Expression.
+     * 
+     * @param visitable the Expression to visit.
+     */
     void visit(JsLiteral.JsBoolean visitable);
 
+    /**
+     * Visit the given Expression.
+     * 
+     * @param visitable the Expression to visit.
+     */
     void visit(JsLiteral.JsString visitable);
 
-    void visit(JsLiteral.ObjectLiteral visitable);
+    /**
+     * Visit the given Expression.
+     * 
+     * @param visitable the Expression to visit.
+     */
+    void visit(JsLiteral.JsObject visitable);
 
+    /**
+     * Visit the given Expression.
+     * 
+     * @param visitable the Expression to visit.
+     */
     void visit(JsIdentifier visitable);
 
+    /**
+     * Visit the given Expression.
+     * 
+     * @param visitable the Expression to visit.
+     */
     void visit(JsExpression visitable);
 
+    /**
+     * Visit the given Expression.
+     * 
+     * @param visitable the Expression to visit.
+     */
     void visit(JsCall visitable);
 
+    /**
+     * Visit the given Expression.
+     * 
+     * @param visitable the Expression to visit.
+     */
     void visit(JsFunction visitable);
 
+    /**
+     * Visit the given Expression.
+     * 
+     * @param visitable the Expression to visit.
+     */
     void visit(JsNamedFunction visitable);
 }

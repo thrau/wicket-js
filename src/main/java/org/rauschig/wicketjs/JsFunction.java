@@ -21,7 +21,7 @@ import java.util.List;
 import org.rauschig.wicketjs.util.JsExpressionUtils;
 
 /**
- * Anonymous function definition.
+ * An anonymous function definition.
  */
 public class JsFunction implements IJsExpression {
 

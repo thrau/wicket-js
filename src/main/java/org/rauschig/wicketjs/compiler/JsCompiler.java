@@ -20,12 +20,17 @@ import org.rauschig.wicketjs.IJsExpression;
 import org.rauschig.wicketjs.IJsStatement;
 
 /**
- * JsCompiler
+ * An AbstractJsCompiler implementation that compiles a IJsStatement or IJsExpression.
  */
 public class JsCompiler extends AbstractJsCompiler {
 
     protected IJavaScript visitable;
 
+    /**
+     * Creates a new JsCompiler that compiles the given IJavaScript.
+     * 
+     * @param visitable the Statement or Expression to compile
+     */
     public JsCompiler(IJavaScript visitable) {
         if (visitable == null) {
             throw new IllegalArgumentException("No Expression or Statement given");
@@ -34,6 +39,7 @@ public class JsCompiler extends AbstractJsCompiler {
         this.visitable = visitable;
     }
 
+    @Override
     protected void compileInto(StringBuilder builder) {
         if (visitable instanceof IJsExpression) {
             ((IJsExpression) visitable).accept(this);

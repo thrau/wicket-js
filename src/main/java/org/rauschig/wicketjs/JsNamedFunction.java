@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * JsNamedFunction
+ * A named function definition.
  */
 public class JsNamedFunction extends JsFunction {
 

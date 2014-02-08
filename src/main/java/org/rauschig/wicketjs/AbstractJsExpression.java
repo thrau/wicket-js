@@ -22,6 +22,11 @@ public abstract class AbstractJsExpression implements IJsExpression {
 
     private static final long serialVersionUID = 3563470453408826790L;
 
+    /**
+     * Terminates the current expression, making it a {@code JsExpressionStatement}.
+     * 
+     * @return the newly created JsStatement
+     */
     public JsExpressionStatement terminate() {
         return JsStatement.of(this);
     }

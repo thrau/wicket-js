@@ -1,4 +1,14 @@
-package org.rauschig.wicketjs;
+package org.rauschig.wicketjs.compiler;
+
+import org.rauschig.wicketjs.IJsExpression;
+import org.rauschig.wicketjs.IJsExpressionVisitor;
+import org.rauschig.wicketjs.JsCall;
+import org.rauschig.wicketjs.JsExpression;
+import org.rauschig.wicketjs.JsExpressionList;
+import org.rauschig.wicketjs.JsFunction;
+import org.rauschig.wicketjs.JsIdentifier;
+import org.rauschig.wicketjs.JsLiteral;
+import org.rauschig.wicketjs.JsNamedFunction;
 
 import java.util.Iterator;
 

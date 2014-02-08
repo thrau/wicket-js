@@ -1,4 +1,6 @@
-package org.rauschig.wicketjs;
+package org.rauschig.wicketjs.compiler;
+
+import org.rauschig.wicketjs.IJsExpression;
 
 /**
  * JsExpressionCompiler

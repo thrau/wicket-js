@@ -1,4 +1,4 @@
-package org.rauschig.wicketjs;
+package org.rauschig.wicketjs.compiler;
 
 import static org.junit.Assert.assertEquals;
 
@@ -6,6 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
+import org.rauschig.wicketjs.IJsExpression;
+import org.rauschig.wicketjs.JsCall;
+import org.rauschig.wicketjs.JsIdentifier;
+import org.rauschig.wicketjs.compiler.JsExpressionJoiner;
 
 /**
  * JsExpressionJoinerTest

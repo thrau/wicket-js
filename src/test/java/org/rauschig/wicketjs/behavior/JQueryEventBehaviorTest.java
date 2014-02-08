@@ -1,4 +1,4 @@
-package org.rauschig.wicketjs.jquery;
+package org.rauschig.wicketjs.behavior;
 
 import static org.junit.Assert.assertEquals;
 
@@ -10,7 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.rauschig.wicketjs.IJsExpression;
-import org.rauschig.wicketjs.behavior.AbstractJsBehavior;
+import org.rauschig.wicketjs.jquery.JQuery;
 
 /**
  * JQueryEventBehaviorTest

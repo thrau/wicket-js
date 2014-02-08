@@ -1,7 +1,7 @@
-package org.rauschig.wicketjs.jquery;
+package org.rauschig.wicketjs.behavior;
 
 import org.rauschig.wicketjs.IJsExpression;
-import org.rauschig.wicketjs.behavior.JsBehavior;
+import org.rauschig.wicketjs.jquery.JQuery;
 
 /**
  * JQueryEventBehavior

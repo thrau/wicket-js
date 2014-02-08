@@ -35,6 +35,10 @@ public class JsNamedFunction extends JsFunction {
         super(parameters, body);
     }
 
+    public JsNamedFunction(String identifier, String[] parameters, IJsStatement body) {
+        super(parameters, body);
+    }
+
     public JsNamedFunction(String identifier, String body, String... parameters) {
         super(body, parameters);
         this.identifier = new JsIdentifier(identifier);
@@ -48,11 +52,23 @@ public class JsNamedFunction extends JsFunction {
         this(new JsIdentifier(identifier), body);
     }
 
+    public JsNamedFunction(String identifier, IJsStatement body) {
+        this(new JsIdentifier(identifier), body);
+    }
+
     public JsNamedFunction(JsIdentifier identifier, IJsExpression body) {
         this(identifier, new ArrayList<JsIdentifier>(), body);
     }
 
+    public JsNamedFunction(JsIdentifier identifier, IJsStatement body) {
+        this(identifier, new ArrayList<JsIdentifier>(), body);
+    }
+
     public JsNamedFunction(JsIdentifier identifier, List<JsIdentifier> parameters, IJsExpression body) {
+        this(identifier, parameters, new JsExpressionStatement(body));
+    }
+
+    public JsNamedFunction(JsIdentifier identifier, List<JsIdentifier> parameters, IJsStatement body) {
         super(parameters, body);
         this.identifier = identifier;
     }

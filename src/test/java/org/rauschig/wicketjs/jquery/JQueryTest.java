@@ -75,7 +75,7 @@ public class JQueryTest {
 
     @Test
     public void bind_compilesCorrectly() throws Exception {
-        String expected = "$('tag').bind('click',function(eventObject){console.log(this)})";
+        String expected = "$('tag').bind('click',function(eventObject){console.log(this);})";
         compileAndAssert(expected, $("tag").bind("click", "console.log(this)"));
     }
 
@@ -87,7 +87,7 @@ public class JQueryTest {
 
     @Test
     public void click_compilesCorrectly() throws Exception {
-        String expected = "$('tag').bind('click',function(eventObject){console.log(this)})";
+        String expected = "$('tag').bind('click',function(eventObject){console.log(this);})";
         compileAndAssert(expected, $("tag").click("console.log(this)"));
     }
 

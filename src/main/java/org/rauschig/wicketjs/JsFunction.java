@@ -23,26 +23,26 @@ import org.rauschig.wicketjs.util.JsExpressionUtils;
 /**
  * Anonymous function definition.
  */
-public class JsFunction extends AbstractJsExpression {
+public class JsFunction implements IJsExpression {
 
     private static final long serialVersionUID = -2514816269156224568L;
 
     private List<JsIdentifier> parameters;
-    private IJsExpression body;
+    private IJsStatement body;
 
     public JsFunction(String body) {
-        this(new JsExpression(body));
-    }
-
-    public JsFunction(String[] parameters, String body) {
-        this(body, parameters);
+        this(new JsExpressionStatement(body));
     }
 
     public JsFunction(String body, String... parameters) {
-        this(parameters, new JsExpression(body));
+        this(parameters, new JsExpressionStatement(body));
     }
 
     public JsFunction(IJsExpression body) {
+        this(new JsExpressionStatement(body));
+    }
+
+    public JsFunction(IJsStatement body) {
         this(new ArrayList<JsIdentifier>(), body);
     }
 
@@ -50,11 +50,23 @@ public class JsFunction extends AbstractJsExpression {
         this(parameters, body);
     }
 
+    public JsFunction(IJsStatement body, String... parameters) {
+        this(parameters, body);
+    }
+
     public JsFunction(String[] parameters, IJsExpression body) {
+        this(parameters, new JsExpressionStatement(body));
+    }
+
+    public JsFunction(String[] parameters, IJsStatement body) {
         this(JsExpressionUtils.asIdentifierList(parameters), body);
     }
 
     public JsFunction(List<JsIdentifier> parameters, IJsExpression body) {
+        this(parameters, new JsExpressionStatement(body));
+    }
+
+    public JsFunction(List<JsIdentifier> parameters, IJsStatement body) {
         this.parameters = parameters;
         this.body = body;
     }
@@ -80,8 +92,12 @@ public class JsFunction extends AbstractJsExpression {
         return parameters;
     }
 
-    public IJsExpression getBody() {
+    public IJsStatement getBody() {
         return body;
+    }
+
+    public IJsStatement terminate() {
+        return new JsExpressionStatement(this);
     }
 
     @Override

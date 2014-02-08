@@ -48,6 +48,8 @@ public class JQueryEventBehaviorTest {
     @Test
     public void behavior_withoutAdditionalSelector_returnsCorrectJavaScript() throws Exception {
         JQueryEventBehavior behavior = new JQueryEventBehavior("click") {
+            private static final long serialVersionUID = 1L;
+
             @Override
             protected IJsExpression callback() {
                 return JQuery.$(this).toggleClass("test");
@@ -58,12 +60,14 @@ public class JQueryEventBehaviorTest {
 
         CharSequence js = getJavaScript(behavior);
 
-        assertEquals("$('#id').bind('click',function(eventObject){$('#id').toggleClass('test')})", js);
+        assertEquals("$('#id').bind('click',function(eventObject){$('#id').toggleClass('test');})", js);
     }
 
     @Test
     public void behavior_withAdditionalSelector_returnsCorrectJavaScript() throws Exception {
         JQueryEventBehavior behavior = new JQueryEventBehavior("click", "button") {
+            private static final long serialVersionUID = 1L;
+
             @Override
             protected IJsExpression callback() {
                 return JQuery.$(this).toggleClass("test");
@@ -74,7 +78,7 @@ public class JQueryEventBehaviorTest {
 
         CharSequence js = getJavaScript(behavior);
 
-        assertEquals("$('#id').find('button').bind('click',function(eventObject){$('#id').toggleClass('test')})", js);
+        assertEquals("$('#id').find('button').bind('click',function(eventObject){$('#id').toggleClass('test');})", js);
     }
 
     private CharSequence getJavaScript(JQueryEventBehavior behavior) throws Exception {

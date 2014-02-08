@@ -20,20 +20,22 @@ import static org.junit.Assert.assertEquals;
 import org.apache.wicket.util.template.TextTemplate;
 import org.junit.Test;
 import org.mockito.Mockito;
-import org.rauschig.wicketjs.IJsExpression;
+import org.rauschig.wicketjs.IJsVisitable;
 import org.rauschig.wicketjs.JsCall;
 import org.rauschig.wicketjs.JsExpression;
-import org.rauschig.wicketjs.JsExpressionList;
+import org.rauschig.wicketjs.JsExpressionStatement;
 import org.rauschig.wicketjs.JsFunction;
 import org.rauschig.wicketjs.JsIdentifier;
 import org.rauschig.wicketjs.JsLiteral;
 import org.rauschig.wicketjs.JsNamedFunction;
+import org.rauschig.wicketjs.JsStatement;
 import org.rauschig.wicketjs.JsTemplate;
 
 /**
- * JsExpressionCompilerTest
+ * JsCompilerTest
  */
-public class JsExpressionCompilerTest {
+@SuppressWarnings("unchecked")
+public class JsCompilerTest {
     @Test
     public void compileJsIdentifier_compilesCorrectly() throws Exception {
         compileAndAssert("this", new JsIdentifier("this"));
@@ -107,68 +109,49 @@ public class JsExpressionCompilerTest {
 
     @Test
     public void compileJsFunction_withNoParameters_compilesCorrectly() throws Exception {
-        String expected = "function(){console.log(this)}";
+        String expected = "function(){console.log(this);}";
         compileAndAssert(expected, new JsFunction("console.log(this)"));
     }
 
     @Test
     public void compileJsFunction_withSingleParameter_compilesCorrectly() throws Exception {
-        String expected = "function(i){console.log(this)}";
+        String expected = "function(i){console.log(this);}";
         compileAndAssert(expected, new JsFunction("console.log(this)", "i"));
     }
 
     @Test
     public void compileJsFunction_withMultipleParameters_compilesCorrectly() throws Exception {
-        String expected = "function(i,item,more){console.log(this)}";
+        String expected = "function(i,item,more){console.log(this);}";
         compileAndAssert(expected, new JsFunction("console.log(this)", "i", "item", "more"));
     }
 
     @Test
     public void compileJsNamedFunction_withNoParameters_compilesCorrectly() throws Exception {
-        String expected = "function log(){console.log(this)}";
+        String expected = "function log(){console.log(this);}";
         compileAndAssert(expected, new JsNamedFunction("log", "console.log(this)"));
     }
 
     @Test
     public void compileJsNamedFunction_withSingleParameter_compilesCorrectly() throws Exception {
-        String expected = "function log(i){console.log(this)}";
+        String expected = "function log(i){console.log(this);}";
         compileAndAssert(expected, new JsNamedFunction("log", "console.log(this)", "i"));
     }
 
     @Test
     public void compileJsNamedFunction_withMultipleParameters_compilesCorrectly() throws Exception {
-        String expected = "function log(i,item,more){console.log(this)}";
+        String expected = "function log(i,item,more){console.log(this);}";
         compileAndAssert(expected, new JsNamedFunction("log", "console.log(this)", "i", "item", "more"));
     }
 
     @Test
     public void compileJsNamedFunction_withMultipleChainedParameters_compilesCorrectly() throws Exception {
-        String expected = "function log(i,item,more){console.log(this)}";
+        String expected = "function log(i,item,more){console.log(this);}";
         JsNamedFunction function = new JsNamedFunction("log", "console.log(this)", "i");
 
         function.param("item");
         function.param(new JsIdentifier("more"));
 
         compileAndAssert(expected, function);
-    }
-
-    @Test
-    public void compileJsExpressionList_withSingleExpression_compilesCorrectly() throws Exception {
-        String expected = "foo=bar;";
-        IJsExpression expr = new JsExpressionList(new JsExpression("foo=bar"));
-
-        compileAndAssert(expected, expr);
-    }
-
-    @Test
-    public void compileJsExpressionList_withMultipleExpression_compilesCorrectly() throws Exception {
-        String expected = "foo=bar;foo();call();";
-        JsExpression expr = new JsExpression("foo=bar");
-
-        JsExpressionList list = expr._(new JsCall("foo"));
-        list._(new JsCall("call"));
-
-        compileAndAssert(expected, list);
     }
 
     @Test
@@ -180,7 +163,17 @@ public class JsExpressionCompilerTest {
         compileAndAssert("var life = undefined", jsTemplate);
     }
 
-    protected static void compileAndAssert(String expected, IJsExpression expression) {
-        assertEquals(expected, new JsExpressionCompiler(expression).compile());
+    @Test
+    public void compileJsStatement_compilesCorrectly() throws Exception {
+        compileAndAssert("call();", new JsStatement("call()"));
+    }
+
+    @Test
+    public void compileJsStatementExpression_compilesCorrectly() throws Exception {
+        compileAndAssert("call();", new JsExpressionStatement(new JsCall("call")));
+    }
+
+    protected static void compileAndAssert(String expected, IJsVisitable expression) {
+        assertEquals(expected, new JsCompiler(expression).compile());
     }
 }

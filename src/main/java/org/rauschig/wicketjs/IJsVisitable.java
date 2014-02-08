@@ -15,11 +15,11 @@
  */
 package org.rauschig.wicketjs;
 
+import org.apache.wicket.util.io.IClusterable;
+
 /**
- * AbstractJsExpression
+ * Tagging interface for our simple JavaScript grammar abstraction.
  */
-public abstract class AbstractJsExpression implements IJsExpression {
-
-    private static final long serialVersionUID = 3563470453408826790L;
-
+public interface IJsVisitable extends IClusterable {
+    // tagging interface
 }

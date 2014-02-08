@@ -16,10 +16,29 @@
 package org.rauschig.wicketjs;
 
 /**
- * AbstractJsExpression
+ * JsExpressionStatement
  */
-public abstract class AbstractJsExpression implements IJsExpression {
+public class JsExpressionStatement implements IJsStatement {
 
-    private static final long serialVersionUID = 3563470453408826790L;
+    private static final long serialVersionUID = -559738161269895071L;
+
+    private IJsExpression expression;
+
+    public JsExpressionStatement(CharSequence expression) {
+        this(new JsExpression(expression));
+    }
+
+    public JsExpressionStatement(IJsExpression expression) {
+        this.expression = expression;
+    }
+
+    public IJsExpression getExpression() {
+        return expression;
+    }
+
+    @Override
+    public void accept(IJsStatementVisitor visitor) {
+        visitor.visit(this);
+    }
 
 }

@@ -13,22 +13,27 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package org.rauschig.wicketjs.compiler;
-
-import org.rauschig.wicketjs.IJsExpression;
+package org.rauschig.wicketjs;
 
 /**
- * JsExpressionCompiler
+ * JsStatement
  */
-public class JsExpressionCompiler extends AbstractJsExpressionCompiler {
+public class JsStatement implements IJsStatement {
 
-    protected IJsExpression expression;
+    private static final long serialVersionUID = -5422270276826187017L;
 
-    public JsExpressionCompiler(IJsExpression expression) {
-        this.expression = expression;
+    private CharSequence statement;
+
+    public JsStatement(CharSequence statement) {
+        this.statement = statement;
     }
 
-    protected void compileInto(StringBuilder builder) {
-        expression.accept(this);
+    public CharSequence getStatement() {
+        return statement;
+    }
+
+    @Override
+    public void accept(IJsStatementVisitor visitor) {
+        visitor.visit(this);
     }
 }

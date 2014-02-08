@@ -37,6 +37,4 @@ public interface IJsExpressionVisitor {
     void visit(JsFunction visitable);
 
     void visit(JsNamedFunction visitable);
-
-    void visit(JsExpressionList visitable);
 }

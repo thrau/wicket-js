@@ -15,12 +15,10 @@
  */
 package org.rauschig.wicketjs;
 
-import org.apache.wicket.util.io.IClusterable;
-
 /**
- * Tagging interface for our simple JavaScript grammar abstraction.
+ * A JavaScript expression.
  */
-public interface IJsExpression extends IClusterable {
+public interface IJsExpression extends IJsVisitable {
 
     /**
      * Accept the given visitor. Visitor Double-dispatch mechanism.

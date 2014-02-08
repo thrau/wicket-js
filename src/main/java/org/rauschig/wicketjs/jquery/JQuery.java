@@ -20,21 +20,25 @@ import java.util.List;
 
 import org.apache.wicket.Component;
 import org.rauschig.wicketjs.IJsExpression;
+import org.rauschig.wicketjs.IJsStatement;
 import org.rauschig.wicketjs.JsCall;
 import org.rauschig.wicketjs.JsExpression;
+import org.rauschig.wicketjs.JsExpressionStatement;
 import org.rauschig.wicketjs.JsFunction;
 import org.rauschig.wicketjs.JsIdentifier;
 import org.rauschig.wicketjs.JsLiteral;
 import org.rauschig.wicketjs.behavior.AbstractJsBehavior;
-import org.rauschig.wicketjs.compiler.JsExpressionCompiler;
-import org.rauschig.wicketjs.compiler.JsExpressionJoiner;
+import org.rauschig.wicketjs.compiler.JsCompiler;
+import org.rauschig.wicketjs.compiler.JsJoiner;
 import org.rauschig.wicketjs.util.Strings;
 
 /**
  * JQuery
  */
 public class JQuery extends JsExpression {
+
     private static final long serialVersionUID = -3713464209858405030L;
+
     private IJsExpression selector;
 
     private List<IJsExpression> chainedExpressions = new ArrayList<>();
@@ -232,12 +236,12 @@ public class JQuery extends JsExpression {
 
         js.append("$");
         if (selector != null) {
-            js.append("(").append(new JsExpressionCompiler(selector).compile()).append(")");
+            js.append("(").append(new JsCompiler(selector).compile()).append(")");
         }
 
         if (chainedExpressions != null && !chainedExpressions.isEmpty()) {
             js.append(".");
-            js.append(new JsExpressionJoiner(chainedExpressions, ".").compile());
+            js.append(new JsJoiner<>(chainedExpressions, ".").compile());
         }
 
         return js.toString();
@@ -248,4 +252,11 @@ public class JQuery extends JsExpression {
         return js();
     }
 
+    public IJsStatement terminate() {
+        return asStatement();
+    }
+
+    public IJsStatement asStatement() {
+        return new JsExpressionStatement(this);
+    }
 }

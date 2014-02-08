@@ -13,13 +13,27 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package org.rauschig.wicketjs;
+package org.rauschig.wicketjs.compiler;
+
+import java.util.List;
+
+import org.rauschig.wicketjs.IJsVisitable;
 
 /**
- * AbstractJsExpression
+ * JsJoiner
  */
-public abstract class AbstractJsExpression implements IJsExpression {
+public class JsJoiner<T extends IJsVisitable> extends AbstractJsCompiler {
 
-    private static final long serialVersionUID = 3563470453408826790L;
+    private List<T> visitables;
+    private String delimiter;
 
+    public JsJoiner(List<T> visitables, String delimiter) {
+        this.visitables = visitables;
+        this.delimiter = delimiter;
+    }
+
+    @Override
+    protected void compileInto(StringBuilder builder) {
+        visitAndJoin(delimiter, visitables);
+    }
 }

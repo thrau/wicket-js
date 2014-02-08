@@ -19,18 +19,22 @@ import java.util.Iterator;
 
 import org.rauschig.wicketjs.IJsExpression;
 import org.rauschig.wicketjs.IJsExpressionVisitor;
+import org.rauschig.wicketjs.IJsStatement;
+import org.rauschig.wicketjs.IJsStatementVisitor;
+import org.rauschig.wicketjs.IJsVisitable;
 import org.rauschig.wicketjs.JsCall;
 import org.rauschig.wicketjs.JsExpression;
-import org.rauschig.wicketjs.JsExpressionList;
+import org.rauschig.wicketjs.JsExpressionStatement;
 import org.rauschig.wicketjs.JsFunction;
 import org.rauschig.wicketjs.JsIdentifier;
 import org.rauschig.wicketjs.JsLiteral;
 import org.rauschig.wicketjs.JsNamedFunction;
+import org.rauschig.wicketjs.JsStatement;
 
 /**
- * AbstractJsExpressionCompiler
+ * AbstractJsCompiler
  */
-public abstract class AbstractJsExpressionCompiler implements IJsExpressionVisitor {
+public abstract class AbstractJsCompiler implements IJsExpressionVisitor, IJsStatementVisitor {
 
     protected static final int DEFAULT_BUFFER_SIZE = 256;
 
@@ -101,8 +105,14 @@ public abstract class AbstractJsExpressionCompiler implements IJsExpressionVisit
     }
 
     @Override
-    public void visit(JsExpressionList visitable) {
-        visitAndJoin(";", visitable.getExpressions());
+    public void visit(JsExpressionStatement visitable) {
+        visitable.getExpression().accept(this);
+        js.append(";");
+    }
+
+    @Override
+    public void visit(JsStatement visitable) {
+        js.append(visitable.getStatement());
         js.append(";");
     }
 
@@ -129,20 +139,28 @@ public abstract class AbstractJsExpressionCompiler implements IJsExpressionVisit
         js.append("}");
     }
 
-    protected void visitAndJoin(String delimiter, Iterable<? extends IJsExpression> expressions) {
-        if (expressions == null) {
+    protected void visitAndJoin(String delimiter, Iterable<? extends IJsVisitable> list) {
+        if (list == null) {
             return;
         }
 
-        Iterator<? extends IJsExpression> iterator = expressions.iterator();
+        Iterator<? extends IJsVisitable> iterator = list.iterator();
 
         while (iterator.hasNext()) {
-            IJsExpression next = iterator.next();
-            next.accept(this);
+            Object next = iterator.next();
+
+            if (next instanceof IJsExpression) {
+                ((IJsExpression) next).accept(this);
+            } else if (next instanceof IJsStatement) {
+                ((IJsStatement) next).accept(this);
+            } else {
+                continue;
+            }
 
             if (iterator.hasNext()) {
                 js.append(delimiter);
             }
         }
     }
+
 }

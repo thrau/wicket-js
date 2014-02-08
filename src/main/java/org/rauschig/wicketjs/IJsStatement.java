@@ -16,10 +16,8 @@
 package org.rauschig.wicketjs;
 
 /**
- * AbstractJsExpression
+ * A terminated JavaScript statement.
  */
-public abstract class AbstractJsExpression implements IJsExpression {
-
-    private static final long serialVersionUID = 3563470453408826790L;
-
+public interface IJsStatement extends IJsVisitable {
+    void accept(IJsStatementVisitor visitor);
 }

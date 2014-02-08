@@ -26,9 +26,9 @@ import org.rauschig.wicketjs.JsCall;
 import org.rauschig.wicketjs.JsIdentifier;
 
 /**
- * JsExpressionJoinerTest
+ * JsJoinerTest
  */
-public class JsExpressionJoinerTest {
+public class JsJoinerTest {
 
     @Test
     public void multipleExpressions_compilesCorrectly() throws Exception {
@@ -39,7 +39,7 @@ public class JsExpressionJoinerTest {
         expressions.add(new JsCall("find", "#id"));
         expressions.add(new JsCall("toggleClass", "foo", "bar"));
 
-        String result = new JsExpressionJoiner(expressions, ".").compile();
+        String result = new JsJoiner<>(expressions, ".").compile();
 
         assertEquals("$(this).parent().find('#id').toggleClass('foo','bar')", result);
     }
@@ -50,7 +50,7 @@ public class JsExpressionJoinerTest {
 
         expressions.add(new JsCall("foo"));
 
-        String result = new JsExpressionJoiner(expressions, ".").compile();
+        String result = new JsJoiner<>(expressions, ".").compile();
 
         assertEquals("foo()", result);
     }
@@ -59,14 +59,14 @@ public class JsExpressionJoinerTest {
     public void emptyList_compilesToEmptyString() throws Exception {
         List<IJsExpression> expressions = new ArrayList<>();
 
-        String result = new JsExpressionJoiner(expressions, ".").compile();
+        String result = new JsJoiner<>(expressions, ".").compile();
 
         assertEquals("", result);
     }
 
     @Test
     public void nullList_compilesToEmptyString() throws Exception {
-        String result = new JsExpressionJoiner(null, ".").compile();
+        String result = new JsJoiner<>(null, ".").compile();
 
         assertEquals("", result);
     }

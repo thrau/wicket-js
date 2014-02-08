@@ -13,27 +13,24 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package org.rauschig.wicketjs.compiler;
-
-import java.util.List;
-
-import org.rauschig.wicketjs.IJsExpression;
+package org.rauschig.wicketjs;
 
 /**
- * JsExpressionJoiner
+ * A visitor of the IJsStatement hierarchy.
  */
-public class JsExpressionJoiner extends AbstractJsExpressionCompiler {
+public interface IJsStatementVisitor {
 
-    private List<IJsExpression> expressions;
-    private String delimiter;
+    /**
+     * Visits the given Statement.
+     * 
+     * @param visitable the Statement to visit
+     */
+    void visit(JsStatement visitable);
 
-    public JsExpressionJoiner(List<IJsExpression> expressions, String delimiter) {
-        this.expressions = expressions;
-        this.delimiter = delimiter;
-    }
-
-    @Override
-    protected void compileInto(StringBuilder builder) {
-        visitAndJoin(delimiter, expressions);
-    }
+    /**
+     * Visits the given Statement.
+     * 
+     * @param visitable the Statement to visit
+     */
+    void visit(JsExpressionStatement visitable);
 }

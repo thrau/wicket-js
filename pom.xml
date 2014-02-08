@@ -30,13 +30,11 @@
     </license>
   </licenses>
 
-  <!--
   <scm>
-    <url></url>
-    <connection></connection>
-    <developerConnection></developerConnection>
+    <url>https://github.com/thrau/wicket-js</url>
+    <connection>scm:git:git://git@bitbucket.org:thrau/wicket-js.git</connection>
+    <developerConnection>scm:git:git@bitbucket.org:thrau/wicket-js.git</developerConnection>
   </scm>
-  -->
 
   <developers>
     <developer>

@@ -1,5 +1,6 @@
 package org.rauschig.wicketjs.jquery;
 
+import org.rauschig.wicketjs.IJsExpression;
 import org.rauschig.wicketjs.JsCall;
 import org.rauschig.wicketjs.JsFunction;
 import org.rauschig.wicketjs.JsIdentifier;
@@ -12,6 +13,10 @@ public class JQueryBind extends JsCall {
     public static final JsIdentifier EVENT_OBJECT = new JsIdentifier("eventObject");
 
     public JQueryBind(String event, String callbackBody) {
+        this(event, new JsFunction(callbackBody));
+    }
+
+    public JQueryBind(String event, IJsExpression callbackBody) {
         this(event, new JsFunction(callbackBody));
     }
 

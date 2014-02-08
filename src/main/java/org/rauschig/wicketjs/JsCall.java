@@ -3,6 +3,8 @@ package org.rauschig.wicketjs;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.rauschig.wicketjs.util.JsExpressionUtils;
+
 /**
  * JsCall
  */

@@ -1,8 +1,8 @@
 package org.rauschig.wicketjs.compiler;
 
-import org.rauschig.wicketjs.IJsExpression;
-
 import java.util.List;
+
+import org.rauschig.wicketjs.IJsExpression;
 
 /**
  * JsExpressionJoiner

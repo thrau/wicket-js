@@ -7,11 +7,12 @@ import org.apache.wicket.Component;
 import org.rauschig.wicketjs.IJsExpression;
 import org.rauschig.wicketjs.JsCall;
 import org.rauschig.wicketjs.JsExpression;
-import org.rauschig.wicketjs.JsExpressionCompiler;
-import org.rauschig.wicketjs.JsExpressionJoiner;
 import org.rauschig.wicketjs.JsFunction;
 import org.rauschig.wicketjs.JsIdentifier;
 import org.rauschig.wicketjs.JsLiteral;
+import org.rauschig.wicketjs.behavior.AbstractJsBehavior;
+import org.rauschig.wicketjs.compiler.JsExpressionCompiler;
+import org.rauschig.wicketjs.compiler.JsExpressionJoiner;
 import org.rauschig.wicketjs.util.Strings;
 
 /**
@@ -31,6 +32,10 @@ public class JQuery extends JsExpression {
         this("#" + component.getMarkupId());
     }
 
+    public JQuery(AbstractJsBehavior behavior) {
+        this("#" + behavior.id());
+    }
+
     public JQuery(String selector) {
         this(new JsLiteral.JsString(selector));
     }
@@ -48,6 +53,10 @@ public class JQuery extends JsExpression {
         return new JQuery(component);
     }
 
+    private static JQuery jQuery(AbstractJsBehavior behavior) {
+        return new JQuery(behavior);
+    }
+
     public static JQuery jQuery(String selector) {
         return new JQuery(selector);
     }
@@ -62,6 +71,10 @@ public class JQuery extends JsExpression {
 
     public static JQuery $(Component component) {
         return jQuery(component);
+    }
+
+    public static JQuery $(AbstractJsBehavior behavior) {
+        return jQuery(behavior);
     }
 
     public static JQuery $(String selector) {
@@ -119,6 +132,10 @@ public class JQuery extends JsExpression {
         return chain(new JQueryBind(event, callbackBody));
     }
 
+    public JQuery bind(String event, IJsExpression callbackBody) {
+        return chain(new JQueryBind(event, callbackBody));
+    }
+
     public JQuery bind(String event, JsIdentifier callback) {
         return chain(new JQueryBind(event, callback));
     }
@@ -128,6 +145,10 @@ public class JQuery extends JsExpression {
     }
 
     public JQuery click(String callbackBody) {
+        return bind("click", callbackBody);
+    }
+
+    public JQuery click(IJsExpression callbackBody) {
         return bind("click", callbackBody);
     }
 
@@ -147,12 +168,20 @@ public class JQuery extends JsExpression {
         return each(new JsFunction(callbackBody, "index", "element"));
     }
 
+    public JQuery each(IJsExpression callbackBody) {
+        return each(new JsFunction(callbackBody, "index", "element"));
+    }
+
     public JQuery find(String selector) {
         return call("find", selector);
     }
 
     public JQuery parent() {
         return call("parent");
+    }
+
+    public JQuery trigger(String event) {
+        return call("trigger", event);
     }
 
     public JQuery parent(String selector) {

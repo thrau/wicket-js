@@ -9,7 +9,6 @@ import org.junit.Test;
 import org.rauschig.wicketjs.IJsExpression;
 import org.rauschig.wicketjs.JsCall;
 import org.rauschig.wicketjs.JsIdentifier;
-import org.rauschig.wicketjs.compiler.JsExpressionJoiner;
 
 /**
  * JsExpressionJoinerTest

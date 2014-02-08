@@ -3,6 +3,8 @@ package org.rauschig.wicketjs;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.rauschig.wicketjs.util.JsExpressionUtils;
+
 /**
  * Anonymous function definition.
  */
@@ -25,6 +27,10 @@ public class JsFunction extends AbstractJsExpression {
 
     public JsFunction(IJsExpression body) {
         this(new ArrayList<JsIdentifier>(), body);
+    }
+
+    public JsFunction(IJsExpression body, String... parameters) {
+        this(parameters, body);
     }
 
     public JsFunction(String[] parameters, IJsExpression body) {

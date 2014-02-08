@@ -3,7 +3,7 @@ package org.rauschig.wicketjs;
 /**
  * JsIdentifier
  */
-public class JsIdentifier extends AbstractJsExpression{
+public class JsIdentifier extends AbstractJsExpression {
 
     private final String identifier;
 

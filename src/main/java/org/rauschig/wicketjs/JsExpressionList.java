@@ -27,9 +27,23 @@ public class JsExpressionList implements IJsExpression {
         return expressions;
     }
 
+    public JsExpressionList add(String expression) {
+        return add(new JsExpression(expression));
+    }
+
     public JsExpressionList add(IJsExpression expression) {
         expressions.add(expression);
         return this;
+    }
+
+    /**
+     * Shorthand for {@link #add(String)}.
+     * 
+     * @param expression the expression to add
+     * @return this for chaining
+     */
+    public JsExpressionList _(String expression) {
+        return add(expression);
     }
 
     /**

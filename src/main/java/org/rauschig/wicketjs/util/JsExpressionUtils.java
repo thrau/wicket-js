@@ -1,11 +1,11 @@
 package org.rauschig.wicketjs.util;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.rauschig.wicketjs.IJsExpression;
 import org.rauschig.wicketjs.JsIdentifier;
 import org.rauschig.wicketjs.JsLiteral;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * JsExpressionUtils

@@ -2,7 +2,9 @@ package org.rauschig.wicketjs.compiler;
 
 import static org.junit.Assert.assertEquals;
 
+import org.apache.wicket.util.template.TextTemplate;
 import org.junit.Test;
+import org.mockito.Mockito;
 import org.rauschig.wicketjs.IJsExpression;
 import org.rauschig.wicketjs.JsCall;
 import org.rauschig.wicketjs.JsExpression;
@@ -11,7 +13,7 @@ import org.rauschig.wicketjs.JsFunction;
 import org.rauschig.wicketjs.JsIdentifier;
 import org.rauschig.wicketjs.JsLiteral;
 import org.rauschig.wicketjs.JsNamedFunction;
-import org.rauschig.wicketjs.compiler.JsExpressionCompiler;
+import org.rauschig.wicketjs.JsTemplate;
 
 /**
  * JsExpressionCompilerTest
@@ -152,6 +154,15 @@ public class JsExpressionCompilerTest {
         list._(new JsCall("call"));
 
         compileAndAssert(expected, list);
+    }
+
+    @Test
+    public void compileJsTemplate_returnsTemplateContent() throws Exception {
+        TextTemplate template = Mockito.mock(TextTemplate.class);
+        Mockito.when(template.asString(Mockito.anyMap())).thenReturn("var life = undefined");
+        JsTemplate jsTemplate = new JsTemplate(template);
+
+        compileAndAssert("var life = undefined", jsTemplate);
     }
 
     protected static void compileAndAssert(String expected, IJsExpression expression) {

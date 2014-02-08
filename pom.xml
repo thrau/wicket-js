@@ -16,10 +16,10 @@
 
   <packaging>bundle</packaging>
 
-  <name>Wicket JS</name>
+  <name>Wicket JavaScript</name>
 
   <description>
-    Wicket JS is a library that helps you to integrate JavaScript and JQuery with Wicket
+    Wicket JS is a library that helps you to write and handle JavaScript and JQuery within Wicket
   </description>
 
   <licenses>

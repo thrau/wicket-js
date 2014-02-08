@@ -6,8 +6,6 @@ import java.util.Map;
 import org.apache.wicket.util.template.PackageTextTemplate;
 import org.apache.wicket.util.template.TextTemplate;
 
-import sun.reflect.Reflection;
-
 /**
  * JsTemplate.
  */
@@ -16,10 +14,6 @@ public class JsTemplate extends JsExpression {
     private TextTemplate template;
 
     private Map<String, Object> variables;
-
-    public JsTemplate(String file) {
-        this(file, Reflection.getCallerClass());
-    }
 
     public JsTemplate(String file, Object scope) {
         this(file, scope.getClass());

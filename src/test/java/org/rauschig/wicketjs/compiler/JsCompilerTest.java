@@ -20,7 +20,7 @@ import static org.junit.Assert.assertEquals;
 import org.apache.wicket.util.template.TextTemplate;
 import org.junit.Test;
 import org.mockito.Mockito;
-import org.rauschig.wicketjs.IJsVisitable;
+import org.rauschig.wicketjs.IJavaScript;
 import org.rauschig.wicketjs.JsCall;
 import org.rauschig.wicketjs.JsExpression;
 import org.rauschig.wicketjs.JsExpressionStatement;
@@ -173,7 +173,7 @@ public class JsCompilerTest {
         compileAndAssert("call();", new JsExpressionStatement(new JsCall("call")));
     }
 
-    protected static void compileAndAssert(String expected, IJsVisitable expression) {
+    protected static void compileAndAssert(String expected, IJavaScript expression) {
         assertEquals(expected, new JsCompiler(expression).compile());
     }
 }

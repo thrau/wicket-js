@@ -32,6 +32,20 @@ public class JsStatement implements IJsStatement {
         return statement;
     }
 
+    public static IJsStatement of(IJavaScript javaScript) {
+        if (javaScript instanceof IJsStatement) {
+            return (IJsStatement) javaScript;
+        } else if (javaScript instanceof IJsExpression) {
+            return of((IJsExpression) javaScript);
+        } else {
+            return null;
+        }
+    }
+
+    public static JsExpressionStatement of(IJsExpression expression) {
+        return new JsExpressionStatement(expression);
+    }
+
     @Override
     public void accept(IJsStatementVisitor visitor) {
         visitor.visit(this);

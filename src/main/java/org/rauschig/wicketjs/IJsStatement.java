@@ -18,6 +18,6 @@ package org.rauschig.wicketjs;
 /**
  * A terminated JavaScript statement.
  */
-public interface IJsStatement extends IJsVisitable {
+public interface IJsStatement extends IJavaScript {
     void accept(IJsStatementVisitor visitor);
 }

@@ -15,18 +15,18 @@
  */
 package org.rauschig.wicketjs.compiler;
 
+import org.rauschig.wicketjs.IJavaScript;
 import org.rauschig.wicketjs.IJsExpression;
 import org.rauschig.wicketjs.IJsStatement;
-import org.rauschig.wicketjs.IJsVisitable;
 
 /**
  * JsCompiler
  */
 public class JsCompiler extends AbstractJsCompiler {
 
-    protected IJsVisitable visitable;
+    protected IJavaScript visitable;
 
-    public JsCompiler(IJsVisitable visitable) {
+    public JsCompiler(IJavaScript visitable) {
         if (visitable == null) {
             throw new IllegalArgumentException("No Expression or Statement given");
         }

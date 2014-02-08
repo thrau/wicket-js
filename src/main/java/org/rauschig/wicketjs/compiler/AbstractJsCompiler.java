@@ -17,11 +17,11 @@ package org.rauschig.wicketjs.compiler;
 
 import java.util.Iterator;
 
+import org.rauschig.wicketjs.IJavaScript;
 import org.rauschig.wicketjs.IJsExpression;
 import org.rauschig.wicketjs.IJsExpressionVisitor;
 import org.rauschig.wicketjs.IJsStatement;
 import org.rauschig.wicketjs.IJsStatementVisitor;
-import org.rauschig.wicketjs.IJsVisitable;
 import org.rauschig.wicketjs.JsCall;
 import org.rauschig.wicketjs.JsExpression;
 import org.rauschig.wicketjs.JsExpressionStatement;
@@ -139,12 +139,12 @@ public abstract class AbstractJsCompiler implements IJsExpressionVisitor, IJsSta
         js.append("}");
     }
 
-    protected void visitAndJoin(String delimiter, Iterable<? extends IJsVisitable> list) {
+    protected void visitAndJoin(String delimiter, Iterable<? extends IJavaScript> list) {
         if (list == null) {
             return;
         }
 
-        Iterator<? extends IJsVisitable> iterator = list.iterator();
+        Iterator<? extends IJavaScript> iterator = list.iterator();
 
         while (iterator.hasNext()) {
             Object next = iterator.next();

@@ -38,37 +38,25 @@ public class JsFunction implements IJsExpression {
         this(parameters, new JsExpressionStatement(body));
     }
 
-    public JsFunction(IJsExpression body) {
-        this(new JsExpressionStatement(body));
+    public JsFunction(IJavaScript body) {
+        this(JsStatement.of(body));
     }
 
     public JsFunction(IJsStatement body) {
         this(new ArrayList<JsIdentifier>(), body);
     }
 
-    public JsFunction(IJsExpression body, String... parameters) {
+    public JsFunction(IJavaScript body, String... parameters) {
         this(parameters, body);
     }
 
-    public JsFunction(IJsStatement body, String... parameters) {
-        this(parameters, body);
-    }
-
-    public JsFunction(String[] parameters, IJsExpression body) {
-        this(parameters, new JsExpressionStatement(body));
-    }
-
-    public JsFunction(String[] parameters, IJsStatement body) {
+    public JsFunction(String[] parameters, IJavaScript body) {
         this(JsExpressionUtils.asIdentifierList(parameters), body);
     }
 
-    public JsFunction(List<JsIdentifier> parameters, IJsExpression body) {
-        this(parameters, new JsExpressionStatement(body));
-    }
-
-    public JsFunction(List<JsIdentifier> parameters, IJsStatement body) {
+    public JsFunction(List<JsIdentifier> parameters, IJavaScript body) {
         this.parameters = parameters;
-        this.body = body;
+        this.body = JsStatement.of(body);
     }
 
     public JsFunction param(String parameter) {
@@ -97,7 +85,7 @@ public class JsFunction implements IJsExpression {
     }
 
     public IJsStatement terminate() {
-        return new JsExpressionStatement(this);
+        return JsStatement.of(this);
     }
 
     @Override

@@ -19,11 +19,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.wicket.Component;
+import org.rauschig.wicketjs.IJavaScript;
 import org.rauschig.wicketjs.IJsExpression;
-import org.rauschig.wicketjs.IJsStatement;
 import org.rauschig.wicketjs.JsCall;
 import org.rauschig.wicketjs.JsExpression;
-import org.rauschig.wicketjs.JsExpressionStatement;
 import org.rauschig.wicketjs.JsFunction;
 import org.rauschig.wicketjs.JsIdentifier;
 import org.rauschig.wicketjs.JsLiteral;
@@ -151,10 +150,6 @@ public class JQuery extends JsExpression {
         return chain(new JQueryBind(event, callbackBody));
     }
 
-    public JQuery bind(String event, IJsExpression callbackBody) {
-        return chain(new JQueryBind(event, callbackBody));
-    }
-
     public JQuery bind(String event, JsIdentifier callback) {
         return chain(new JQueryBind(event, callback));
     }
@@ -163,11 +158,15 @@ public class JQuery extends JsExpression {
         return chain(new JQueryBind(event, callback));
     }
 
+    public JQuery bind(String event, IJavaScript callbackBody) {
+        return chain(new JQueryBind(event, callbackBody));
+    }
+
     public JQuery click(String callbackBody) {
         return bind("click", callbackBody);
     }
 
-    public JQuery click(IJsExpression callbackBody) {
+    public JQuery click(IJavaScript callbackBody) {
         return bind("click", callbackBody);
     }
 
@@ -187,7 +186,7 @@ public class JQuery extends JsExpression {
         return each(new JsFunction(callbackBody, "index", "element"));
     }
 
-    public JQuery each(IJsExpression callbackBody) {
+    public JQuery each(IJavaScript callbackBody) {
         return each(new JsFunction(callbackBody, "index", "element"));
     }
 
@@ -252,11 +251,4 @@ public class JQuery extends JsExpression {
         return js();
     }
 
-    public IJsStatement terminate() {
-        return asStatement();
-    }
-
-    public IJsStatement asStatement() {
-        return new JsExpressionStatement(this);
-    }
 }

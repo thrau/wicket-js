@@ -16,7 +16,7 @@
 package org.rauschig.wicketjs;
 
 /**
- * A value wrapper to map literal semantics from Java to JavaScript.
+ * A value wrapper to map literal semantics of Java to JavaScript.
  * <p/>
  * TODO: array/collection literals
  */

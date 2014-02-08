@@ -17,12 +17,12 @@ package org.rauschig.wicketjs.compiler;
 
 import java.util.List;
 
-import org.rauschig.wicketjs.IJsVisitable;
+import org.rauschig.wicketjs.IJavaScript;
 
 /**
  * JsJoiner
  */
-public class JsJoiner<T extends IJsVisitable> extends AbstractJsCompiler {
+public class JsJoiner<T extends IJavaScript> extends AbstractJsCompiler {
 
     private List<T> visitables;
     private String delimiter;

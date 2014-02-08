@@ -15,7 +15,7 @@
  */
 package org.rauschig.wicketjs.behavior;
 
-import org.rauschig.wicketjs.IJsExpression;
+import org.rauschig.wicketjs.IJavaScript;
 import org.rauschig.wicketjs.jquery.JQuery;
 
 /**
@@ -38,7 +38,7 @@ public abstract class JQueryEventBehavior extends JsBehavior {
     }
 
     @Override
-    protected IJsExpression domReadyJs() {
+    protected IJavaScript domReadyJs() {
         return $().bind(event, callback());
     }
 
@@ -52,5 +52,5 @@ public abstract class JQueryEventBehavior extends JsBehavior {
         return $;
     }
 
-    protected abstract IJsExpression callback();
+    protected abstract IJavaScript callback();
 }

@@ -18,8 +18,8 @@ package org.rauschig.wicketjs;
 import org.apache.wicket.util.io.IClusterable;
 
 /**
- * Tagging interface for our simple JavaScript grammar abstraction.
+ * Tagging interface for our simple JavaScript syntax abstraction.
  */
-public interface IJsVisitable extends IClusterable {
+public interface IJavaScript extends IClusterable {
     // tagging interface
 }

@@ -15,7 +15,7 @@
  */
 package org.rauschig.wicketjs.behavior;
 
-import org.rauschig.wicketjs.IJsExpression;
+import org.rauschig.wicketjs.IJavaScript;
 import org.rauschig.wicketjs.compiler.JsCompiler;
 
 /**
@@ -30,5 +30,5 @@ public abstract class JsBehavior extends AbstractJsBehavior {
         return new JsCompiler(domReadyJs()).compile();
     }
 
-    protected abstract IJsExpression domReadyJs();
+    protected abstract IJavaScript domReadyJs();
 }

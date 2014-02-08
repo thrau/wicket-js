@@ -18,7 +18,7 @@ package org.rauschig.wicketjs;
 /**
  * A JavaScript expression.
  */
-public interface IJsExpression extends IJsVisitable {
+public interface IJsExpression extends IJavaScript {
 
     /**
      * Accept the given visitor. Visitor Double-dispatch mechanism.

@@ -26,4 +26,11 @@ public interface IJsExpression extends IJavaScript {
      * @param visitor the visiting visitor
      */
     void accept(IJsExpressionVisitor visitor);
+
+    /**
+     * Terminates ("i = 1" -> "i = 1;") the expression to a statement.
+     *
+     * @return The terminated expression.
+     */
+    IJsStatement terminate();
 }

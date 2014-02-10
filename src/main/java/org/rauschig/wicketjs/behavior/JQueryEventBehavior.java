@@ -43,6 +43,7 @@ import org.rauschig.wicketjs.jquery.JQuery;
  * </pre>
  * 
  * If the DataTable has the markup id <code>'table0'</code>, the JQuery will compile to
+ * 
  * <pre>
  *     $('#table0').find('tr').bind('mouseenter mouseleave', function(eventObject){
  *         $(this).toggleClass('entered');

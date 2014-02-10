@@ -84,6 +84,7 @@ public class JsFunction implements IJsExpression {
         return body;
     }
 
+    @Override
     public IJsStatement terminate() {
         return JsStatement.of(this);
     }

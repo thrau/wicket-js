@@ -5,8 +5,8 @@ wicket-js makes it easy to write and handle custom JavaScript and [JQuery](http:
 [Wicket](http://wicket.apache.org/) Components and Behaviors. It helps to separate Wicket Ajax Behavior listeners from
 actual client-side UI functionality, while maintaining the coupling towards Wicket Components.
 
-It provides a (rudimentary) typesafe JavaScript syntax tree and a JQuery class that allow you to write JS and JQuery
-expressions in Java.
+It provides a (rudimentary) [fluent interface](http://en.wikipedia.org/wiki/Fluent_interface) that allows you to build
+JavaScript and JQuery expressions in Java.
 
 Example
 -------

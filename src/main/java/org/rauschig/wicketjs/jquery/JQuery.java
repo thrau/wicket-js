@@ -115,6 +115,8 @@ public class JQuery extends JsCallChain {
         super(new JsCall("$", selector));
     }
 
+    /* factory methods */
+
     public static JQuery jQuery() {
         return new JQuery();
     }
@@ -154,6 +156,8 @@ public class JQuery extends JsCallChain {
     public static JQuery $(IJsExpression selector) {
         return jQuery(selector);
     }
+
+    /* chaining */
 
     @Override
     public JQuery _(IJsExpression expression) {
@@ -198,6 +202,28 @@ public class JQuery extends JsCallChain {
     @Override
     public JQuery chain(String functionName, Object... arguments) {
         return (JQuery) super.chain(functionName, arguments);
+    }
+
+    /* events */
+
+    public JQuery on(String events, CharSequence callbackBody) {
+        return on(events, new JsFunction(callbackBody));
+    }
+
+    public JQuery on(String events, JsFunction handler) {
+        if(!handler.getParameters().contains(eventObject)) {
+            handler.getParameters().add(eventObject);
+        }
+
+        return call("on", events, handler);
+    }
+
+    public JQuery on(String events, String selector, JsFunction handler) {
+        if(!handler.getParameters().contains(eventObject)) {
+            handler.getParameters().add(eventObject);
+        }
+
+        return call("on", events, selector, handler);
     }
 
     public JQuery bind(String event, JsIdentifier callback) {
@@ -252,6 +278,18 @@ public class JQuery extends JsCallChain {
         return call("find", selector);
     }
 
+    public JQuery not(String selector) {
+        return call("not", selector);
+    }
+
+    public JQuery first() {
+        return call("first");
+    }
+
+    public JQuery last() {
+        return call("last");
+    }
+
     public JQuery parent() {
         return call("parent");
     }
@@ -286,6 +324,14 @@ public class JQuery extends JsCallChain {
 
     public JQuery toggleClass(String... cssClass) {
         return call("toggleClass", Strings.join(cssClass, " "));
+    }
+
+    public IJsExpression attr(String attributeName) {
+        return call("attr", attributeName);
+    }
+
+    public IJsExpression is(String selector) {
+        return call("is", selector);
     }
 
 }

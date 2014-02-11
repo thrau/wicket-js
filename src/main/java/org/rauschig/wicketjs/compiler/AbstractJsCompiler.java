@@ -23,6 +23,7 @@ import org.rauschig.wicketjs.IJsExpressionVisitor;
 import org.rauschig.wicketjs.IJsStatement;
 import org.rauschig.wicketjs.IJsStatementVisitor;
 import org.rauschig.wicketjs.JsCall;
+import org.rauschig.wicketjs.JsCallChain;
 import org.rauschig.wicketjs.JsExpression;
 import org.rauschig.wicketjs.JsExpressionStatement;
 import org.rauschig.wicketjs.JsFunction;
@@ -111,6 +112,11 @@ public abstract class AbstractJsCompiler implements IJsExpressionVisitor, IJsSta
     public void visit(JsCall visitable) {
         visitable.getFunction().accept(this);
         visitArguments(visitable);
+    }
+
+    @Override
+    public void accept(JsCallChain visitable) {
+        visitAndJoin(".", visitable.getExpressions());
     }
 
     @Override

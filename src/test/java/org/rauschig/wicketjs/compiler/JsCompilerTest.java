@@ -22,6 +22,7 @@ import org.junit.Test;
 import org.mockito.Mockito;
 import org.rauschig.wicketjs.IJavaScript;
 import org.rauschig.wicketjs.JsCall;
+import org.rauschig.wicketjs.JsCallChain;
 import org.rauschig.wicketjs.JsExpression;
 import org.rauschig.wicketjs.JsExpressionStatement;
 import org.rauschig.wicketjs.JsFunction;
@@ -103,6 +104,55 @@ public class JsCompilerTest {
     }
 
     @Test
+    public void compileJsCallChain_withSingleCall_compilesCorrectly() throws Exception {
+        JsCallChain call = new JsCallChain(new JsCall("call"));
+
+        compileAndAssert("call()", call);
+    }
+
+    @Test
+    public void compileJsCallChain_withSingleIdentifier_compilesCorrectly() throws Exception {
+        JsCallChain call = new JsCallChain(new JsIdentifier("this"));
+
+        compileAndAssert("this", call);
+    }
+
+    @Test
+    public void compileJsCallChain_withChainedCalls_compilesCorrectly() throws Exception {
+        JsCallChain call = new JsCallChain();
+
+        call.chain(new JsCall("call0"));
+        call.chain("call1", "arg", 1, true);
+        call.call("call2");
+        call.call("call3", new JsIdentifier("this"));
+
+        compileAndAssert("call0().call1('arg',1,true).call2().call3(this)", call);
+    }
+
+    @Test
+    public void compileJsCallChain_withChainedIdentifiers_compilesCorrectly() throws Exception {
+        JsCallChain call = new JsCallChain();
+
+        call.chain("this");
+        call.chain(new JsIdentifier("that"));
+        call.chain(new JsIdentifier("and"), new JsIdentifier("thenextthing"));
+        call._("field");
+
+        compileAndAssert("this.that.and.thenextthing.field", call);
+    }
+
+    @Test
+    public void compileJsCallChain_withMixedChains_compilesCorrectly() throws Exception {
+        JsCallChain call = new JsCallChain();
+
+        call.chain("document");
+        call.chain("window");
+        call.chain("onload", new JsFunction(new JsCallChain()._("console")._("log", new JsIdentifier("this"))));
+
+        compileAndAssert("document.window.onload(function(){console.log(this);})", call);
+    }
+
+    @Test
     public void compileJsExpression_compilesCorrectly() throws Exception {
         compileAndAssert("console.log('i like cheese');", new JsExpression("console.log('i like cheese');"));
     }
@@ -171,6 +221,11 @@ public class JsCompilerTest {
     @Test
     public void compileJsStatementExpression_compilesCorrectly() throws Exception {
         compileAndAssert("call();", new JsExpressionStatement(new JsCall("call")));
+    }
+
+    @Test
+    public void terminatedJsExpression_compilesCorrectly() throws Exception {
+        compileAndAssert("call();", new JsCall("call").terminate());
     }
 
     protected static void compileAndAssert(String expected, IJavaScript expression) {

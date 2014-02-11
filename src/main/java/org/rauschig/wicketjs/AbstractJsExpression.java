@@ -15,6 +15,8 @@
  */
 package org.rauschig.wicketjs;
 
+import org.rauschig.wicketjs.compiler.JsCompiler;
+
 /**
  * AbstractJsExpression
  */
@@ -25,6 +27,15 @@ public abstract class AbstractJsExpression implements IJsExpression {
     @Override
     public JsExpressionStatement terminate() {
         return JsStatement.of(this);
+    }
+
+    /**
+     * Returns the compiled JQuery expression.
+     * 
+     * @return the JQuery expression as plain java script
+     */
+    public String js() {
+        return new JsCompiler(this).compile();
     }
 
 }

@@ -15,20 +15,15 @@
  */
 package org.rauschig.wicketjs.jquery;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.wicket.Component;
 import org.rauschig.wicketjs.IJavaScript;
 import org.rauschig.wicketjs.IJsExpression;
 import org.rauschig.wicketjs.JsCall;
-import org.rauschig.wicketjs.JsExpression;
+import org.rauschig.wicketjs.JsCallChain;
 import org.rauschig.wicketjs.JsFunction;
 import org.rauschig.wicketjs.JsIdentifier;
 import org.rauschig.wicketjs.JsLiteral;
 import org.rauschig.wicketjs.behavior.AbstractJsBehavior;
-import org.rauschig.wicketjs.compiler.JsCompiler;
-import org.rauschig.wicketjs.compiler.JsJoiner;
 import org.rauschig.wicketjs.util.Strings;
 
 /**
@@ -51,16 +46,12 @@ import org.rauschig.wicketjs.util.Strings;
  *     });
  * </pre>
  */
-public class JQuery extends JsExpression {
+public class JQuery extends JsCallChain {
 
     private static final long serialVersionUID = -3713464209858405030L;
 
-    private IJsExpression selector;
-
-    private List<IJsExpression> chainedExpressions = new ArrayList<>();
-
     public JQuery() {
-        super("");
+        super(new JsIdentifier("$"));
     }
 
     /**
@@ -119,8 +110,7 @@ public class JQuery extends JsExpression {
      * @param selector the JQuery selector
      */
     public JQuery(IJsExpression selector) {
-        super("");
-        this.selector = selector;
+        super(new JsCall("$", selector));
     }
 
     public static JQuery jQuery() {
@@ -163,47 +153,49 @@ public class JQuery extends JsExpression {
         return jQuery(selector);
     }
 
-    /**
-     * Shorthand for {@link #chain(org.rauschig.wicketjs.JsCall)};
-     * 
-     * @param call the function call to chain
-     * @return
-     */
-    public JQuery _(JsCall call) {
-        return chain(call);
+    @Override
+    public JQuery _(IJsExpression expression) {
+        return (JQuery) super._(expression);
     }
 
-    public JQuery _(JsIdentifier identifier) {
-        return chain(identifier);
-    }
-
+    @Override
     public JQuery _(String identifier) {
-        return chain(identifier);
+        return (JQuery) super._(identifier);
     }
 
-    public JQuery chain(JsCall call) {
-        return chain0(call);
+    @Override
+    public JQuery _(String functionName, Object... arguments) {
+        return (JQuery) super._(functionName, arguments);
     }
 
-    public JQuery chain(JsIdentifier identifier) {
-        return chain0(identifier);
+    @Override
+    public JQuery call(String functionName) {
+        return (JQuery) super.call(functionName);
     }
 
+    @Override
+    public JQuery call(String functionName, Object... arguments) {
+        return (JQuery) super.call(functionName, arguments);
+    }
+
+    @Override
+    public JQuery chain(IJsExpression expression) {
+        return (JQuery) super.chain(expression);
+    }
+
+    @Override
+    public JQuery chain(IJsExpression... expressions) {
+        return (JQuery) super.chain(expressions);
+    }
+
+    @Override
     public JQuery chain(String identifier) {
-        return chain(new JsIdentifier(identifier));
+        return (JQuery) super.chain(identifier);
     }
 
-    protected JQuery chain0(IJsExpression expression) {
-        chainedExpressions.add(expression);
-        return this;
-    }
-
-    public JQuery call(String function) {
-        return chain(new JsCall(function));
-    }
-
-    public JQuery call(String function, Object... parameters) {
-        return chain(new JsCall(function, parameters));
+    @Override
+    public JQuery chain(String functionName, Object... arguments) {
+        return (JQuery) super.chain(functionName, arguments);
     }
 
     public JQuery bind(String event, String callbackBody) {
@@ -288,32 +280,6 @@ public class JQuery extends JsExpression {
 
     public JQuery toggleClass(String... cssClass) {
         return call("toggleClass", Strings.join(cssClass, " "));
-    }
-
-    /**
-     * Returns the compiled JQuery expression.
-     * 
-     * @return the JQuery expression as plain java script
-     */
-    public String js() {
-        StringBuilder js = new StringBuilder();
-
-        js.append("$");
-        if (selector != null) {
-            js.append("(").append(new JsCompiler(selector).compile()).append(")");
-        }
-
-        if (chainedExpressions != null && !chainedExpressions.isEmpty()) {
-            js.append(".");
-            js.append(new JsJoiner<>(chainedExpressions, ".").compile());
-        }
-
-        return js.toString();
-    }
-
-    @Override
-    public CharSequence getExpression() {
-        return js();
     }
 
 }

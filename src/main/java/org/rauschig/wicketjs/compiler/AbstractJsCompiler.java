@@ -31,6 +31,7 @@ import org.rauschig.wicketjs.JsIdentifier;
 import org.rauschig.wicketjs.JsLiteral;
 import org.rauschig.wicketjs.JsNamedFunction;
 import org.rauschig.wicketjs.JsStatement;
+import org.rauschig.wicketjs.JsStatements;
 
 /**
  * Abstract implementation of the {@link org.rauschig.wicketjs.IJavaScript} syntax tree visitors used to build a
@@ -142,6 +143,11 @@ public abstract class AbstractJsCompiler implements IJsExpressionVisitor, IJsSta
     public void visit(JsStatement visitable) {
         js.append(visitable.getStatement());
         js.append(";");
+    }
+
+    @Override
+    public void visit(JsStatements visitable) {
+        visitAndJoin("", visitable.getStatements());
     }
 
     /**

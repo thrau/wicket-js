@@ -16,29 +16,18 @@
 package org.rauschig.wicketjs;
 
 /**
- * IJsExpression wrapper representing a semicolon terminated expression.
+ * AbstractJsStatement
  */
-public class JsExpressionStatement extends AbstractJsStatement {
+public abstract class AbstractJsStatement implements IJsStatement {
 
-    private static final long serialVersionUID = -559738161269895071L;
+    private static final long serialVersionUID = -783064052343085188L;
 
-    private IJsExpression expression;
-
-    public JsExpressionStatement(CharSequence expression) {
-        this(new JsExpression(expression));
+    public JsStatements _(IJavaScript statement) {
+        return new JsStatements(this, statement);
     }
 
-    public JsExpressionStatement(IJsExpression expression) {
-        this.expression = expression;
-    }
-
-    public IJsExpression getExpression() {
-        return expression;
-    }
-
-    @Override
-    public void accept(IJsStatementVisitor visitor) {
-        visitor.visit(this);
+    public JsStatements _(String statement) {
+        return _(new JsStatement(statement));
     }
 
 }

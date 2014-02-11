@@ -18,9 +18,12 @@ package org.rauschig.wicketjs.util;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.rauschig.wicketjs.IJavaScript;
 import org.rauschig.wicketjs.IJsExpression;
+import org.rauschig.wicketjs.IJsStatement;
 import org.rauschig.wicketjs.JsIdentifier;
 import org.rauschig.wicketjs.JsLiteral;
+import org.rauschig.wicketjs.JsStatement;
 
 /**
  * Utility class.
@@ -29,6 +32,16 @@ public final class JsExpressionUtils {
 
     private JsExpressionUtils() {
         // static utility class
+    }
+
+    public static List<IJsStatement> asStatementList(IJavaScript... javaScript) {
+        ArrayList<IJsStatement> list = new ArrayList<>(javaScript.length);
+
+        for (IJavaScript script : javaScript) {
+            list.add(JsStatement.of(script));
+        }
+
+        return list;
     }
 
     /**

@@ -18,7 +18,7 @@ package org.rauschig.wicketjs;
 /**
  * A raw statement that may contain arbitrary JavaScript code.
  */
-public class JsStatement implements IJsStatement {
+public class JsStatement extends AbstractJsStatement {
 
     private static final long serialVersionUID = -5422270276826187017L;
 

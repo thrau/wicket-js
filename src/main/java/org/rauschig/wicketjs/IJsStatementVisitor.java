@@ -32,5 +32,13 @@ public interface IJsStatementVisitor {
      * 
      * @param visitable the Statement to visit
      */
+    void visit(JsStatements visitable);
+
+    /**
+     * Visits the given Statement.
+     * 
+     * @param visitable the Statement to visit
+     */
     void visit(JsExpressionStatement visitable);
+
 }

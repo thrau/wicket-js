@@ -30,6 +30,7 @@ import org.rauschig.wicketjs.JsIdentifier;
 import org.rauschig.wicketjs.JsLiteral;
 import org.rauschig.wicketjs.JsNamedFunction;
 import org.rauschig.wicketjs.JsStatement;
+import org.rauschig.wicketjs.JsStatements;
 import org.rauschig.wicketjs.JsTemplate;
 
 /**
@@ -221,6 +222,23 @@ public class JsCompilerTest {
     @Test
     public void compileJsStatementExpression_compilesCorrectly() throws Exception {
         compileAndAssert("call();", new JsExpressionStatement(new JsCall("call")));
+    }
+
+    @Test
+    public void compileJsStatements_withSingleStatement_compilesCorrectly() throws Exception {
+        compileAndAssert("call();", new JsStatements(new JsStatement("call()")));
+    }
+
+    @Test
+    public void compileJsStatements_withMultipleStatements_compilesCorrectly() throws Exception {
+        JsStatements statements;
+
+        statements = new JsCall("call").terminate()
+                ._("if(true){}")
+                ._(new JsCall("console.log", new JsIdentifier("this")))
+                ._(new JsStatement("break"));
+
+        compileAndAssert("call();if(true){};console.log(this);break;", statements);
     }
 
     @Test

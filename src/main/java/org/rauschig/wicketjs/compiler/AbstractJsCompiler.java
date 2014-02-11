@@ -16,6 +16,7 @@
 package org.rauschig.wicketjs.compiler;
 
 import java.util.Iterator;
+import java.util.List;
 
 import org.rauschig.wicketjs.IJavaScript;
 import org.rauschig.wicketjs.IJsExpression;
@@ -28,6 +29,7 @@ import org.rauschig.wicketjs.JsExpression;
 import org.rauschig.wicketjs.JsExpressionStatement;
 import org.rauschig.wicketjs.JsFunction;
 import org.rauschig.wicketjs.JsIdentifier;
+import org.rauschig.wicketjs.JsIf;
 import org.rauschig.wicketjs.JsLiteral;
 import org.rauschig.wicketjs.JsNamedFunction;
 import org.rauschig.wicketjs.JsStatement;
@@ -148,6 +150,26 @@ public abstract class AbstractJsCompiler implements IJsExpressionVisitor, IJsSta
     @Override
     public void visit(JsStatements visitable) {
         visitAndJoin("", visitable.getStatements());
+    }
+
+    @Override
+    public void visit(JsIf visitable) {
+        js.append("if(");
+        visitable.getExpression().accept(this);
+        js.append(")");
+
+        visitBlock(visitable.getThenBlock());
+
+        if (visitable.getElseBlock() != null) {
+            js.append("else");
+            visitBlock(visitable.getElseBlock());
+        }
+    }
+
+    protected void visitBlock(IJsStatement visitable) {
+        js.append("{");
+        visitable.accept(this);
+        js.append("}");
     }
 
     /**

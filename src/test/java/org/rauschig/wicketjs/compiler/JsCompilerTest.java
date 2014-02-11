@@ -27,6 +27,7 @@ import org.rauschig.wicketjs.JsExpression;
 import org.rauschig.wicketjs.JsExpressionStatement;
 import org.rauschig.wicketjs.JsFunction;
 import org.rauschig.wicketjs.JsIdentifier;
+import org.rauschig.wicketjs.JsIf;
 import org.rauschig.wicketjs.JsLiteral;
 import org.rauschig.wicketjs.JsNamedFunction;
 import org.rauschig.wicketjs.JsStatement;
@@ -233,10 +234,9 @@ public class JsCompilerTest {
     public void compileJsStatements_withMultipleStatements_compilesCorrectly() throws Exception {
         JsStatements statements;
 
-        statements = new JsCall("call").terminate()
-                ._("if(true){}")
-                ._(new JsCall("console.log", new JsIdentifier("this")))
-                ._(new JsStatement("break"));
+        statements =
+            new JsCall("call").terminate()._("if(true){}")._(new JsCall("console.log", new JsIdentifier("this")))
+                    ._(new JsStatement("break"));
 
         compileAndAssert("call();if(true){};console.log(this);break;", statements);
     }
@@ -244,6 +244,22 @@ public class JsCompilerTest {
     @Test
     public void terminatedJsExpression_compilesCorrectly() throws Exception {
         compileAndAssert("call();", new JsCall("call").terminate());
+    }
+
+    @Test
+    public void compileJsIf_withoutElseBlock_compilesCorrectly() throws Exception {
+        JsIf statement = new JsIf("someCondition()", new JsCall("someAction").terminate());
+
+        compileAndAssert("if(someCondition()){someAction();}", statement);
+    }
+
+    @Test
+    public void compileJsIf_withElseBlock_compilesCorrectly() throws Exception {
+        JsIf statement =
+            new JsIf(new JsCall("someCondition"), new JsCall("someAction").terminate(), new JsStatements(new JsCall(
+                    "someAlternative"), new JsStatement("return")));
+
+        compileAndAssert("if(someCondition()){someAction();}else{someAlternative();return;}", statement);
     }
 
     protected static void compileAndAssert(String expected, IJavaScript expression) {

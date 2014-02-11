@@ -1,6 +1,8 @@
 Wicket JavaScript and JQuery
 ============================
 
+[![Build Status](https://travis-ci.org/thrau/wicket-js.png?branch=master)](https://travis-ci.org/thrau/wicket-js)
+
 wicket-js makes it easy to write and handle custom JavaScript and [JQuery](http://jquery.com/) from within
 [Wicket](http://wicket.apache.org/) Components and Behaviors. It helps to separate Wicket Ajax Behavior listeners from
 actual client-side UI functionality, while maintaining the coupling towards Wicket Components.

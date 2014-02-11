@@ -50,6 +50,8 @@ public class JQuery extends JsCallChain {
 
     private static final long serialVersionUID = -3713464209858405030L;
 
+    public static final JsIdentifier eventObject = new JsIdentifier("eventObject");
+
     public JQuery() {
         super(new JsIdentifier("$"));
     }
@@ -198,20 +200,24 @@ public class JQuery extends JsCallChain {
         return (JQuery) super.chain(functionName, arguments);
     }
 
-    public JQuery bind(String event, String callbackBody) {
-        return chain(new JQueryBind(event, callbackBody));
-    }
-
     public JQuery bind(String event, JsIdentifier callback) {
-        return chain(new JQueryBind(event, callback));
+        return chain("bind", event, callback);
     }
 
-    public JQuery bind(String event, JsFunction callback) {
-        return chain(new JQueryBind(event, callback));
+    public JQuery bind(String event, String callbackBody) {
+        return bind(event, new JsFunction(callbackBody));
     }
 
     public JQuery bind(String event, IJavaScript callbackBody) {
-        return chain(new JQueryBind(event, callbackBody));
+        return bind(event, new JsFunction(callbackBody));
+    }
+
+    public JQuery bind(String event, JsFunction callback) {
+        if (!callback.getParameters().contains(eventObject)) {
+            callback.addParameter(eventObject);
+        }
+
+        return chain("bind", event, callback);
     }
 
     public JQuery click(String callbackBody) {

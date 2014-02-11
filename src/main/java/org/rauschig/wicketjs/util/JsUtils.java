@@ -28,9 +28,9 @@ import org.rauschig.wicketjs.JsStatement;
 /**
  * Utility class.
  */
-public final class JsExpressionUtils {
+public final class JsUtils {
 
-    private JsExpressionUtils() {
+    private JsUtils() {
         // static utility class
     }
 

@@ -18,7 +18,7 @@ package org.rauschig.wicketjs;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.rauschig.wicketjs.util.JsExpressionUtils;
+import org.rauschig.wicketjs.util.JsUtils;
 
 /**
  * An anonymous function definition.
@@ -51,7 +51,7 @@ public class JsFunction implements IJsExpression {
     }
 
     public JsFunction(String[] parameters, IJavaScript body) {
-        this(JsExpressionUtils.asIdentifierList(parameters), body);
+        this(JsUtils.asIdentifierList(parameters), body);
     }
 
     public JsFunction(List<JsIdentifier> parameters, IJavaScript body) {

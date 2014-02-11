@@ -18,7 +18,7 @@ package org.rauschig.wicketjs;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.rauschig.wicketjs.util.JsExpressionUtils;
+import org.rauschig.wicketjs.util.JsUtils;
 
 /**
  * Represents a member call.
@@ -31,7 +31,7 @@ public class JsCall extends AbstractJsExpression {
     private List<IJsExpression> arguments;
 
     public JsCall(String functionName, Object... arguments) {
-        this(functionName, JsExpressionUtils.asArgumentList(arguments));
+        this(functionName, JsUtils.asArgumentList(arguments));
     }
 
     public JsCall(String function) {
@@ -80,7 +80,7 @@ public class JsCall extends AbstractJsExpression {
     }
 
     public JsCall addArgument(Object argument) {
-        return addArgument(JsExpressionUtils.asArgument(argument));
+        return addArgument(JsUtils.asArgument(argument));
     }
 
     public JsCall addArgument(IJsExpression argument) {

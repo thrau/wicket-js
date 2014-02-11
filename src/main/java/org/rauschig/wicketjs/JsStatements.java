@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.rauschig.wicketjs.util.JsExpressionUtils;
+import org.rauschig.wicketjs.util.JsUtils;
 
 /**
  * JsStatements
@@ -54,7 +54,7 @@ public class JsStatements implements IJsStatement {
     }
 
     public JsStatements(IJavaScript... javaScript) {
-        this(JsExpressionUtils.asStatementList(javaScript));
+        this(JsUtils.asStatementList(javaScript));
     }
 
     public JsStatements(List<IJsStatement> statements) {

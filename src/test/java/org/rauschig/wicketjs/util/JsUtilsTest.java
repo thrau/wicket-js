@@ -25,16 +25,16 @@ import org.rauschig.wicketjs.JsIdentifier;
 import org.rauschig.wicketjs.JsLiteral;
 
 /**
- * JsExpressionUtilsTest
+ * JsUtilsTest
  */
-public class JsExpressionUtilsTest {
+public class JsUtilsTest {
     @Test
     public void asIdentifierList() throws Exception {
     }
 
     @Test
     public void asArgumentList_withPrimitives_returnsLiterals() throws Exception {
-        List<IJsExpression> list = JsExpressionUtils.asArgumentList("foo", 42, false);
+        List<IJsExpression> list = JsUtils.asArgumentList("foo", 42, false);
 
         assertEquals(JsLiteral.JsString.class, list.get(0).getClass());
         assertEquals(JsLiteral.JsNumber.class, list.get(1).getClass());
@@ -46,7 +46,7 @@ public class JsExpressionUtilsTest {
         JsIdentifier foo = new JsIdentifier("foo");
         JsIdentifier bar = new JsIdentifier("bar");
 
-        List<IJsExpression> list = JsExpressionUtils.asArgumentList(foo, bar);
+        List<IJsExpression> list = JsUtils.asArgumentList(foo, bar);
 
         assertEquals(foo, list.get(0));
         assertEquals(bar, list.get(1));
@@ -57,7 +57,7 @@ public class JsExpressionUtilsTest {
         JsIdentifier foo = new JsIdentifier("foo");
         JsIdentifier bar = new JsIdentifier("bar");
 
-        List<IJsExpression> list = JsExpressionUtils.asArgumentList(foo, bar);
+        List<IJsExpression> list = JsUtils.asArgumentList(foo, bar);
 
         assertEquals(foo, list.get(0));
         assertEquals(bar, list.get(1));
@@ -65,7 +65,7 @@ public class JsExpressionUtilsTest {
 
     @Test
     public void asArgument_primitive_returnsLiteral() throws Exception {
-        IJsExpression arg = JsExpressionUtils.asArgument("string");
+        IJsExpression arg = JsUtils.asArgument("string");
 
         assertEquals(JsLiteral.JsString.class, arg.getClass());
         assertEquals("string", ((JsLiteral) arg).getValue());
@@ -74,14 +74,14 @@ public class JsExpressionUtilsTest {
     @Test
     public void asArgument_identifier_returnsIdentifier() throws Exception {
         JsIdentifier identifier = new JsIdentifier("foo");
-        IJsExpression arg = JsExpressionUtils.asArgument(identifier);
+        IJsExpression arg = JsUtils.asArgument(identifier);
 
         assertEquals(identifier, arg);
     }
 
     @Test
     public void asLiteral_string_returnsCorrectLiteral() throws Exception {
-        JsLiteral<?> literal = JsExpressionUtils.asLiteral("Foo");
+        JsLiteral<?> literal = JsUtils.asLiteral("Foo");
 
         assertEquals(JsLiteral.JsString.class, literal.getClass());
         assertEquals("Foo", literal.getValue());
@@ -89,7 +89,7 @@ public class JsExpressionUtilsTest {
 
     @Test
     public void asLiteral_number_returnsCorrectLiteral() throws Exception {
-        JsLiteral<?> literal = JsExpressionUtils.asLiteral(42);
+        JsLiteral<?> literal = JsUtils.asLiteral(42);
 
         assertEquals(JsLiteral.JsNumber.class, literal.getClass());
         assertEquals(42, literal.getValue());
@@ -97,7 +97,7 @@ public class JsExpressionUtilsTest {
 
     @Test
     public void asLiteral_boolean_returnsCorrectLiteral() throws Exception {
-        JsLiteral<?> literal = JsExpressionUtils.asLiteral(false);
+        JsLiteral<?> literal = JsUtils.asLiteral(false);
 
         assertEquals(JsLiteral.JsBoolean.FALSE, literal);
     }

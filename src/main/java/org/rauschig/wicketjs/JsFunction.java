@@ -30,11 +30,11 @@ public class JsFunction implements IJsExpression {
     private List<JsIdentifier> parameters;
     private IJsStatement body;
 
-    public JsFunction(String body) {
+    public JsFunction(CharSequence body) {
         this(new JsExpressionStatement(body));
     }
 
-    public JsFunction(String body, String... parameters) {
+    public JsFunction(CharSequence body, String... parameters) {
         this(parameters, new JsExpressionStatement(body));
     }
 

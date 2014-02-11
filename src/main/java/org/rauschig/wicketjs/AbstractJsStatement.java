@@ -26,7 +26,7 @@ public abstract class AbstractJsStatement implements IJsStatement {
         return new JsStatements(this, statement);
     }
 
-    public JsStatements _(String statement) {
+    public JsStatements _(CharSequence statement) {
         return _(new JsStatement(statement));
     }
 

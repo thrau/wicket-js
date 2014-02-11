@@ -61,7 +61,7 @@ public class JsStatements implements IJsStatement {
         this.statements = statements;
     }
 
-    public JsStatements _(String statement) {
+    public JsStatements _(CharSequence statement) {
         return add(statement);
     }
 
@@ -73,7 +73,7 @@ public class JsStatements implements IJsStatement {
         return add(statement);
     }
 
-    public JsStatements add(String statement) {
+    public JsStatements add(CharSequence statement) {
         return add(new JsStatement(statement));
     }
 

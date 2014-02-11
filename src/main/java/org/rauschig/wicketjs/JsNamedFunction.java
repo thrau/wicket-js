@@ -27,7 +27,7 @@ public class JsNamedFunction extends JsFunction {
 
     private JsIdentifier identifier;
 
-    public JsNamedFunction(String identifier, String[] parameters, String body) {
+    public JsNamedFunction(String identifier, String[] parameters, CharSequence body) {
         this(identifier, body, parameters);
     }
 
@@ -39,12 +39,12 @@ public class JsNamedFunction extends JsFunction {
         super(parameters, body);
     }
 
-    public JsNamedFunction(String identifier, String body, String... parameters) {
+    public JsNamedFunction(String identifier, CharSequence body, String... parameters) {
         super(body, parameters);
         this.identifier = new JsIdentifier(identifier);
     }
 
-    public JsNamedFunction(String identifier, String body) {
+    public JsNamedFunction(String identifier, CharSequence body) {
         this(identifier, new JsExpression(body));
     }
 

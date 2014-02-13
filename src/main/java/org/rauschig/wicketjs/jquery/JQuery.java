@@ -45,6 +45,8 @@ import org.rauschig.wicketjs.util.Strings;
  *         console.log(this)
  *     });
  * </pre>
+ * 
+ * @see <a href="http://api.jquery.com/">http://api.jquery.com/</a>
  */
 public class JQuery extends JsCallChain {
 
@@ -211,7 +213,7 @@ public class JQuery extends JsCallChain {
     }
 
     public JQuery on(String events, JsFunction handler) {
-        if(!handler.getParameters().contains(eventObject)) {
+        if (!handler.getParameters().isEmpty()) {
             handler.getParameters().add(eventObject);
         }
 
@@ -219,7 +221,7 @@ public class JQuery extends JsCallChain {
     }
 
     public JQuery on(String events, String selector, JsFunction handler) {
-        if(!handler.getParameters().contains(eventObject)) {
+        if (!handler.getParameters().isEmpty()) {
             handler.getParameters().add(eventObject);
         }
 
@@ -262,6 +264,12 @@ public class JQuery extends JsCallChain {
         return bind("click", callback);
     }
 
+    public JQuery trigger(String event) {
+        return call("trigger", event);
+    }
+
+    /* traversing */
+
     public JQuery each(JsFunction callback) {
         return call("each", callback);
     }
@@ -278,60 +286,144 @@ public class JQuery extends JsCallChain {
         return call("find", selector);
     }
 
-    public JQuery not(String selector) {
-        return call("not", selector);
-    }
-
     public JQuery first() {
         return call("first");
+    }
+
+    public JQuery has(String selector) {
+        return call("has", selector);
+    }
+
+    public IJsExpression is(String selector) {
+        return call("is", selector);
     }
 
     public JQuery last() {
         return call("last");
     }
 
-    public JQuery parent() {
-        return call("parent");
+    public JQuery not(String selector) {
+        return call("not", selector);
     }
 
-    public JQuery trigger(String event) {
-        return call("trigger", event);
+    public JQuery parent() {
+        return call("parent");
     }
 
     public JQuery parent(String selector) {
         return call("parent", selector);
     }
 
+    /* attributes */
+
     public JQuery addClass(String cssClass) {
         return call("addClass", cssClass);
-    }
-
-    public JQuery removeClass(String cssClass) {
-        return call("removeClass", cssClass);
-    }
-
-    public JQuery toggleClass(String cssClass) {
-        return call("toggleClass", cssClass);
     }
 
     public JQuery addClass(String... cssClass) {
         return call("addClass", Strings.join(cssClass, " "));
     }
 
+    public IJsExpression attr(String attributeName) {
+        return call("attr", attributeName);
+    }
+
+    public IJsExpression hasClass(String className) {
+        return call("hasClass", className);
+    }
+
+    public IJsExpression html() {
+        return call("html");
+    }
+
+    public JQuery html(CharSequence html) {
+        return call("html", html.toString());
+    }
+
+    public JQuery html(JsFunction function) {
+        if (function.getParameters().isEmpty()) {
+            function.param("index").param("oldHtml");
+        }
+
+        return call("html", function);
+    }
+
+    public JQuery removeClass(String cssClass) {
+        return call("removeClass", cssClass);
+    }
+
     public JQuery removeClass(String... cssClass) {
         return call("removeClass", Strings.join(cssClass, " "));
+    }
+
+    public JQuery toggleClass(String cssClass) {
+        return call("toggleClass", cssClass);
     }
 
     public JQuery toggleClass(String... cssClass) {
         return call("toggleClass", Strings.join(cssClass, " "));
     }
 
-    public IJsExpression attr(String attributeName) {
-        return call("attr", attributeName);
+    public IJsExpression val() {
+        return call("val");
     }
 
-    public IJsExpression is(String selector) {
-        return call("is", selector);
+    public JQuery val(Number value) {
+        return call("val", value);
+    }
+
+    public JQuery val(String value) {
+        return call("val", value);
+    }
+
+    public JQuery val(IJsExpression value) {
+        return call("val", value);
+    }
+
+    public JQuery val(JsFunction function) {
+        if (function.getParameters().isEmpty()) {
+            function.param("index").param("value");
+        }
+
+        return call("val", function);
+    }
+
+    /* effects */
+
+    public JQuery fadeIn() {
+        return call("fadeIn");
+    }
+
+    public JQuery fadeOut() {
+        return call("fadeOut");
+    }
+
+    public JQuery fadeToggle() {
+        return call("fadeToggle");
+    }
+
+    public JQuery hide() {
+        return call("hide");
+    }
+
+    public JQuery show() {
+        return call("show");
+    }
+
+    public JQuery toggle() {
+        return call("toggle");
+    }
+
+    public JQuery slideUp() {
+        return call("slideUp");
+    }
+
+    public JQuery slideDown() {
+        return call("slideDown");
+    }
+
+    public JQuery slideToggle() {
+        return call("slideToggle");
     }
 
 }

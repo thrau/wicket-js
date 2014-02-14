@@ -22,12 +22,13 @@ import org.apache.wicket.behavior.AbstractAjaxBehavior;
 import org.apache.wicket.event.IEvent;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
+import org.rauschig.wicketjs.markup.IComponentMarkupIdProvider;
 
 /**
  * Abstract base class that adds custom JavaScript as behavior to Components. Extends AbstractAjaxBehavior for
  * convenience reasons.
  */
-public abstract class AbstractJsBehavior extends AbstractAjaxBehavior {
+public abstract class AbstractJsBehavior extends AbstractAjaxBehavior implements IComponentMarkupIdProvider {
 
     private static final long serialVersionUID = 3962087472473146564L;
 
@@ -37,6 +38,11 @@ public abstract class AbstractJsBehavior extends AbstractAjaxBehavior {
      * @return a markup id
      */
     public String id() {
+        return getComponentMarkupId();
+    }
+
+    @Override
+    public String getComponentMarkupId() {
         return getComponent().getMarkupId();
     }
 

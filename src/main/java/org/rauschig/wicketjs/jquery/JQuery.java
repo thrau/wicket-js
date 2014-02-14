@@ -24,6 +24,7 @@ import org.rauschig.wicketjs.JsFunction;
 import org.rauschig.wicketjs.JsIdentifier;
 import org.rauschig.wicketjs.JsLiteral;
 import org.rauschig.wicketjs.behavior.AbstractJsBehavior;
+import org.rauschig.wicketjs.markup.IComponentMarkupIdProvider;
 import org.rauschig.wicketjs.util.Strings;
 
 /**
@@ -66,11 +67,11 @@ public class JQuery extends JsCallChain {
      * @param component the component to use in the selector
      */
     public JQuery(Component component) {
-        this("#" + component.getMarkupId());
+        this("#" + component.setOutputMarkupId(true).getMarkupId());
     }
 
     /**
-     * Create a new JQuery expression using the markup id of the Component the given Behavior is bound to.
+     * Create a new JQuery expression using the markup id provided by the given MarkupIdProvider.
      * <p/>
      * This allows convenient calls within anonymous {@code JsBehavior} definitions. E.g.
      * 
@@ -85,12 +86,12 @@ public class JQuery extends JsCallChain {
      * });
      * </pre>
      * 
-     * The markup id of component {@code c} will be used.
+     * In this case, the markup id of component {@code c} will be used.
      * 
-     * @param behavior
+     * @param markupIdProvider
      */
-    public JQuery(AbstractJsBehavior behavior) {
-        this("#" + behavior.id());
+    public JQuery(IComponentMarkupIdProvider markupIdProvider) {
+        this("#" + markupIdProvider.getComponentMarkupId());
     }
 
     /**
@@ -127,8 +128,8 @@ public class JQuery extends JsCallChain {
         return new JQuery(component);
     }
 
-    private static JQuery jQuery(AbstractJsBehavior behavior) {
-        return new JQuery(behavior);
+    private static JQuery jQuery(IComponentMarkupIdProvider markupIdProvider) {
+        return new JQuery(markupIdProvider);
     }
 
     public static JQuery jQuery(String selector) {
@@ -147,8 +148,8 @@ public class JQuery extends JsCallChain {
         return jQuery(component);
     }
 
-    public static JQuery $(AbstractJsBehavior behavior) {
-        return jQuery(behavior);
+    public static JQuery $(IComponentMarkupIdProvider markupIdProvider) {
+        return jQuery(markupIdProvider);
     }
 
     public static JQuery $(String selector) {

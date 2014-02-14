@@ -5,6 +5,7 @@ import org.apache.wicket.ajax.AjaxEventBehavior;
 import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
 import org.rauschig.wicketjs.IJavaScript;
 import org.rauschig.wicketjs.JsIdentifier;
+import org.rauschig.wicketjs.markup.IComponentMarkupIdProvider;
 
 /**
  * This extends AjaxEventBehavior to conveniently add AJAX event lifecycle handlers as IJavaScript.
@@ -12,7 +13,7 @@ import org.rauschig.wicketjs.JsIdentifier;
  * @see org.apache.wicket.ajax.AjaxEventBehavior
  * @see org.apache.wicket.ajax.attributes.IAjaxCallListener
  */
-public abstract class JsAjaxEventBehavior extends AjaxEventBehavior {
+public abstract class JsAjaxEventBehavior extends AjaxEventBehavior implements IComponentMarkupIdProvider {
 
     public static final JsIdentifier attrs = new JsIdentifier("attrs");
     public static final JsIdentifier jqXHR = new JsIdentifier("jqXHR");
@@ -35,6 +36,11 @@ public abstract class JsAjaxEventBehavior extends AjaxEventBehavior {
      * @return a markup id
      */
     public String id() {
+        return getComponentMarkupId();
+    }
+
+    @Override
+    public String getComponentMarkupId() {
         return getComponent().getMarkupId();
     }
 

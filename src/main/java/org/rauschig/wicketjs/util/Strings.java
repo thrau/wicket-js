@@ -36,12 +36,11 @@ public final class Strings {
      * @return a string
      */
     public static String join(Object[] array, String delimiter) {
-        int len = array.length;
-
-        if (len < 1) {
+        if (isEmpty(array)) {
             return EMPTY_STRING;
         }
 
+        int len = array.length;
         StringBuilder str = new StringBuilder(len * 16);
 
         if (array[0] != null) {
@@ -56,6 +55,10 @@ public final class Strings {
         }
 
         return str.toString();
+    }
+
+    private static boolean isEmpty(Object[] array) {
+        return array == null || array.length == 0;
     }
 
 }

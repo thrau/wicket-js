@@ -16,7 +16,6 @@
 package org.rauschig.wicketjs.compiler;
 
 import java.util.Iterator;
-import java.util.List;
 
 import org.rauschig.wicketjs.IJavaScript;
 import org.rauschig.wicketjs.IJsExpression;
@@ -34,6 +33,7 @@ import org.rauschig.wicketjs.JsLiteral;
 import org.rauschig.wicketjs.JsNamedFunction;
 import org.rauschig.wicketjs.JsStatement;
 import org.rauschig.wicketjs.JsStatements;
+import org.rauschig.wicketjs.util.JsonSerializer;
 
 /**
  * Abstract implementation of the {@link org.rauschig.wicketjs.IJavaScript} syntax tree visitors used to build a
@@ -52,6 +52,30 @@ public abstract class AbstractJsCompiler implements IJsExpressionVisitor, IJsSta
      * The StringBuilder that holds the visited and compiled syntax tokens.
      */
     protected StringBuilder js;
+
+    protected JsonSerializer jsonSerializer;
+
+    /**
+     * Lazy-init method for getting a JsonSerializer instance.
+     * 
+     * @return a JsonSerializer
+     */
+    protected JsonSerializer getJsonSerializer() {
+        if (jsonSerializer == null) {
+            jsonSerializer = createJsonSerializer();
+        }
+
+        return jsonSerializer;
+    }
+
+    /**
+     * Factory method for creating a new JsonSerializer used by the lazy-init method {@link #getJsonSerializer()}.
+     * 
+     * @return a new JsonSerializer instance
+     */
+    protected JsonSerializer createJsonSerializer() {
+        return new JsonSerializer();
+    }
 
     /**
      * Executes the visitor and returns the compiled JavaScript as a string.
@@ -96,9 +120,13 @@ public abstract class AbstractJsCompiler implements IJsExpressionVisitor, IJsSta
     }
 
     @Override
+    public void visit(JsLiteral.JsArray visitable) {
+        js.append(getJsonSerializer().serialize(visitable.getValue()));
+    }
+
+    @Override
     public void visit(JsLiteral.JsObject visitable) {
-        // TODO: jsonify
-        throw new UnsupportedOperationException("Can not yet compile object literals");
+        js.append(getJsonSerializer().serialize(visitable.getValue()));
     }
 
     @Override

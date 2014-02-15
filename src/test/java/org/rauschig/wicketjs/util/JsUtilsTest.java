@@ -17,7 +17,10 @@ package org.rauschig.wicketjs.util;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Test;
 import org.rauschig.wicketjs.IJsExpression;
@@ -80,6 +83,23 @@ public class JsUtilsTest {
     }
 
     @Test
+    public void asArgument_literal_returnsThatLiteral() throws Exception {
+        JsLiteral<?> literal = new JsLiteral.JsString("foo");
+
+        IJsExpression arg = JsUtils.asArgument(literal);
+
+        assertEquals(literal, arg);
+    }
+
+    @Test
+    public void asLiteral_literal_returnsThatLiteral() throws Exception {
+        JsLiteral<?> value = new JsLiteral.JsString("foo");
+        JsLiteral<?> literal = JsUtils.asLiteral(value);
+
+        assertEquals(value, literal);
+    }
+
+    @Test
     public void asLiteral_string_returnsCorrectLiteral() throws Exception {
         JsLiteral<?> literal = JsUtils.asLiteral("Foo");
 
@@ -101,4 +121,30 @@ public class JsUtilsTest {
 
         assertEquals(JsLiteral.JsBoolean.FALSE, literal);
     }
+
+    @Test
+    public void asLiteral_array_returnsCorrectLiteral() throws Exception {
+        JsLiteral<?> literal = JsUtils.asLiteral(new Object[] { "a" });
+
+        assertEquals(JsLiteral.JsArray.class, literal.getClass());
+        assertEquals("a", ((JsLiteral.JsArray) literal).getValue()[0]);
+    }
+
+    @Test
+    public void asLiteral_list_returnsCorrectLiteral() throws Exception {
+        JsLiteral<?> literal = JsUtils.asLiteral(Arrays.asList("a"));
+
+        assertEquals(JsLiteral.JsArray.class, literal.getClass());
+        assertEquals("a", ((JsLiteral.JsArray) literal).getValue()[0]);
+    }
+
+    @Test
+    public void asLiteral_map_returnsCorrectLiteral() throws Exception {
+        Map<Object, Object> map = new HashMap<>();
+
+        JsLiteral<?> literal = JsUtils.asLiteral(map);
+
+        assertEquals(JsLiteral.JsObject.class, literal.getClass());
+    }
+
 }

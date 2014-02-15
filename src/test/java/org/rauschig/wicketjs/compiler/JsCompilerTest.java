@@ -17,6 +17,10 @@ package org.rauschig.wicketjs.compiler;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Arrays;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import org.apache.wicket.util.template.TextTemplate;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -77,6 +81,44 @@ public class JsCompilerTest {
     public void compileJsNumber_Double_compilesCorrectly() throws Exception {
         compileAndAssert("4.2", new JsLiteral.JsNumber(new Double(4.2)));
         compileAndAssert("-4.2", new JsLiteral.JsNumber(new Double(-4.2)));
+    }
+
+    @Test
+    public void compileJsArray_ObjectArray_compilesCorrectly() throws Exception {
+        compileAndAssert("[1,-2,3]", new JsLiteral.JsArray(new Integer[] { 1, -2, 3 }));
+    }
+
+    @Test
+    public void compileJsArray_StringArray_compilesCorrectly() throws Exception {
+        compileAndAssert("[\"a\",\"b\",\"c\"]", new JsLiteral.JsArray(new String[] { "a", "b", "c" }));
+    }
+
+    @Test
+    public void compileJsArray_ArrayList_compilesCorrectly() throws Exception {
+        compileAndAssert("[\"a\",\"b\",\"c\"]", new JsLiteral.JsArray(Arrays.asList("a", "b", "c")));
+    }
+
+    @Test
+    public void compileJsObject_Map_compilesCorrectly() throws Exception {
+        Map<Object, Object> map = new LinkedHashMap<>();
+        map.put(1, 2);
+        map.put("a", "b");
+
+        compileAndAssert("{\"1\":2,\"a\":\"b\"}", new JsLiteral.JsObject(map));
+    }
+
+    @Test
+    public void compileJsObject_NestedMap_compilesCorrectly() throws Exception {
+        Map<Object, Object> nestedMap = new LinkedHashMap<>();
+        nestedMap.put(3, 4);
+        nestedMap.put("c", "d");
+
+        Map<Object, Object> map = new LinkedHashMap<>();
+        map.put(1, 2);
+        map.put("a", "b");
+        map.put("m", nestedMap);
+
+        compileAndAssert("{\"1\":2,\"a\":\"b\",\"m\":{\"3\":4,\"c\":\"d\"}}", new JsLiteral.JsObject(map));
     }
 
     @Test

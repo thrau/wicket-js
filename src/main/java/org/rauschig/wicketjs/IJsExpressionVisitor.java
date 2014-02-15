@@ -45,6 +45,13 @@ public interface IJsExpressionVisitor {
      * 
      * @param visitable the Expression to visit.
      */
+    void visit(JsLiteral.JsArray visitable);
+
+    /**
+     * Visit the given Expression.
+     * 
+     * @param visitable the Expression to visit.
+     */
     void visit(JsLiteral.JsObject visitable);
 
     /**
@@ -70,21 +77,21 @@ public interface IJsExpressionVisitor {
 
     /**
      * Visit the given Expression.
-     *
+     * 
      * @param visitable the Expression to visit.
      */
     void accept(JsCallChain visitable);
 
     /**
      * Visit the given Expression.
-     *
+     * 
      * @param visitable the Expression to visit.
      */
     void visit(JsFunction visitable);
 
     /**
      * Visit the given Expression.
-     *
+     * 
      * @param visitable the Expression to visit.
      */
     void visit(JsNamedFunction visitable);

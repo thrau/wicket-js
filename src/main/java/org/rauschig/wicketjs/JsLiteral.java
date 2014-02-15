@@ -15,6 +15,9 @@
  */
 package org.rauschig.wicketjs;
 
+import java.util.Collection;
+import java.util.Map;
+
 /**
  * A value wrapper to map literal semantics of Java to JavaScript.
  * <p/>
@@ -100,6 +103,25 @@ public abstract class JsLiteral<T> extends AbstractJsExpression {
     }
 
     /**
+     * A JavaScript array.
+     */
+    public static class JsArray extends JsLiteral<Object[]> {
+
+        public JsArray(Object[] value) {
+            super(value);
+        }
+
+        public JsArray(Collection<?> value) {
+            super(value.toArray());
+        }
+
+        @Override
+        public void accept(IJsExpressionVisitor visitor) {
+            visitor.visit(this);
+        }
+    }
+
+    /**
      * A JavaScript object.
      */
     public static class JsObject extends JsLiteral<Object> {
@@ -117,7 +139,7 @@ public abstract class JsLiteral<T> extends AbstractJsExpression {
 
     /**
      * Wraps the given Boolean as a JsBoolean.
-     *
+     * 
      * @param bool the value to wrap
      * @return the JavaScript value
      */
@@ -125,10 +147,9 @@ public abstract class JsLiteral<T> extends AbstractJsExpression {
         return (bool) ? JsBoolean.TRUE : JsBoolean.FALSE;
     }
 
-
     /**
      * Wraps the given Number as a JsNumber.
-     *
+     * 
      * @param number the value to wrap
      * @return the JavaScript value
      */
@@ -138,7 +159,7 @@ public abstract class JsLiteral<T> extends AbstractJsExpression {
 
     /**
      * Wraps the given String as a JsString.
-     *
+     * 
      * @param string the value to wrap
      * @return the JavaScript value
      */
@@ -147,8 +168,38 @@ public abstract class JsLiteral<T> extends AbstractJsExpression {
     }
 
     /**
+     * Wraps the given Array as a JsArray.
+     * 
+     * @param array the value to wrap
+     * @return the JavaScript value
+     */
+    public static JsArray of(Object[] array) {
+        return new JsArray(array);
+    }
+
+    /**
+     * Wraps the given Collection as a JsArray.
+     * 
+     * @param array the value to wrap
+     * @return the JavaScript value
+     */
+    public static JsArray of(Collection<?> array) {
+        return new JsArray(array);
+    }
+
+    /**
+     * Wraps the given Map as a JsObject.
+     * 
+     * @param map the value to wrap
+     * @return the JavaScript value
+     */
+    public static JsObject of(Map<?, ?> map) {
+        return new JsObject(map);
+    }
+
+    /**
      * Wraps the given Object as a JsObject.
-     *
+     * 
      * @param obj the value to wrap
      * @return the JavaScript value
      */

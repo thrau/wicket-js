@@ -16,7 +16,9 @@
 package org.rauschig.wicketjs.util;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import org.rauschig.wicketjs.IJavaScript;
 import org.rauschig.wicketjs.IJsExpression;
@@ -110,11 +112,15 @@ public final class JsUtils {
             return JsLiteral.of((Boolean) value);
         } else if (value instanceof String) {
             return JsLiteral.of((String) value);
+        } else if (value.getClass().isArray()) {
+            return JsLiteral.of((Object[]) value);
+        } else if (value instanceof Collection) {
+            return JsLiteral.of((Collection) value);
+        } else if (value instanceof Map) {
+            return JsLiteral.of((Map) value);
         } else {
             return JsLiteral.of(value);
         }
-
-        // TODO: moar! (maps, lists,...) maybe couple this closer to JsLiteral
     }
 
 }

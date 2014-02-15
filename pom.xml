@@ -181,6 +181,7 @@
             <exclude>.gitignore</exclude>
             <exclude>README.md</exclude>
             <exclude>.idea/**</exclude>
+            <exclude>.travis.yml</exclude>
           </excludes>
           <properties>
             <name>${license.name}</name>

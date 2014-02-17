@@ -79,7 +79,7 @@ public abstract class JQueryEventBehavior extends JsBehavior {
     }
 
     @Override
-    protected IJavaScript domReadyJs() {
+    protected final IJavaScript domReadyJs() {
         return $().bind(event, callback());
     }
 
@@ -99,9 +99,9 @@ public abstract class JQueryEventBehavior extends JsBehavior {
     }
 
     /**
-     * The callback for the bound event.
+     * The body of the callback for the bound event.
      * 
-     * @return a callback
+     * @return JavaScript instructions
      */
     protected abstract IJavaScript callback();
 }

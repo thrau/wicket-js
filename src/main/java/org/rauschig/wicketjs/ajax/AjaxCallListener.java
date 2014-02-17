@@ -29,6 +29,8 @@ import org.rauschig.wicketjs.compiler.JsCompiler;
  */
 public class AjaxCallListener implements IAjaxCallListener, IComponentAwareHeaderContributor {
 
+    private static final long serialVersionUID = -2802085481583552325L;
+
     private final IJsAjaxCallListener wrapped;
 
     public AjaxCallListener(IJsAjaxCallListener wrapped) {

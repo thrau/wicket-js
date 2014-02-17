@@ -30,6 +30,8 @@ import org.rauschig.wicketjs.markup.IComponentMarkupIdProvider;
  */
 public abstract class JsAjaxEventBehavior extends AjaxEventBehavior implements IComponentMarkupIdProvider {
 
+    private static final long serialVersionUID = 3233171540872448222L;
+
     public static final JsIdentifier attrs = new JsIdentifier("attrs");
     public static final JsIdentifier jqXHR = new JsIdentifier("jqXHR");
     public static final JsIdentifier data = new JsIdentifier("data");
@@ -171,6 +173,9 @@ public abstract class JsAjaxEventBehavior extends AjaxEventBehavior implements I
     }
 
     private IJsAjaxCallListener ajaxCallListener = new IJsAjaxCallListener() {
+
+        private static final long serialVersionUID = -8155317270090002655L;
+
         @Override
         public IJavaScript getBeforeHandler(Component component) {
             return onTrigger();

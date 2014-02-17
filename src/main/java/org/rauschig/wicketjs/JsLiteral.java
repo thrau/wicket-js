@@ -106,6 +106,7 @@ public abstract class JsLiteral<T> extends AbstractJsExpression {
      * A JavaScript array.
      */
     public static class JsArray extends JsLiteral<Object[]> {
+        private static final long serialVersionUID = -8615815427231961440L;
 
         public JsArray(Object[] value) {
             super(value);

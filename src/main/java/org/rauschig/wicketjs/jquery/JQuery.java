@@ -66,7 +66,7 @@ public class JQuery extends JsCallChain {
      * @param component the component to use in the selector
      */
     public JQuery(Component component) {
-        this("#" + component.setOutputMarkupId(true).getMarkupId());
+        this(getSelector(component));
     }
 
     /**
@@ -90,7 +90,7 @@ public class JQuery extends JsCallChain {
      * @param markupIdProvider
      */
     public JQuery(IComponentMarkupIdProvider markupIdProvider) {
-        this("#" + markupIdProvider.getComponentMarkupId());
+        this(getSelector(markupIdProvider));
     }
 
     /**
@@ -115,6 +115,26 @@ public class JQuery extends JsCallChain {
      */
     public JQuery(IJsExpression selector) {
         super(new JsCall("$", selector));
+    }
+
+    /**
+     * Create a new JQuery expression using the given expression as selector and context.
+     * 
+     * @param selector the JQuery selector
+     * @param context the selector context
+     */
+    public JQuery(String selector, Component context) {
+        this(selector, getSelector(context));
+    }
+
+    /**
+     * Create a new JQuery expression using the given expression as selector and context.
+     * 
+     * @param selector the JQuery selector
+     * @param context the selector context
+     */
+    public JQuery(String selector, IComponentMarkupIdProvider context) {
+        this(selector, getSelector(context));
     }
 
     /**
@@ -175,6 +195,14 @@ public class JQuery extends JsCallChain {
         return new JQuery(selector);
     }
 
+    public static JQuery jQuery(String selector, Component context) {
+        return new JQuery(selector, context);
+    }
+
+    public static JQuery jQuery(String selector, IComponentMarkupIdProvider context) {
+        return new JQuery(selector, context);
+    }
+
     public static JQuery jQuery(String selector, String context) {
         return new JQuery(selector, context);
     }
@@ -205,6 +233,14 @@ public class JQuery extends JsCallChain {
 
     public static JQuery $(IJsExpression selector) {
         return jQuery(selector);
+    }
+
+    public static JQuery $(String selector, Component context) {
+        return jQuery(selector, context);
+    }
+
+    public static JQuery $(String selector, IComponentMarkupIdProvider context) {
+        return jQuery(selector, context);
     }
 
     public static JQuery $(String selector, String context) {
@@ -504,6 +540,14 @@ public class JQuery extends JsCallChain {
 
     public JQuery slideToggle() {
         return call("slideToggle");
+    }
+
+    public static String getSelector(Component component) {
+        return "#" + component.setOutputMarkupId(true).getMarkupId();
+    }
+
+    public static String getSelector(IComponentMarkupIdProvider markupIdProvider) {
+        return "#" + markupIdProvider.getComponentMarkupId();
     }
 
 }

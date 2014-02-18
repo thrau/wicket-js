@@ -24,6 +24,7 @@ import org.mockito.Mockito;
 import org.rauschig.wicketjs.JsCall;
 import org.rauschig.wicketjs.JsExpression;
 import org.rauschig.wicketjs.JsIdentifier;
+import org.rauschig.wicketjs.markup.IComponentMarkupIdProvider;
 
 /**
  * JQueryTest
@@ -52,6 +53,30 @@ public class JQueryTest {
         Mockito.when(c.getMarkupId()).thenReturn("id");
 
         compileAndAssert("$('#id')", $(c));
+    }
+
+    @Test
+    public void selectorWithComponentContext_compilesCorrectly() throws Exception {
+        Component c = Mockito.mock(Component.class);
+        Mockito.when(c.getMarkupId()).thenReturn("id");
+
+        compileAndAssert("$('div','#id')", $("div", c));
+    }
+
+    @Test
+    public void markupIdProviderSelector_compilesCorrectly() throws Exception {
+        IComponentMarkupIdProvider c = Mockito.mock(IComponentMarkupIdProvider.class);
+        Mockito.when(c.getComponentMarkupId()).thenReturn("id");
+
+        compileAndAssert("$('#id')", $(c));
+    }
+
+    @Test
+    public void selectorWithMarkupIdProviderContext_compilesCorrectly() throws Exception {
+        IComponentMarkupIdProvider c = Mockito.mock(IComponentMarkupIdProvider.class);
+        Mockito.when(c.getComponentMarkupId()).thenReturn("id");
+
+        compileAndAssert("$('div','#id')", $("div", c));
     }
 
     @Test

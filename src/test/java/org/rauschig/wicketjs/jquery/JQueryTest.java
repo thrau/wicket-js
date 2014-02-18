@@ -22,6 +22,7 @@ import org.apache.wicket.Component;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.rauschig.wicketjs.JsCall;
+import org.rauschig.wicketjs.JsExpression;
 import org.rauschig.wicketjs.JsIdentifier;
 
 /**
@@ -37,6 +38,12 @@ public class JQueryTest {
     @Test
     public void singleSelector_compilesCorrectly() throws Exception {
         compileAndAssert("$('#id')", $("#id"));
+    }
+
+    @Test
+    public void selectorWithContext_compilesCorrectly() throws Exception {
+        compileAndAssert("$('child','#id')", $("child", "#id"));
+        compileAndAssert("$('child',this)", $("child", new JsExpression("this")));
     }
 
     @Test

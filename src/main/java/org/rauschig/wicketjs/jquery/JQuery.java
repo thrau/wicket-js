@@ -117,6 +117,42 @@ public class JQuery extends JsCallChain {
         super(new JsCall("$", selector));
     }
 
+    /**
+     * Create a new JQuery expression using the given selector.
+     * <p/>
+     * Note that both the selector and the context will be treated as a JavaScript string literal when compiled, s.t.
+     * <code>$("tr", "this")</code> will compile to <code>$('tr','this')</code>.
+     * <p/>
+     * If you need a reference to {@code this}, then use {@link #JQuery(String, org.rauschig.wicketjs.IJsExpression)}
+     * and {@link org.rauschig.wicketjs.JsExpression#THIS}.
+     * 
+     * @param selector the JQuery selector
+     * @param context the selector context
+     */
+    public JQuery(String selector, String context) {
+        this(selector, JsLiteral.of(context));
+    }
+
+    /**
+     * Create a new JQuery expression using the given expression as selector and context.
+     * 
+     * @param selector the JQuery selector
+     * @param context the selector context
+     */
+    public JQuery(String selector, IJsExpression context) {
+        this(JsLiteral.of(selector), context);
+    }
+
+    /**
+     * Create a new JQuery expression using the given expression as selector and context.
+     * 
+     * @param selector the JQuery selector
+     * @param context the selector context
+     */
+    public JQuery(IJsExpression selector, IJsExpression context) {
+        super(new JsCall("$", selector, context));
+    }
+
     /* factory methods */
 
     public static JQuery jQuery() {
@@ -139,6 +175,18 @@ public class JQuery extends JsCallChain {
         return new JQuery(selector);
     }
 
+    public static JQuery jQuery(String selector, String context) {
+        return new JQuery(selector, context);
+    }
+
+    public static JQuery jQuery(String selector, IJsExpression context) {
+        return new JQuery(selector, context);
+    }
+
+    public static JQuery jQuery(IJsExpression selector, IJsExpression context) {
+        return new JQuery(selector, context);
+    }
+
     public static JQuery $() {
         return jQuery();
     }
@@ -157,6 +205,18 @@ public class JQuery extends JsCallChain {
 
     public static JQuery $(IJsExpression selector) {
         return jQuery(selector);
+    }
+
+    public static JQuery $(String selector, String context) {
+        return jQuery(selector, context);
+    }
+
+    public static JQuery $(String selector, IJsExpression context) {
+        return jQuery(selector, context);
+    }
+
+    public static JQuery $(IJsExpression selector, IJsExpression context) {
+        return jQuery(selector, context);
     }
 
     /* chaining */

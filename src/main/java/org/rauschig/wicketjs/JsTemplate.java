@@ -23,7 +23,7 @@ import org.apache.wicket.util.template.TextTemplate;
 
 /**
  * JsTemplate.
- *
+ * 
  * TODO: split expression/statement template
  */
 public class JsTemplate extends JsExpression {

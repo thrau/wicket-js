@@ -23,7 +23,6 @@ import org.rauschig.wicketjs.JsCallChain;
 import org.rauschig.wicketjs.JsFunction;
 import org.rauschig.wicketjs.JsIdentifier;
 import org.rauschig.wicketjs.JsLiteral;
-import org.rauschig.wicketjs.behavior.AbstractJsBehavior;
 import org.rauschig.wicketjs.markup.IComponentMarkupIdProvider;
 import org.rauschig.wicketjs.util.Strings;
 
@@ -213,19 +212,39 @@ public class JQuery extends JsCallChain {
         return on(events, new JsFunction(callbackBody));
     }
 
+    public JQuery on(String events, IJavaScript handlerBody) {
+        return on(events, new JsFunction(handlerBody));
+    }
+
     public JQuery on(String events, JsFunction handler) {
-        if (!handler.getParameters().isEmpty()) {
+        if (handler.getParameters().isEmpty()) {
             handler.getParameters().add(eventObject);
         }
 
         return call("on", events, handler);
     }
 
+    public JQuery on(String events, JsIdentifier handler) {
+        return call("on", events, handler);
+    }
+
+    public JQuery on(String events, String selector, CharSequence handlerBody) {
+        return on(events, selector, new JsFunction(handlerBody));
+    }
+
+    public JQuery on(String events, String selector, IJavaScript handlerBody) {
+        return on(events, selector, new JsFunction(handlerBody));
+    }
+
     public JQuery on(String events, String selector, JsFunction handler) {
-        if (!handler.getParameters().isEmpty()) {
+        if (handler.getParameters().isEmpty()) {
             handler.getParameters().add(eventObject);
         }
 
+        return call("on", events, selector, handler);
+    }
+
+    public JQuery on(String events, String selector, JsIdentifier handler) {
         return call("on", events, selector, handler);
     }
 

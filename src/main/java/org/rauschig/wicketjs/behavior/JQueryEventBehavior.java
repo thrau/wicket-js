@@ -80,7 +80,7 @@ public abstract class JQueryEventBehavior extends JsBehavior {
 
     @Override
     protected final IJavaScript domReadyJs() {
-        return $().bind(event, callback());
+        return $().on(event, callback());
     }
 
     /**

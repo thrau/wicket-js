@@ -60,7 +60,7 @@ public class JQueryEventBehaviorTest {
 
         CharSequence js = getJavaScript(behavior);
 
-        assertEquals("$('#id').bind('click',function(eventObject){$('#id').toggleClass('test');})", js);
+        assertEquals("$('#id').on('click',function(eventObject){$('#id').toggleClass('test');})", js);
     }
 
     @Test
@@ -78,7 +78,7 @@ public class JQueryEventBehaviorTest {
 
         CharSequence js = getJavaScript(behavior);
 
-        assertEquals("$('#id').find('button').bind('click',function(eventObject){$('#id').toggleClass('test');})", js);
+        assertEquals("$('#id').find('button').on('click',function(eventObject){$('#id').toggleClass('test');})", js);
     }
 
     private CharSequence getJavaScript(JQueryEventBehavior behavior) throws Exception {

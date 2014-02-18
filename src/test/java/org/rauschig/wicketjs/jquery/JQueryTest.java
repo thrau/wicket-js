@@ -74,6 +74,24 @@ public class JQueryTest {
     }
 
     @Test
+    public void on_compilesCorrectly() throws Exception {
+        String expected = "$('tag').on('click',function(eventObject){console.log(this);})";
+        compileAndAssert(expected, $("tag").on("click", "console.log(this)"));
+    }
+
+    @Test
+    public void on_identifier_compilesCorrectly() throws Exception {
+        String expected = "$('tag').on('click',callback)";
+        compileAndAssert(expected, $("tag").on("click", new JsIdentifier("callback")));
+    }
+
+    @Test
+    public void on_withSelector_compilesCorrectly() throws Exception {
+        String expected = "$('tag').on('click','child',function(eventObject){console.log(this);})";
+        compileAndAssert(expected, $("tag").on("click", "child", "console.log(this)"));
+    }
+
+    @Test
     public void bind_compilesCorrectly() throws Exception {
         String expected = "$('tag').bind('click',function(eventObject){console.log(this);})";
         compileAndAssert(expected, $("tag").bind("click", "console.log(this)"));

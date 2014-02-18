@@ -45,7 +45,7 @@ import org.rauschig.wicketjs.jquery.JQuery;
  * If the DataTable has the markup id <code>'table0'</code>, the JQuery will compile to
  * 
  * <pre>
- *     $('#table0').find('tr').bind('mouseenter mouseleave', function(eventObject){
+ *     $('#table0').on('mouseenter mouseleave', 'tr', function(eventObject){
  *         $(this).toggleClass('entered');
  *     });
  * </pre>
@@ -61,7 +61,7 @@ public abstract class JQueryEventBehavior extends JsBehavior {
      * Creates a new JQueryEventBehavior for the given DOM event (e.g. {@code "click"} or
      * {@code "mouseenter mouseleave"}).
      * 
-     * @param event the DOM event descriptor
+     * @param event One or more space-separated event types
      */
     public JQueryEventBehavior(String event) {
         this(event, null);
@@ -71,31 +71,33 @@ public abstract class JQueryEventBehavior extends JsBehavior {
      * Creates a new JQueryEventBehavior for the given DOM event (e.g. {@code "click"} or
      * {@code "mouseenter mouseleave"}), and binds it to the elements found by the given selector.
      * 
-     * @param event the DOM event descriptor
+     * @param event One or more space-separated event types
+     * @param selector a selector string to filter the descendants of the selected elements that trigger the event
      */
     public JQueryEventBehavior(String event, String selector) {
         this.event = event;
         this.selector = selector;
     }
 
-    @Override
-    protected final IJavaScript domReadyJs() {
-        return $().on(event, callback());
+    public String getEvent() {
+        return event;
     }
 
-    /**
-     * Returns the JQuery object using the Component as main selector and optional chains the set child-selector.
-     * 
-     * @return the JQuery object
-     */
-    private JQuery $() {
-        JQuery $ = JQuery.$(getComponent());
+    public String getSelector() {
+        return selector;
+    }
+
+    @Override
+    protected final IJavaScript domReadyJs() {
+        JQuery $this = JQuery.$(getComponent());
+        String selector = getSelector();
 
         if (selector != null) {
-            $.find(selector);
+            return $this.on(event, selector, callback());
+        } else {
+            return $this.on(event, callback());
         }
 
-        return $;
     }
 
     /**

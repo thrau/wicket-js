@@ -119,6 +119,12 @@ public class JQuery extends JsCallChain {
 
     /**
      * Create a new JQuery expression using the given expression as selector and context.
+     * <p/>
+     * Note that the selector will be treated as a JavaScript string literal when compiled, s.t. <code>$("this")</code>
+     * will compile to <code>$('this')</code>.
+     * <p/>
+     * If you need a reference to {@code this}, then use {@link #JQuery(String, org.rauschig.wicketjs.IJsExpression)}
+     * and {@link org.rauschig.wicketjs.JsExpression#THIS}.
      * 
      * @param selector the JQuery selector
      * @param context the selector context
@@ -129,6 +135,12 @@ public class JQuery extends JsCallChain {
 
     /**
      * Create a new JQuery expression using the given expression as selector and context.
+     * <p/>
+     * Note that the selector will be treated as a JavaScript string literal when compiled, s.t. <code>$("this")</code>
+     * will compile to <code>$('this')</code>.
+     * <p/>
+     * If you need a reference to {@code this}, then use {@link #JQuery(String, org.rauschig.wicketjs.IJsExpression)}
+     * and {@link org.rauschig.wicketjs.JsExpression#THIS}.
      * 
      * @param selector the JQuery selector
      * @param context the selector context

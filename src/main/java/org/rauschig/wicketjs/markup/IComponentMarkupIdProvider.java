@@ -15,11 +15,13 @@
  */
 package org.rauschig.wicketjs.markup;
 
+import org.apache.wicket.util.io.IClusterable;
+
 /**
  * Contract for retrieval of markup ids from objects that may be a component or hold one. This is required for the
  * easier use of the JQuery object as it heavily relies on markup ids to function properly.
  */
-public interface IComponentMarkupIdProvider {
+public interface IComponentMarkupIdProvider extends IClusterable {
     /**
      * Returns the markup id.
      * 

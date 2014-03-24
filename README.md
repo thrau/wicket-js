@@ -1,14 +1,14 @@
-Wicket JavaScript and JQuery
+Wicket JavaScript and jQuery
 ============================
 
 [![Build Status](https://travis-ci.org/thrau/wicket-js.png?branch=master)](https://travis-ci.org/thrau/wicket-js)
 
-wicket-js makes it easy to write and handle custom JavaScript and [JQuery](http://jquery.com/) from within
+wicket-js makes it easy to write and handle custom JavaScript and [jQuery](http://jquery.com/) from within
 [Wicket](http://wicket.apache.org/) Components and Behaviors. It helps to separate Wicket Ajax Behavior listeners from
 actual client-side UI functionality, while maintaining the coupling towards Wicket Components.
 
 It provides a (rudimentary) [fluent interface](http://en.wikipedia.org/wiki/Fluent_interface) that allows you to build
-JavaScript and JQuery expressions in Java.
+JavaScript and jQuery expressions in Java.
 
 Example
 -------
@@ -26,7 +26,7 @@ component.add(new JsBehavior() {
 ```
 
 
-The API also provides a convenient way of writing JQuery expressions and bind client-side JQuery event behavior to
+The API also provides a convenient way of writing jQuery expressions and bind client-side jQuery event behavior to
 components. This allows for separation of the Wicket AJAX listening mechanisms and the true client-side JavaScript
 functionality while keeping the JavaScript in the actuall Component definitions.
 
@@ -42,7 +42,7 @@ component.add(new JQueryEventBehavior("mouseenter mouseleave") {
 });
 ```
 
-With JQuery's `trigger` and Wickets `AjaxEventBehavior` you can wire client-side JavaScript behavior with Wicket AJAX
+With jQuery's `trigger` and Wickets `AjaxEventBehavior` you can wire client-side JavaScript behavior with Wicket AJAX
 event handling in a clean way while keeping them separate.
 
 ```java

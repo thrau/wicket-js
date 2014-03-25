@@ -58,7 +58,7 @@ Dependencies
 ------------
 
 * wicket-core 6.11.0
-* jackson-mapper-asl 1.9.13
+* jackson-databind [2.0,)
 
 ## Notice
 

@@ -56,7 +56,7 @@
 
     <!--<wicket.version>[1.5,),[6.0,)</wicket.version>-->
     <wicket.version>6.11.0</wicket.version>
-    <jackson.version>1.9.13</jackson.version>
+    <jackson.version>[2.0,3)</jackson.version>
     <junit.version>4.11</junit.version>
     <mockito.version>1.9.5</mockito.version>
   </properties>
@@ -124,8 +124,8 @@
             <Bundle-Version>${project.version}</Bundle-Version>
             <Embed-Dependency>*;scope=compile|runtime;type=!pom;inline=true</Embed-Dependency>
             <Import-Package>
-              org.apache.wicket.*,
-              org.codehaus.jackson.*,
+              com.fasterxml.jackson.databind;version="${jackson.version}",
+              org.apache.wicket.*;resolution:=optional,
               *;resolution:=optional
             </Import-Package>
             <Export-Package>${bundle.namespace}.*;version="${project.version}"</Export-Package>
@@ -216,8 +216,8 @@
       <version>${wicket.version}</version>
     </dependency>
     <dependency>
-      <groupId>org.codehaus.jackson</groupId>
-      <artifactId>jackson-mapper-asl</artifactId>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
       <version>${jackson.version}</version>
     </dependency>
 

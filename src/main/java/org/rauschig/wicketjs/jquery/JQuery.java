@@ -141,7 +141,7 @@ public class JQuery extends JsCallChain {
      * <p/>
      * If you need a reference to {@code this}, then use {@link #JQuery(String, org.rauschig.wicketjs.IJsExpression)}
      * and {@link org.rauschig.wicketjs.JsExpression#THIS}.
-     *
+     * 
      * @param selector the JQuery selector
      * @param context the selector context
      */

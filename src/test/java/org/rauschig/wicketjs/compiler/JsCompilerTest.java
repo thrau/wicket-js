@@ -25,6 +25,7 @@ import org.apache.wicket.util.template.TextTemplate;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.rauschig.wicketjs.IJavaScript;
+import org.rauschig.wicketjs.JsAssignment;
 import org.rauschig.wicketjs.JsCall;
 import org.rauschig.wicketjs.JsCallChain;
 import org.rauschig.wicketjs.JsExpression;
@@ -37,6 +38,7 @@ import org.rauschig.wicketjs.JsNamedFunction;
 import org.rauschig.wicketjs.JsStatement;
 import org.rauschig.wicketjs.JsStatements;
 import org.rauschig.wicketjs.JsTemplate;
+import org.rauschig.wicketjs.JsVariableDefinition;
 
 @SuppressWarnings("unchecked")
 public class JsCompilerTest {
@@ -116,6 +118,16 @@ public class JsCompilerTest {
         map.put("m", nestedMap);
 
         compileAndAssert("{\"1\":2,\"a\":\"b\",\"m\":{\"3\":4,\"c\":\"d\"}}", new JsLiteral.JsObject(map));
+    }
+
+    @Test
+    public void compileJsAssignment_expressionAssignment_compilesCorrectly() throws Exception {
+        compileAndAssert("foo = bar()", new JsAssignment(new JsIdentifier("foo"), new JsCall("bar")));
+    }
+
+    @Test
+    public void compileJsAssignment_literalAssignment_compilesCorrectly() throws Exception {
+        compileAndAssert("foo = 'bar'", new JsAssignment("foo", "bar"));
     }
 
     @Test
@@ -299,6 +311,24 @@ public class JsCompilerTest {
                     "someAlternative"), new JsStatement("return")));
 
         compileAndAssert("if(someCondition()){someAction();}else{someAlternative();return;}", statement);
+    }
+
+    @Test
+    public void compileJsVariableDefinition_simpleDefinition_compilesCorrectly() throws Exception {
+        JsVariableDefinition statement = new JsVariableDefinition("foo");
+
+        compileAndAssert("var foo;", statement);
+    }
+
+    @Test
+    public void compileJsVariableDefinition_withLiteralAssignment_compilesCorrectly() throws Exception {
+        compileAndAssert("var foo = 'bar';", new JsVariableDefinition("foo", "bar"));
+        compileAndAssert("var foo = 'bar';", new JsVariableDefinition("foo", new JsLiteral.JsString("bar")));
+    }
+
+    @Test
+    public void compileJsVariableDefinition_withExpressionAssignment_compilesCorrectly() throws Exception {
+        compileAndAssert("var foo = this;", new JsVariableDefinition("foo", JsExpression.THIS));
     }
 
     protected static void compileAndAssert(String expected, IJavaScript expression) {

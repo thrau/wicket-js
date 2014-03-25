@@ -22,6 +22,7 @@ import org.rauschig.wicketjs.IJsExpression;
 import org.rauschig.wicketjs.IJsExpressionVisitor;
 import org.rauschig.wicketjs.IJsStatement;
 import org.rauschig.wicketjs.IJsStatementVisitor;
+import org.rauschig.wicketjs.JsAssignment;
 import org.rauschig.wicketjs.JsCall;
 import org.rauschig.wicketjs.JsCallChain;
 import org.rauschig.wicketjs.JsExpression;
@@ -33,6 +34,7 @@ import org.rauschig.wicketjs.JsLiteral;
 import org.rauschig.wicketjs.JsNamedFunction;
 import org.rauschig.wicketjs.JsStatement;
 import org.rauschig.wicketjs.JsStatements;
+import org.rauschig.wicketjs.JsVariableDefinition;
 import org.rauschig.wicketjs.util.JsonSerializer;
 
 /**
@@ -140,6 +142,18 @@ public abstract class AbstractJsCompiler implements IJsExpressionVisitor, IJsSta
     }
 
     @Override
+    public void accept(JsAssignment visitable) {
+        IJsExpression left = visitable.getLeftSide();
+        IJsExpression right = visitable.getRightSide();
+
+        left.accept(this);
+        if (right != null) {
+            js.append(" = ");
+            right.accept(this);
+        }
+    }
+
+    @Override
     public void visit(JsCall visitable) {
         visitable.getFunction().accept(this);
         visitArguments(visitable);
@@ -194,6 +208,13 @@ public abstract class AbstractJsCompiler implements IJsExpressionVisitor, IJsSta
         }
     }
 
+    @Override
+    public void visit(JsVariableDefinition visitable) {
+        js.append("var ");
+        visitable.getAssignment().accept(this);
+        js.append(";");
+    }
+
     protected void visitBlock(IJsStatement visitable) {
         js.append("{");
         visitable.accept(this);
@@ -201,7 +222,7 @@ public abstract class AbstractJsCompiler implements IJsExpressionVisitor, IJsSta
     }
 
     /**
-     * Visits the Arguments of the given {@link org.rauschig.wicketjs.JsCall}..
+     * Visits the Arguments of the given {@link org.rauschig.wicketjs.JsCall}.
      * 
      * @param visitable the JsCall to visit
      */

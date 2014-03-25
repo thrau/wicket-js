@@ -21,7 +21,7 @@ import java.util.Map;
 /**
  * A value wrapper to map literal semantics of Java to JavaScript.
  * <p/>
- * TODO: array/collection literals TODO: RegularExpression
+ * TODO: RegularExpression
  */
 public abstract class JsLiteral<T> extends AbstractJsExpression {
 
@@ -49,6 +49,35 @@ public abstract class JsLiteral<T> extends AbstractJsExpression {
 
     public void setValue(T value) {
         this.value = value;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        } else if (!(o instanceof JsLiteral)) {
+            return value != null && value.equals(o);
+        } else if (!getClass().equals(o.getClass())) {
+            System.out.println("not the same class");
+            return false;
+        }
+
+        JsLiteral other = (JsLiteral) o;
+        if (value == null) {
+            return other.value == null;
+        } else {
+            return value.equals(other.value);
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        return value != null ? value.hashCode() : 0;
+    }
+
+    @Override
+    public String toString() {
+        return value == null ? null : value.toString();
     }
 
     /**

@@ -21,15 +21,35 @@ import java.util.List;
 import org.rauschig.wicketjs.util.JsUtils;
 
 /**
- * Represents a member call.
+ * Represents a member function call.
+ * <p/>
+ * 
+ * <pre>
+ * new JsCall("console.log", "logging", 42, "this", JsExpression.THIS, new JsFunction(...));
+ * </pre>
+ * 
+ * would compile to
+ * 
+ * <pre>
+ * console.log('logging', 42, 'this', this, function(...){...});
+ * </pre>
  */
 public class JsCall extends AbstractJsExpression {
 
     private static final long serialVersionUID = -1541822119879211306L;
 
     private IJsExpression function;
+
     private List<IJsExpression> arguments;
 
+    /**
+     * Creates a new JsCall, calling the given functionName with the given arguments. Each argument is converted into a
+     * JS syntax token.
+     * 
+     * @param functionName the function to call
+     * @param arguments the arguments of the call
+     * @see org.rauschig.wicketjs.util.JsUtils#asArgumentList(Object...)
+     */
     public JsCall(String functionName, Object... arguments) {
         this(functionName, JsUtils.asArgumentList(arguments));
     }
@@ -60,29 +80,40 @@ public class JsCall extends AbstractJsExpression {
     }
 
     /**
-     * Shorthand for {@link #addArgument(Object)}.
+     * Alias for {@link #addArgument(Object)}.
      * 
-     * @param argument
-     * @return this for chaining
+     * @see #addArgument(Object)
      */
     public JsCall arg(Object argument) {
         return addArgument(argument);
     }
 
     /**
-     * Shorthand for {@link #addArgument(IJsExpression)}.
+     * Alias for {@link #addArgument(IJsExpression)}.
      * 
-     * @param argument
-     * @return this for chaining
+     * @see #addArgument(IJsExpression)
      */
     public JsCall arg(IJsExpression argument) {
         return addArgument(argument);
     }
 
+    /**
+     * Converts the given Object into a JS syntax token and adds it as argument to the call.
+     * 
+     * @param argument the argument to add
+     * @return this for chaining
+     * @see org.rauschig.wicketjs.util.JsUtils#asArgument(Object)
+     */
     public JsCall addArgument(Object argument) {
         return addArgument(JsUtils.asArgument(argument));
     }
 
+    /**
+     * Adds the given argument to the call.
+     * 
+     * @param argument the argument to add
+     * @return this for chaining
+     */
     public JsCall addArgument(IJsExpression argument) {
         arguments.add(argument);
         return this;

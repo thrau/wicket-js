@@ -22,7 +22,7 @@ import org.apache.wicket.util.template.PackageTextTemplate;
 import org.apache.wicket.util.template.TextTemplate;
 
 /**
- * JsTemplate.
+ * Loads the contents of a {@code TextTemplate} as a JsExpression.
  * 
  * TODO: split expression/statement template
  */
@@ -53,12 +53,24 @@ public class JsTemplate extends JsExpression {
         this.variables = variables;
     }
 
+    /**
+     * Alias for {@link #setVariable(String, Object)}
+     * 
+     * @see #setVariable(String, Object)
+     */
     public JsTemplate var(String key, Object variable) {
         return setVariable(key, variable);
     }
 
-    public JsTemplate setVariable(String key, Object variable) {
-        variables.put(key, variable);
+    /**
+     * Sets the value of a variable that is used to interpolate the template when loading it.
+     * 
+     * @param key the variable name
+     * @param value the variable value
+     * @return this for chaining
+     */
+    public JsTemplate setVariable(String key, Object value) {
+        variables.put(key, value);
         return this;
     }
 

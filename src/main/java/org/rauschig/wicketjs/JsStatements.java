@@ -22,7 +22,21 @@ import java.util.List;
 import org.rauschig.wicketjs.util.JsUtils;
 
 /**
- * JsStatements
+ * A semi-colon terminated list of statements that can be used where a IJsStatement is expected, but multiple statements
+ * should be executed.
+ * <p/>
+ * Use the varargs constructor to conveniently concatenate statements
+ * 
+ * <pre>
+ * new JsStatements(new JsCall(&quot;console.log&quot;, &quot;about to pop up an alert&quot;), new JsCall(&quot;alert&quot;, &quot;calling something&quot;));
+ * </pre>
+ * <p/>
+ * The same thing can be done via chaining
+ * 
+ * <pre>
+ * new JsStatements()._(new JsCall(&quot;console.log&quot;, &quot;about to pop up an alert&quot;))._(
+ *         new JsCall(&quot;alert&quot;, &quot;calling something&quot;));
+ * </pre>
  */
 public class JsStatements implements IJsStatement {
 
@@ -43,16 +57,32 @@ public class JsStatements implements IJsStatement {
         add(statement);
     }
 
+    /**
+     * Convenience constructor for chaining an IJavaScript from within a JsStatement.
+     * 
+     * @param statement the first statement to chain
+     * @param javaScript the IJavaScript to chain
+     */
     public JsStatements(IJsStatement statement, IJavaScript javaScript) {
         this();
         add(statement);
         add(JsStatement.of(javaScript));
     }
 
+    /**
+     * Creates a new concatenated statement of the given IJsStatement objects
+     * 
+     * @param statements the statements to add
+     */
     public JsStatements(IJsStatement... statements) {
         this(new ArrayList<>(Arrays.asList(statements)));
     }
 
+    /**
+     * Converts all given IJavaScript objects to JsStatement objects and adds them to the JsStatements list.
+     * 
+     * @param javaScript the IJavaScript instances to add
+     */
     public JsStatements(IJavaScript... javaScript) {
         this(JsUtils.asStatementList(javaScript));
     }
@@ -61,26 +91,59 @@ public class JsStatements implements IJsStatement {
         this.statements = statements;
     }
 
+    /**
+     * Shorthand for {@link #add(CharSequence)}
+     * 
+     * @see #add(CharSequence)
+     */
     public JsStatements _(CharSequence statement) {
         return add(statement);
     }
 
+    /**
+     * Shorthand for {@link #add(IJsExpression)}
+     * 
+     * @see #add(IJsExpression)
+     */
     public JsStatements _(IJsExpression expression) {
         return add(expression);
     }
 
+    /**
+     * Shorthand for {@link #add(IJsStatement)}
+     * 
+     * @see #add(IJsStatement)
+     */
     public JsStatements _(IJsStatement statement) {
         return add(statement);
     }
 
+    /**
+     * Interpret the given CharSequence as a raw JavaScript statement and chain it to the JsStatements list.
+     * 
+     * @param statement the JavaScript code to chain
+     * @return this for chaining
+     */
     public JsStatements add(CharSequence statement) {
         return add(new JsStatement(statement));
     }
 
+    /**
+     * Terminate the given IJsExpression as a statement and chain it to the JsStatements list.
+     * 
+     * @param expression the expression to chain
+     * @return this for chaining
+     */
     public JsStatements add(IJsExpression expression) {
         return add(expression.terminate());
     }
 
+    /**
+     * Chain the given IJsStatement to to the JsStatements list.
+     * 
+     * @param statement the statement to chain
+     * @return this for chaining
+     */
     public JsStatements add(IJsStatement statement) {
         statements.add(statement);
         return this;

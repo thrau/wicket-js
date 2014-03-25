@@ -22,6 +22,14 @@ import org.rauschig.wicketjs.util.JsUtils;
 
 /**
  * An anonymous function definition.
+ * <p/>
+ * The JavaScript of which would look like:
+ * 
+ * <pre>
+ *     function ([parameters]) {
+ *         &lt;body&gt;
+ *     }
+ * </pre>
  */
 public class JsFunction implements IJsExpression {
 
@@ -59,10 +67,20 @@ public class JsFunction implements IJsExpression {
         this.body = JsStatement.of(body);
     }
 
+    /**
+     * Alias for {@link #addParameter(String)}.
+     * 
+     * @see #addParameter(String)
+     */
     public JsFunction param(String parameter) {
         return addParameter(parameter);
     }
 
+    /**
+     * Alias for {@link #addParameter(JsIdentifier)}.
+     * 
+     * @see #addParameter(JsIdentifier)
+     */
     public JsFunction param(JsIdentifier parameter) {
         return addParameter(parameter);
     }

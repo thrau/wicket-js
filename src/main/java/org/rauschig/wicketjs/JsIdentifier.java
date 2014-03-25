@@ -26,6 +26,12 @@ public class JsIdentifier extends AbstractJsExpression {
 
     private final String identifier;
 
+    /**
+     * Creates a new identifier.
+     * 
+     * @param identifier the string representation of the identifer
+     * @throws IllegalArgumentException if the identifier is null or empty
+     */
     public JsIdentifier(String identifier) {
         this.identifier = Args.notEmpty(identifier, "identifier");
     }

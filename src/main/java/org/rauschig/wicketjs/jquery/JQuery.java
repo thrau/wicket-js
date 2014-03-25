@@ -141,7 +141,7 @@ public class JQuery extends JsCallChain {
      * <p/>
      * If you need a reference to {@code this}, then use {@link #JQuery(String, org.rauschig.wicketjs.IJsExpression)}
      * and {@link org.rauschig.wicketjs.JsExpression#THIS}.
-     * 
+     *
      * @param selector the JQuery selector
      * @param context the selector context
      */
@@ -309,11 +309,6 @@ public class JQuery extends JsCallChain {
         return (JQuery) super.chain(identifier);
     }
 
-    @Override
-    public JQuery chain(String functionName, Object... arguments) {
-        return (JQuery) super.chain(functionName, arguments);
-    }
-
     /* events */
 
     public JQuery on(String events, CharSequence callbackBody) {
@@ -357,7 +352,7 @@ public class JQuery extends JsCallChain {
     }
 
     public JQuery bind(String event, JsIdentifier callback) {
-        return chain("bind", event, callback);
+        return call("bind", event, callback);
     }
 
     public JQuery bind(String event, String callbackBody) {
@@ -373,7 +368,7 @@ public class JQuery extends JsCallChain {
             callback.addParameter(eventObject);
         }
 
-        return chain("bind", event, callback);
+        return call("bind", event, callback);
     }
 
     public JQuery click(String callbackBody) {

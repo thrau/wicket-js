@@ -38,9 +38,6 @@ import org.rauschig.wicketjs.JsStatement;
 import org.rauschig.wicketjs.JsStatements;
 import org.rauschig.wicketjs.JsTemplate;
 
-/**
- * JsCompilerTest
- */
 @SuppressWarnings("unchecked")
 public class JsCompilerTest {
     @Test
@@ -166,7 +163,7 @@ public class JsCompilerTest {
         JsCallChain call = new JsCallChain();
 
         call.chain(new JsCall("call0"));
-        call.chain("call1", "arg", 1, true);
+        call.call("call1", "arg", 1, true);
         call.call("call2");
         call.call("call3", new JsIdentifier("this"));
 
@@ -191,7 +188,7 @@ public class JsCompilerTest {
 
         call.chain("document");
         call.chain("window");
-        call.chain("onload", new JsFunction(new JsCallChain()._("console")._("log", new JsIdentifier("this"))));
+        call.call("onload", new JsFunction(new JsCallChain()._("console")._("log", new JsIdentifier("this"))));
 
         compileAndAssert("document.window.onload(function(){console.log(this);})", call);
     }

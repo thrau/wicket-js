@@ -25,6 +25,16 @@ import org.junit.Test;
  */
 public class JsIdentifierTest {
 
+    @Test(expected = IllegalArgumentException.class)
+    public void construct_withEmptyString_throwsException() throws Exception {
+        new JsIdentifier("");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void construct_withNullString_throwsException() throws Exception {
+        new JsIdentifier(null);
+    }
+
     @Test
     public void equals_sameObject_returnsTrue() throws Exception {
         JsIdentifier i = new JsIdentifier("this");

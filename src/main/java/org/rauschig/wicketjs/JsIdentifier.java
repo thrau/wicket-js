@@ -15,6 +15,8 @@
  */
 package org.rauschig.wicketjs;
 
+import org.apache.wicket.util.lang.Args;
+
 /**
  * Value object representing a lexical token that names an entity, e.g. a variable or a type.
  */
@@ -25,7 +27,7 @@ public class JsIdentifier extends AbstractJsExpression {
     private final String identifier;
 
     public JsIdentifier(String identifier) {
-        this.identifier = identifier;
+        this.identifier = Args.notEmpty(identifier, "identifier");
     }
 
     public String getIdentifier() {
@@ -50,5 +52,10 @@ public class JsIdentifier extends AbstractJsExpression {
         } else {
             return super.equals(obj);
         }
+    }
+
+    @Override
+    public int hashCode() {
+        return identifier.hashCode();
     }
 }

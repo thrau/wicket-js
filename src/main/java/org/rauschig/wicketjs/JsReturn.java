@@ -15,6 +15,8 @@
  */
 package org.rauschig.wicketjs;
 
+import org.rauschig.wicketjs.util.JsUtils;
+
 /**
  * A return statement with an optional expression.
  * 
@@ -34,10 +36,29 @@ public class JsReturn implements IJsStatement {
     public JsReturn() {
     }
 
+    /**
+     * Creates a return statement that returns the given value as a JsLiteral.
+     * 
+     * @param value the value to return
+     */
+    public JsReturn(Object value) {
+        this(JsUtils.asLiteral(value));
+    }
+
+    /**
+     * Creates a return statement with the given expression.
+     * 
+     * @param expression the expression
+     */
     public JsReturn(CharSequence expression) {
         this(new JsExpression(expression));
     }
 
+    /**
+     * Creates a return statement with the given expression.
+     * 
+     * @param expression the expression
+     */
     public JsReturn(IJsExpression expression) {
         this.expression = expression;
     }

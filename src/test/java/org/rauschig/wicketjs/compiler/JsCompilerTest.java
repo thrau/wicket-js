@@ -332,6 +332,12 @@ public class JsCompilerTest {
     }
 
     @Test
+    public void compileJsReturn_withValue_compilesCorrectly() throws Exception {
+        compileAndAssert("return true;", new JsReturn(true));
+        compileAndAssert("return 42;", new JsReturn(42));
+    }
+
+    @Test
     public void compileJsVariableDefinition_withLiteralAssignment_compilesCorrectly() throws Exception {
         compileAndAssert("var foo = 'bar';", new JsVariableDefinition("foo", "bar"));
         compileAndAssert("var foo = 'bar';", new JsVariableDefinition("foo", new JsLiteral.JsString("bar")));

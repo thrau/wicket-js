@@ -32,6 +32,7 @@ import org.rauschig.wicketjs.JsIdentifier;
 import org.rauschig.wicketjs.JsIf;
 import org.rauschig.wicketjs.JsLiteral;
 import org.rauschig.wicketjs.JsNamedFunction;
+import org.rauschig.wicketjs.JsReturn;
 import org.rauschig.wicketjs.JsStatement;
 import org.rauschig.wicketjs.JsStatements;
 import org.rauschig.wicketjs.JsVariableDefinition;
@@ -212,6 +213,18 @@ public abstract class AbstractJsCompiler implements IJsExpressionVisitor, IJsSta
     public void visit(JsVariableDefinition visitable) {
         js.append("var ");
         visitable.getAssignment().accept(this);
+        js.append(";");
+    }
+
+    @Override
+    public void visit(JsReturn visitable) {
+        js.append("return");
+
+        if (!visitable.isVoid()) {
+            js.append(" ");
+            visitable.getExpression().accept(this);
+        }
+
         js.append(";");
     }
 

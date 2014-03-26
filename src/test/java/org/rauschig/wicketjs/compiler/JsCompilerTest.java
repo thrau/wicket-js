@@ -35,6 +35,7 @@ import org.rauschig.wicketjs.JsIdentifier;
 import org.rauschig.wicketjs.JsIf;
 import org.rauschig.wicketjs.JsLiteral;
 import org.rauschig.wicketjs.JsNamedFunction;
+import org.rauschig.wicketjs.JsReturn;
 import org.rauschig.wicketjs.JsStatement;
 import org.rauschig.wicketjs.JsStatements;
 import org.rauschig.wicketjs.JsTemplate;
@@ -318,6 +319,16 @@ public class JsCompilerTest {
         JsVariableDefinition statement = new JsVariableDefinition("foo");
 
         compileAndAssert("var foo;", statement);
+    }
+
+    @Test
+    public void compileJsReturn_withoutExpression_compilesCorrectly() throws Exception {
+        compileAndAssert("return;", new JsReturn());
+    }
+
+    @Test
+    public void compileJsReturn_withExpression_compilesCorrectly() throws Exception {
+        compileAndAssert("return foo.bar();", new JsReturn("foo.bar()"));
     }
 
     @Test

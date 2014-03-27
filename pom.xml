@@ -21,6 +21,10 @@
     Wicket JS is a library that helps you to write and handle JavaScript and jQuery within Wicket
   </description>
 
+  <inceptionYear>2014</inceptionYear>
+
+  <url>http://rauschig.org/wicket-js</url>
+
   <licenses>
     <license>
       <name>Apache 2</name>

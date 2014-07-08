@@ -15,18 +15,24 @@
  */
 package org.rauschig.wicketjs.util;
 
-import com.fasterxml.jackson.databind.JsonNode;
+import org.rauschig.wicketjs.util.json.JavaScriptModule;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
- * Serializes objects into JSON Strings.
+ * Serializes objects into JSON Strings and treats IJavaScript tokens as raw (unquoted) values.
  */
 public class JsonSerializer {
+
+    private static final Logger LOG = LoggerFactory.getLogger(JsonSerializer.class);
 
     private ObjectMapper mapper;
 
     public JsonSerializer() {
-        this(new ObjectMapper());
+        this(new ObjectMapper().registerModule(new JavaScriptModule()));
     }
 
     protected JsonSerializer(ObjectMapper mapper) {
@@ -42,13 +48,16 @@ public class JsonSerializer {
     }
 
     public String serialize(Object value, String nullPlaceholder) {
-        JsonNode node = valueToTree(value);
+        if (value == null) {
+            return nullPlaceholder;
+        }
 
-        return (node == null) ? nullPlaceholder : node.toString();
-    }
-
-    protected JsonNode valueToTree(Object value) {
-        return getMapper().valueToTree(value);
+        try {
+            return getMapper().writeValueAsString(value);
+        } catch (JsonProcessingException e) {
+            LOG.error("Could not serialize {}. Returning empty String.", value, e);
+            return "";
+        }
     }
 
 }

@@ -22,9 +22,12 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 import org.mockito.Mockito;
+import org.rauschig.wicketjs.JsCall;
+import org.rauschig.wicketjs.JsLiteral;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * JsonSerializerTest.
@@ -79,6 +82,30 @@ public class JsonSerializerTest {
 
         JsonSerializer serializer = new JsonSerializer();
         assertEquals("[\"answer\",42,null]", serializer.serialize(value));
+    }
+
+    @Test
+    public void serializeIntegration_serializeJsTokenCorrectly() throws Exception {
+        JsCall call = new JsCall("getAnswer", "to life the universe and everything");
+        assertEquals("getAnswer('to life the universe and everything')", new JsonSerializer().serialize(call));
+    }
+
+    @Test
+    public void serializeIntegration_serializeNestedMapsWithJsTokenCorrectly() throws Exception {
+        Map<String, Object> map = new LinkedHashMap<>();
+        Map<String, Object> nestedMap = new LinkedHashMap<>();
+
+        map.put("answer", 42);
+        map.put("fun", new JsCall("getAnswer", "to life the universe and everything"));
+        map.put("nested", nestedMap);
+
+        nestedMap.put("literal", new JsLiteral.JsString("foo"));
+
+        JsonSerializer serializer = new JsonSerializer();
+
+        assertEquals(
+                "{\"answer\":42,\"fun\":getAnswer('to life the universe and everything'),\"nested\":{\"literal\":\"foo\"}}",
+                serializer.serialize(new JsLiteral.JsObject(map)));
     }
 
     public static class Value {

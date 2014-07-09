@@ -15,7 +15,7 @@
  */
 package org.rauschig.wicketjs;
 
-import org.rauschig.wicketjs.compiler.JsCompiler;
+import org.rauschig.wicketjs.generator.JsGenerator;
 
 /**
  * AbstractJsExpression
@@ -35,7 +35,7 @@ public abstract class AbstractJsExpression implements IJsExpression {
      * @return the JQuery expression as plain java script
      */
     public String js() {
-        return new JsCompiler(this).compile();
+        return new JsGenerator(this).generate();
     }
 
 }

@@ -13,25 +13,25 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package org.rauschig.wicketjs.compiler;
+package org.rauschig.wicketjs.generator;
 
 import org.rauschig.wicketjs.IJavaScript;
 import org.rauschig.wicketjs.IJsExpression;
 import org.rauschig.wicketjs.IJsStatement;
 
 /**
- * An AbstractJsCompiler implementation that compiles a IJsStatement or IJsExpression.
+ * An AbstractJsGenerator implementation that compiles a IJsStatement or IJsExpression.
  */
-public class JsCompiler extends AbstractJsCompiler {
+public class JsGenerator extends AbstractJsGenerator {
 
     protected IJavaScript visitable;
 
     /**
-     * Creates a new JsCompiler that compiles the given IJavaScript.
+     * Creates a new JsGenerator that generates JavaScript for the given IJavaScript syntax treeq.
      * 
-     * @param visitable the Statement or Expression to compile
+     * @param visitable the Statement or Expression to generate
      */
-    public JsCompiler(IJavaScript visitable) {
+    public JsGenerator(IJavaScript visitable) {
         if (visitable == null) {
             throw new IllegalArgumentException("No Expression or Statement given");
         }
@@ -40,7 +40,7 @@ public class JsCompiler extends AbstractJsCompiler {
     }
 
     @Override
-    protected void compileInto(StringBuilder builder) {
+    protected void generateInto(StringBuilder builder) {
         if (visitable instanceof IJsExpression) {
             ((IJsExpression) visitable).accept(this);
         } else if (visitable instanceof IJsStatement) {

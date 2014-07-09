@@ -21,7 +21,7 @@ import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.html.IComponentAwareHeaderContributor;
 import org.apache.wicket.util.lang.Args;
 import org.rauschig.wicketjs.IJavaScript;
-import org.rauschig.wicketjs.compiler.JsCompiler;
+import org.rauschig.wicketjs.generator.JsGenerator;
 
 /**
  * Wrapper for an IJsAjaxCallListener that compiles returned IJavaScript objects to CharSequence to make it usable as
@@ -39,37 +39,37 @@ public class AjaxCallListener implements IAjaxCallListener, IComponentAwareHeade
 
     @Override
     public CharSequence getBeforeHandler(Component component) {
-        return compile(wrapped.getBeforeHandler(component));
+        return generate(wrapped.getBeforeHandler(component));
     }
 
     @Override
     public CharSequence getPrecondition(Component component) {
-        return compile(wrapped.getPrecondition(component));
+        return generate(wrapped.getPrecondition(component));
     }
 
     @Override
     public CharSequence getBeforeSendHandler(Component component) {
-        return compile(wrapped.getBeforeSendHandler(component));
+        return generate(wrapped.getBeforeSendHandler(component));
     }
 
     @Override
     public CharSequence getAfterHandler(Component component) {
-        return compile(wrapped.getAfterHandler(component));
+        return generate(wrapped.getAfterHandler(component));
     }
 
     @Override
     public CharSequence getSuccessHandler(Component component) {
-        return compile(wrapped.getSuccessHandler(component));
+        return generate(wrapped.getSuccessHandler(component));
     }
 
     @Override
     public CharSequence getFailureHandler(Component component) {
-        return compile(wrapped.getFailureHandler(component));
+        return generate(wrapped.getFailureHandler(component));
     }
 
     @Override
     public CharSequence getCompleteHandler(Component component) {
-        return compile(wrapped.getCompleteHandler(component));
+        return generate(wrapped.getCompleteHandler(component));
     }
 
     @Override
@@ -77,7 +77,7 @@ public class AjaxCallListener implements IAjaxCallListener, IComponentAwareHeade
 
     }
 
-    protected CharSequence compile(IJavaScript script) {
-        return (script == null) ? null : new JsCompiler(script).compile();
+    protected CharSequence generate(IJavaScript script) {
+        return (script == null) ? null : new JsGenerator(script).generate();
     }
 }

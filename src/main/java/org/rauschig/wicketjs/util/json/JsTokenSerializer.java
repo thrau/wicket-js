@@ -18,7 +18,7 @@ package org.rauschig.wicketjs.util.json;
 import java.io.IOException;
 
 import org.rauschig.wicketjs.IJavaScript;
-import org.rauschig.wicketjs.compiler.JsCompiler;
+import org.rauschig.wicketjs.generator.JsGenerator;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
@@ -26,7 +26,7 @@ import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 
 /**
  * Delegates the value serialization of an {@link org.rauschig.wicketjs.IJavaScript} token to
- * {@link org.rauschig.wicketjs.compiler.JsCompiler}.
+ * {@link org.rauschig.wicketjs.generator.JsGenerator}.
  */
 public class JsTokenSerializer extends StdSerializer<IJavaScript> {
     public JsTokenSerializer() {
@@ -35,6 +35,6 @@ public class JsTokenSerializer extends StdSerializer<IJavaScript> {
 
     @Override
     public void serialize(IJavaScript value, JsonGenerator jgen, SerializerProvider provider) throws IOException {
-        jgen.writeRawValue(new JsCompiler(value).compile());
+        jgen.writeRawValue(new JsGenerator(value).generate());
     }
 }

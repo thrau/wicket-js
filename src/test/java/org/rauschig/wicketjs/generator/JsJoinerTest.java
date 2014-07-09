@@ -13,7 +13,7 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package org.rauschig.wicketjs.compiler;
+package org.rauschig.wicketjs.generator;
 
 import static org.junit.Assert.assertEquals;
 
@@ -39,7 +39,7 @@ public class JsJoinerTest {
         expressions.add(new JsCall("find", "#id"));
         expressions.add(new JsCall("toggleClass", "foo", "bar"));
 
-        String result = new JsJoiner<>(expressions, ".").compile();
+        String result = new JsJoiner<>(expressions, ".").generate();
 
         assertEquals("$(this).parent().find('#id').toggleClass('foo','bar')", result);
     }
@@ -50,7 +50,7 @@ public class JsJoinerTest {
 
         expressions.add(new JsCall("foo"));
 
-        String result = new JsJoiner<>(expressions, ".").compile();
+        String result = new JsJoiner<>(expressions, ".").generate();
 
         assertEquals("foo()", result);
     }
@@ -59,14 +59,14 @@ public class JsJoinerTest {
     public void emptyList_compilesToEmptyString() throws Exception {
         List<IJsExpression> expressions = new ArrayList<>();
 
-        String result = new JsJoiner<>(expressions, ".").compile();
+        String result = new JsJoiner<>(expressions, ".").generate();
 
         assertEquals("", result);
     }
 
     @Test
     public void nullList_compilesToEmptyString() throws Exception {
-        String result = new JsJoiner<>(null, ".").compile();
+        String result = new JsJoiner<>(null, ".").generate();
 
         assertEquals("", result);
     }

@@ -13,7 +13,7 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package org.rauschig.wicketjs.compiler;
+package org.rauschig.wicketjs.generator;
 
 import java.util.Iterator;
 
@@ -40,12 +40,12 @@ import org.rauschig.wicketjs.JsVariableDefinition;
 import org.rauschig.wicketjs.util.JsonSerializer;
 
 /**
- * Abstract implementation of the {@link org.rauschig.wicketjs.IJavaScript} syntax tree visitors used to build a
+ * Abstract implementation of the {@link org.rauschig.wicketjs.IJavaScript} syntax tree visitors used to generate a
  * JavaScript string from a given syntax tree.
  * <p/>
  * The implementation is stateful as it uses a {@code StringBuilder} internally and <em>not</em> thread safe.
  */
-public abstract class AbstractJsCompiler implements IJsExpressionVisitor, IJsStatementVisitor {
+public abstract class AbstractJsGenerator implements IJsExpressionVisitor, IJsStatementVisitor {
 
     /**
      * The default size to initialize the StringBuilder with
@@ -53,7 +53,7 @@ public abstract class AbstractJsCompiler implements IJsExpressionVisitor, IJsSta
     protected static final int DEFAULT_BUFFER_SIZE = 256;
 
     /**
-     * The StringBuilder that holds the visited and compiled syntax tokens.
+     * The StringBuilder that holds the generated source code string.
      */
     protected StringBuilder js;
 
@@ -82,29 +82,29 @@ public abstract class AbstractJsCompiler implements IJsExpressionVisitor, IJsSta
     }
 
     /**
-     * Executes the visitor and returns the compiled JavaScript as a string.
+     * Executes the visitor and returns the generated JavaScript as a string.
      * <p/>
-     * The method returns the cached compilation result on multiple calls, rather than re-compiling the script.
+     * The method returns the cached result on multiple calls, rather than re-generating the script code.
      * 
      * @return JavaScript code as a String
      */
-    public String compile() {
+    public String generate() {
         if (js != null) {
             return js.toString();
         }
 
         js = new StringBuilder(DEFAULT_BUFFER_SIZE);
-        compileInto(js);
+        generateInto(js);
         return js.toString();
     }
 
     /**
-     * Called in {@link #compile()} with the initialized StringBuilder. Subclasses override this method to initialize
-     * the compilation.
+     * Called in {@link #generate()} with the initialized StringBuilder. Subclasses override this method to initiate the
+     * generation process.
      * 
      * @param builder the StringBuilder containing the java script
      */
-    protected abstract void compileInto(StringBuilder builder);
+    protected abstract void generateInto(StringBuilder builder);
 
     @Override
     public void visit(JsLiteral.JsNumber visitable) {

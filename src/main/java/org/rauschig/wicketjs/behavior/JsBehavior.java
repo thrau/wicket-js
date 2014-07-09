@@ -16,7 +16,7 @@
 package org.rauschig.wicketjs.behavior;
 
 import org.rauschig.wicketjs.IJavaScript;
-import org.rauschig.wicketjs.compiler.JsCompiler;
+import org.rauschig.wicketjs.generator.JsGenerator;
 
 /**
  * Abstract class that adds custom JavaScript as Behavior to Components.
@@ -27,7 +27,7 @@ public abstract class JsBehavior extends AbstractJsBehavior {
 
     @Override
     protected CharSequence domReadyScript() {
-        return new JsCompiler(domReadyJs()).compile();
+        return new JsGenerator(domReadyJs()).generate();
     }
 
     /**

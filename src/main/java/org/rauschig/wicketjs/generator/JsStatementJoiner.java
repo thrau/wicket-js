@@ -13,27 +13,24 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-package org.rauschig.wicketjs.compiler;
+package org.rauschig.wicketjs.generator;
 
 import java.util.List;
 
-import org.rauschig.wicketjs.IJavaScript;
+import org.rauschig.wicketjs.IJsStatement;
 
 /**
- * An AbstractJsCompiler implementation that compiles a list of IJsStatement or IJsExpression using a delimiter.
+ * An AbstractJsGenerator implementation that compiles a IJsStatement or IJsExpression.
  */
-public class JsJoiner<T extends IJavaScript> extends AbstractJsCompiler {
+public class JsStatementJoiner extends JsJoiner<IJsStatement> {
 
-    private List<T> visitables;
-    private String delimiter;
+    public static final String DEFAULT_DELIMITER = ";";
 
-    public JsJoiner(List<T> visitables, String delimiter) {
-        this.visitables = visitables;
-        this.delimiter = delimiter;
+    public JsStatementJoiner(List<IJsStatement> visitables) {
+        super(visitables, DEFAULT_DELIMITER);
     }
 
-    @Override
-    protected void compileInto(StringBuilder builder) {
-        visitAndJoin(delimiter, visitables);
+    public JsStatementJoiner(List<IJsStatement> visitables, String delimiter) {
+        super(visitables, delimiter);
     }
 }

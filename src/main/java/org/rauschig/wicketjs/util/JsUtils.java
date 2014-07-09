@@ -26,6 +26,7 @@ import org.rauschig.wicketjs.IJsStatement;
 import org.rauschig.wicketjs.JsIdentifier;
 import org.rauschig.wicketjs.JsLiteral;
 import org.rauschig.wicketjs.JsStatement;
+import org.rauschig.wicketjs.generator.JsGenerator;
 
 /**
  * Utility class.
@@ -123,6 +124,31 @@ public final class JsUtils {
         } else {
             return JsLiteral.of(value);
         }
+    }
+
+    /**
+     * Generates a JavaScript source code string from the given IJavaScript tree.
+     * 
+     * Shorthand for
+     * 
+     * <pre>
+     * new JsGenerator(tree).generate();
+     * </pre>
+     * 
+     * @param tree the JavaScript tree
+     * @return the generated JavaScript source
+     */
+    public static String toString(IJavaScript tree) {
+        return new JsGenerator(tree).generate();
+    }
+
+    /**
+     * Alias for {@code toString(IJavaScript)}.
+     * 
+     * @see #toString(org.rauschig.wicketjs.IJavaScript)
+     */
+    public static String js(IJavaScript tree) {
+        return toString(tree);
     }
 
 }

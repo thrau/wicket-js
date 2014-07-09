@@ -105,7 +105,7 @@ public final class JsUtils {
      */
     public static JsLiteral<?> asLiteral(Object value) {
         if (value == null) {
-            return JsLiteral.JsObject.NULL;
+            return JsLiteral.NULL;
         } else if (value instanceof JsLiteral) {
             return (JsLiteral<?>) value;
         } else if (value instanceof Number) {

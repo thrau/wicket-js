@@ -15,14 +15,16 @@
  */
 package org.rauschig.wicketjs.compiler;
 
-import static org.junit.Assert.assertEquals;
+import static org.hamcrest.core.Is.is;
 
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.apache.wicket.util.template.TextTemplate;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ErrorCollector;
 import org.mockito.Mockito;
 import org.rauschig.wicketjs.IJavaScript;
 import org.rauschig.wicketjs.JsAssignment;
@@ -43,6 +45,10 @@ import org.rauschig.wicketjs.JsVariableDefinition;
 
 @SuppressWarnings("unchecked")
 public class JsCompilerTest {
+
+    @Rule
+    public ErrorCollector errors = new ErrorCollector();
+
     @Test
     public void compileJsIdentifier_compilesCorrectly() throws Exception {
         compileAndAssert("this", new JsIdentifier("this"));
@@ -369,7 +375,7 @@ public class JsCompilerTest {
         compileAndAssert("var foo = this;", new JsVariableDefinition("foo", JsExpression.THIS));
     }
 
-    protected static void compileAndAssert(String expected, IJavaScript expression) {
-        assertEquals(expected, new JsCompiler(expression).compile());
+    protected void compileAndAssert(String expected, IJavaScript expression) {
+        errors.checkThat(new JsCompiler(expression).compile(), is(expected));
     }
 }

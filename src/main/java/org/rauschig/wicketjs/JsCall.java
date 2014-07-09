@@ -50,15 +50,15 @@ public class JsCall extends AbstractJsExpression {
      * @param arguments the arguments of the call
      * @see org.rauschig.wicketjs.util.JsUtils#asArgumentList(Object...)
      */
-    public JsCall(String functionName, Object... arguments) {
+    public JsCall(CharSequence functionName, Object... arguments) {
         this(functionName, JsUtils.asArgumentList(arguments));
     }
 
-    public JsCall(String function) {
+    public JsCall(CharSequence function) {
         this(new JsIdentifier(function));
     }
 
-    public JsCall(String function, List<IJsExpression> arguments) {
+    public JsCall(CharSequence function, List<IJsExpression> arguments) {
         this(new JsIdentifier(function), arguments);
     }
 

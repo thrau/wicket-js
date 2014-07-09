@@ -36,7 +36,7 @@ public class JsIf extends AbstractJsStatement {
     private IJsStatement thenBlock;
     private IJsStatement elseBlock;
 
-    public JsIf(String expression, IJsStatement thenBlock) {
+    public JsIf(CharSequence expression, IJsStatement thenBlock) {
         this(new JsExpression(expression), thenBlock);
     }
 

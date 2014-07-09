@@ -35,7 +35,7 @@ public final class Strings {
      * @param delimiter the glue
      * @return a string
      */
-    public static String join(Object[] array, String delimiter) {
+    public static String join(Object[] array, CharSequence delimiter) {
         if (isEmpty(array)) {
             return EMPTY_STRING;
         }

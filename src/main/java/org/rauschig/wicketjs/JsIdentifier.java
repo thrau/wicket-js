@@ -24,7 +24,7 @@ public class JsIdentifier extends AbstractJsExpression {
 
     private static final long serialVersionUID = 1191736085584765342L;
 
-    private final String identifier;
+    private final CharSequence identifier;
 
     /**
      * Creates a new identifier.
@@ -32,11 +32,11 @@ public class JsIdentifier extends AbstractJsExpression {
      * @param identifier the string representation of the identifer
      * @throws IllegalArgumentException if the identifier is null or empty
      */
-    public JsIdentifier(String identifier) {
+    public JsIdentifier(CharSequence identifier) {
         this.identifier = Args.notEmpty(identifier, "identifier");
     }
 
-    public String getIdentifier() {
+    public CharSequence getIdentifier() {
         return identifier;
     }
 

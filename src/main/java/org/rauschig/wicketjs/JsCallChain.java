@@ -76,20 +76,20 @@ public class JsCallChain extends AbstractJsExpression {
     }
 
     /**
-     * Alias of {@link #chain(String)}.
+     * Alias of {@link #chain(CharSequence)}.
      * 
-     * @see #chain(String)
+     * @see #chain(CharSequence)
      */
-    public JsCallChain _(String identifier) {
+    public JsCallChain _(CharSequence identifier) {
         return chain(identifier);
     }
 
     /**
-     * Alias of {@link #call(String, Object...)}.
+     * Alias of {@link #call(CharSequence, Object...)}.
      * 
-     * @see #call(String, Object...)
+     * @see #call(CharSequence, Object...)
      */
-    public JsCallChain _(String functionName, Object... arguments) {
+    public JsCallChain _(CharSequence functionName, Object... arguments) {
         return call(functionName, arguments);
     }
 
@@ -121,7 +121,7 @@ public class JsCallChain extends AbstractJsExpression {
      * @param identifier the string representation of the identifier
      * @return this for chaining
      */
-    public JsCallChain chain(String identifier) {
+    public JsCallChain chain(CharSequence identifier) {
         return chain(new JsIdentifier(identifier));
     }
 
@@ -132,9 +132,9 @@ public class JsCallChain extends AbstractJsExpression {
      * @param functionName the function to call
      * @return this for chaining
      * 
-     * @see JsCall#JsCall(String)
+     * @see JsCall#JsCall(CharSequence)
      */
-    public JsCallChain call(String functionName) {
+    public JsCallChain call(CharSequence functionName) {
         return chain(new JsCall(functionName));
     }
 
@@ -145,9 +145,9 @@ public class JsCallChain extends AbstractJsExpression {
      * @param arguments the function arguments
      * @return this for chaining
      * 
-     * @see JsCall#JsCall(String, Object...)
+     * @see JsCall#JsCall(CharSequence, Object...)
      */
-    public JsCallChain call(String functionName, Object... arguments) {
+    public JsCallChain call(CharSequence functionName, Object... arguments) {
         return chain(new JsCall(functionName, arguments));
     }
 

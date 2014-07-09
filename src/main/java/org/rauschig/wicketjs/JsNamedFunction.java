@@ -35,32 +35,32 @@ public class JsNamedFunction extends JsFunction {
 
     private JsIdentifier identifier;
 
-    public JsNamedFunction(String identifier, String[] parameters, CharSequence body) {
+    public JsNamedFunction(CharSequence identifier, String[] parameters, CharSequence body) {
         this(identifier, body, parameters);
     }
 
-    public JsNamedFunction(String identifier, String[] parameters, IJsExpression body) {
+    public JsNamedFunction(CharSequence identifier, String[] parameters, IJsExpression body) {
         super(parameters, body);
     }
 
-    public JsNamedFunction(String identifier, String[] parameters, IJsStatement body) {
+    public JsNamedFunction(CharSequence identifier, String[] parameters, IJsStatement body) {
         super(parameters, body);
     }
 
-    public JsNamedFunction(String identifier, CharSequence body, String... parameters) {
+    public JsNamedFunction(CharSequence identifier, CharSequence body, String... parameters) {
         super(body, parameters);
         this.identifier = new JsIdentifier(identifier);
     }
 
-    public JsNamedFunction(String identifier, CharSequence body) {
+    public JsNamedFunction(CharSequence identifier, CharSequence body) {
         this(identifier, new JsExpression(body));
     }
 
-    public JsNamedFunction(String identifier, IJsExpression body) {
+    public JsNamedFunction(CharSequence identifier, IJsExpression body) {
         this(new JsIdentifier(identifier), body);
     }
 
-    public JsNamedFunction(String identifier, IJsStatement body) {
+    public JsNamedFunction(CharSequence identifier, IJsStatement body) {
         this(new JsIdentifier(identifier), body);
     }
 

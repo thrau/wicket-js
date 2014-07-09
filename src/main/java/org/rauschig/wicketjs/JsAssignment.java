@@ -32,7 +32,7 @@ public class JsAssignment extends AbstractJsExpression {
     private IJsExpression left;
     private IJsExpression right;
 
-    public JsAssignment(String identifier, Object value) {
+    public JsAssignment(CharSequence identifier, Object value) {
         this(new JsIdentifier(identifier), JsUtils.asArgument(value));
     }
 

@@ -68,11 +68,11 @@ public class JsFunction implements IJsExpression {
     }
 
     /**
-     * Alias for {@link #addParameter(String)}.
+     * Alias for {@link #addParameter(CharSequence)}.
      * 
-     * @see #addParameter(String)
+     * @see #addParameter(CharSequence)
      */
-    public JsFunction param(String parameter) {
+    public JsFunction param(CharSequence parameter) {
         return addParameter(parameter);
     }
 
@@ -85,7 +85,7 @@ public class JsFunction implements IJsExpression {
         return addParameter(parameter);
     }
 
-    public JsFunction addParameter(String parameter) {
+    public JsFunction addParameter(CharSequence parameter) {
         return addParameter(new JsIdentifier(parameter));
     }
 

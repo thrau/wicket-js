@@ -275,22 +275,22 @@ public class JQuery extends JsCallChain {
     }
 
     @Override
-    public JQuery _(String identifier) {
+    public JQuery _(CharSequence identifier) {
         return (JQuery) super._(identifier);
     }
 
     @Override
-    public JQuery _(String functionName, Object... arguments) {
+    public JQuery _(CharSequence functionName, Object... arguments) {
         return (JQuery) super._(functionName, arguments);
     }
 
     @Override
-    public JQuery call(String functionName) {
+    public JQuery call(CharSequence functionName) {
         return (JQuery) super.call(functionName);
     }
 
     @Override
-    public JQuery call(String functionName, Object... arguments) {
+    public JQuery call(CharSequence functionName, Object... arguments) {
         return (JQuery) super.call(functionName, arguments);
     }
 
@@ -305,7 +305,7 @@ public class JQuery extends JsCallChain {
     }
 
     @Override
-    public JQuery chain(String identifier) {
+    public JQuery chain(CharSequence identifier) {
         return (JQuery) super.chain(identifier);
     }
 

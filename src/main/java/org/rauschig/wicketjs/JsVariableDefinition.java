@@ -38,7 +38,7 @@ public class JsVariableDefinition extends AbstractJsStatement {
         this(identifier, (IJsExpression) null);
     }
 
-    public JsVariableDefinition(String identifier, Object value) {
+    public JsVariableDefinition(CharSequence identifier, Object value) {
         this(new JsIdentifier(identifier), value);
     }
 

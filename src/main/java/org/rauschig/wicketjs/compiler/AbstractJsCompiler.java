@@ -17,6 +17,7 @@ package org.rauschig.wicketjs.compiler;
 
 import java.util.Iterator;
 
+import org.apache.wicket.util.string.Strings;
 import org.rauschig.wicketjs.IJavaScript;
 import org.rauschig.wicketjs.IJsExpression;
 import org.rauschig.wicketjs.IJsExpressionVisitor;
@@ -118,7 +119,7 @@ public abstract class AbstractJsCompiler implements IJsExpressionVisitor, IJsSta
     @Override
     public void visit(JsLiteral.JsString visitable) {
         js.append("'");
-        js.append(visitable.getValue());
+        js.append(Strings.replaceAll(visitable.getValue(), "'", "\\'"));
         js.append("'");
     }
 

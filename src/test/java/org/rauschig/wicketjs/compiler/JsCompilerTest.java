@@ -60,6 +60,31 @@ public class JsCompilerTest {
     }
 
     @Test
+    public void compileJsString_withSingleQuotes_compilesCorrectly() throws Exception {
+        compileAndAssert("'string\\'s'", new JsLiteral.JsString("string's"));
+    }
+
+    @Test
+    public void compileJsString_withSingleEscapedQuotes_compilesCorrectly() throws Exception {
+        compileAndAssert("'string\\\\'s'", new JsLiteral.JsString("string\\'s"));
+    }
+
+    @Test
+    public void compileJsString_withSingleQuotesEscapedSlash_compilesCorrectly() throws Exception {
+        compileAndAssert("'string\\\\\\'s'", new JsLiteral.JsString("string\\\\'s"));
+    }
+
+    @Test
+    public void compileJsString_withDoubleQuotes_compilesCorrectly() throws Exception {
+        compileAndAssert("'string\"s'", new JsLiteral.JsString("string\"s"));
+    }
+
+    @Test
+    public void compileJsString_withDoubleEscapedQuotes_compilesCorrectly() throws Exception {
+        compileAndAssert("'string\\\"s'", new JsLiteral.JsString("string\\\"s"));
+    }
+
+    @Test
     public void compileJsBoolean_compilesCorrectly() throws Exception {
         compileAndAssert("true", new JsLiteral.JsBoolean(true));
         compileAndAssert("false", new JsLiteral.JsBoolean(false));

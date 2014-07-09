@@ -104,7 +104,9 @@ public final class JsUtils {
      * @return a JsLiteral representing the given value object
      */
     public static JsLiteral<?> asLiteral(Object value) {
-        if (value instanceof JsLiteral) {
+        if (value == null) {
+            return JsLiteral.JsObject.NULL;
+        } else if (value instanceof JsLiteral) {
             return (JsLiteral<?>) value;
         } else if (value instanceof Number) {
             return JsLiteral.of((Number) value);

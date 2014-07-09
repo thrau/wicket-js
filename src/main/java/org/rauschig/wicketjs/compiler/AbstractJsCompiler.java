@@ -133,6 +133,11 @@ public abstract class AbstractJsCompiler implements IJsExpressionVisitor, IJsSta
     }
 
     @Override
+    public void visit(JsLiteral.JsNull visitable) {
+        js.append("null");
+    }
+
+    @Override
     public void visit(JsIdentifier visitable) {
         js.append(visitable.getIdentifier());
     }
@@ -222,7 +227,9 @@ public abstract class AbstractJsCompiler implements IJsExpressionVisitor, IJsSta
 
         if (!visitable.isVoid()) {
             js.append(" ");
-            visitable.getExpression().accept(this);
+            if (visitable.getExpression() != null) {
+                visitable.getExpression().accept(this);
+            }
         }
 
         js.append(";");

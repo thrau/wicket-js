@@ -16,6 +16,7 @@
 package org.rauschig.wicketjs.util;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -145,6 +146,13 @@ public class JsUtilsTest {
         JsLiteral<?> literal = JsUtils.asLiteral(map);
 
         assertEquals(JsLiteral.JsObject.class, literal.getClass());
+    }
+
+    @Test
+    public void asLiteral_null_returnsJsNullInstance() throws Exception {
+        JsLiteral<?> literal = JsUtils.asLiteral(null);
+
+        assertSame(JsLiteral.JsNull.INSTANCE, literal);
     }
 
 }

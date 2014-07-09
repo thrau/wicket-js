@@ -27,6 +27,8 @@ public abstract class JsLiteral<T> extends AbstractJsExpression {
 
     private static final long serialVersionUID = -8362618585257944508L;
 
+    public static final JsNull NULL = JsNull.INSTANCE;
+
     private T value;
 
     /**
@@ -164,6 +166,25 @@ public abstract class JsLiteral<T> extends AbstractJsExpression {
         @Override
         public void accept(IJsExpressionVisitor visitor) {
             visitor.visit(this);
+        }
+    }
+
+    /**
+     * The null literal.
+     */
+    public static class JsNull extends JsObject {
+
+        private static final long serialVersionUID = 383649185321212948L;
+
+        public static final JsNull INSTANCE = new JsNull();
+
+        public JsNull() {
+            super(null);
+        }
+
+        @Override
+        public void accept(IJsExpressionVisitor visitor) {
+            super.accept(visitor);
         }
     }
 

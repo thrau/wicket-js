@@ -122,6 +122,11 @@ public class JsCompilerTest {
     }
 
     @Test
+    public void compileJsNull_compilesCorrectly() throws Exception {
+        compileAndAssert("null", JsLiteral.NULL);
+    }
+
+    @Test
     public void compileJsAssignment_expressionAssignment_compilesCorrectly() throws Exception {
         compileAndAssert("foo = bar()", new JsAssignment(new JsIdentifier("foo"), new JsCall("bar")));
     }
@@ -145,6 +150,12 @@ public class JsCompilerTest {
     public void compileJsCall_withMultipleArguments_compilesCorrectly() throws Exception {
         JsCall call = new JsCall("call", "arg", 1, true, new JsIdentifier("this"));
         compileAndAssert("call('arg',1,true,this)", call);
+    }
+
+    @Test
+    public void compileJsCall_withNullArgument_compilesCorrectly() throws Exception {
+        compileAndAssert("call(null)", new JsCall("call", (Object) null));
+        compileAndAssert("call('foo',null,'bar')", new JsCall("call", "foo", null, "bar"));
     }
 
     @Test
@@ -315,13 +326,6 @@ public class JsCompilerTest {
     }
 
     @Test
-    public void compileJsVariableDefinition_simpleDefinition_compilesCorrectly() throws Exception {
-        JsVariableDefinition statement = new JsVariableDefinition("foo");
-
-        compileAndAssert("var foo;", statement);
-    }
-
-    @Test
     public void compileJsReturn_withoutExpression_compilesCorrectly() throws Exception {
         compileAndAssert("return;", new JsReturn());
     }
@@ -338,9 +342,26 @@ public class JsCompilerTest {
     }
 
     @Test
+    public void compileJsReturn_withNullValue_compilesCorrectly() throws Exception {
+        compileAndAssert("return null;", new JsReturn((Object) null));
+    }
+
+    @Test
+    public void compileJsVariableDefinition_simpleDefinition_compilesCorrectly() throws Exception {
+        JsVariableDefinition statement = new JsVariableDefinition("foo");
+
+        compileAndAssert("var foo;", statement);
+    }
+
+    @Test
     public void compileJsVariableDefinition_withLiteralAssignment_compilesCorrectly() throws Exception {
         compileAndAssert("var foo = 'bar';", new JsVariableDefinition("foo", "bar"));
         compileAndAssert("var foo = 'bar';", new JsVariableDefinition("foo", new JsLiteral.JsString("bar")));
+    }
+
+    @Test
+    public void compileJsVariableDefinition_withNullAssignment_compilesCorrectly() throws Exception {
+        compileAndAssert("var foo = null;", new JsVariableDefinition("foo", null));
     }
 
     @Test

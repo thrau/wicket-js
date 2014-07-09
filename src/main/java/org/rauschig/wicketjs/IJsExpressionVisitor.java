@@ -56,6 +56,13 @@ public interface IJsExpressionVisitor {
 
     /**
      * Visit the given Expression.
+     *
+     * @param visitable the Expression to visit.
+     */
+    void visit(JsLiteral.JsNull visitable);
+
+    /**
+     * Visit the given Expression.
      * 
      * @param visitable the Expression to visit.
      */

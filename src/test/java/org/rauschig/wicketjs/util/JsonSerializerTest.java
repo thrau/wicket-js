@@ -22,6 +22,9 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.Model;
+import org.apache.wicket.model.PropertyModel;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.rauschig.wicketjs.JsCall;
@@ -106,6 +109,37 @@ public class JsonSerializerTest {
         assertEquals(
                 "{\"answer\":42,\"fun\":getAnswer('to life the universe and everything'),\"nested\":{\"literal\":\"foo\"}}",
                 serializer.serialize(new JsLiteral.JsObject(map)));
+    }
+
+    @Test
+    public void serializeIntegration_serializeIModelsCorrectly() throws Exception {
+        LinkedHashMap<String, Object> map = new LinkedHashMap<>();
+        map.put("question", "life the universe and everything");
+        map.put("answer", 42);
+
+        IModel<LinkedHashMap<String, Object>> model = Model.of(map);
+
+        JsonSerializer serializer = new JsonSerializer();
+
+        assertEquals("{\"question\":\"life the universe and everything\",\"answer\":42}", serializer.serialize(model));
+    }
+
+    @Test
+    public void serializeIntegration_serializeNestedPropertyModelsCorrectly() throws Exception {
+        Value v = new Value();
+
+        v.setAttr1("life the universe and everything");
+        v.setAttr2(42);
+
+        LinkedHashMap<String, Object> map = new LinkedHashMap<>();
+        map.put("question", new PropertyModel<>(v, "attr1"));
+        map.put("answer", new PropertyModel<>(v, "attr2"));
+
+        IModel<LinkedHashMap<String, Object>> model = Model.of(map);
+
+        JsonSerializer serializer = new JsonSerializer();
+
+        assertEquals("{\"question\":\"life the universe and everything\",\"answer\":42}", serializer.serialize(model));
     }
 
     public static class Value {

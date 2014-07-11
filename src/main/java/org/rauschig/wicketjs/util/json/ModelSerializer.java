@@ -15,21 +15,24 @@
  */
 package org.rauschig.wicketjs.util.json;
 
-import com.fasterxml.jackson.databind.module.SimpleModule;
+import java.io.IOException;
+
+import org.apache.wicket.model.IModel;
+
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 
 /**
- * A jackson {@code SimpleModule} that registers serializers required for properly serializing objects that contain
- * {@link org.rauschig.wicketjs.IJavaScript} tokens.
+ * Serializer for models.
  */
-public class JavaScriptModule extends SimpleModule {
+public class ModelSerializer extends StdSerializer<IModel> {
+    public ModelSerializer() {
+        super(IModel.class);
+    }
 
-    private static final long serialVersionUID = -4190316093268734772L;
-
-    public JavaScriptModule() {
-        super("JavaScriptModule");
-
-        addSerializer(new JsLiteralSerializer());
-        addSerializer(new JsTokenSerializer());
-        addSerializer(new ModelSerializer());
+    @Override
+    public void serialize(IModel value, JsonGenerator jgen, SerializerProvider provider) throws IOException {
+        jgen.writeObject(value.getObject());
     }
 }

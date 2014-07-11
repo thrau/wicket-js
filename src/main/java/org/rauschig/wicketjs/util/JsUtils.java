@@ -17,6 +17,7 @@ package org.rauschig.wicketjs.util;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -38,6 +39,10 @@ public final class JsUtils {
     }
 
     public static List<IJsStatement> asStatementList(IJavaScript... javaScript) {
+        if (javaScript == null) {
+            return Collections.emptyList();
+        }
+
         ArrayList<IJsStatement> list = new ArrayList<>(javaScript.length);
 
         for (IJavaScript script : javaScript) {
@@ -54,6 +59,10 @@ public final class JsUtils {
      * @return a list of JsIdentifiers
      */
     public static List<JsIdentifier> asIdentifierList(String... identifiers) {
+        if (identifiers == null) {
+            return Collections.emptyList();
+        }
+
         ArrayList<JsIdentifier> list = new ArrayList<>(identifiers.length);
 
         for (String identifier : identifiers) {
@@ -71,6 +80,10 @@ public final class JsUtils {
      * @return a list of IJsExpression usable as function argument list
      */
     public static List<IJsExpression> asArgumentList(Object... arguments) {
+        if (arguments == null) {
+            return Collections.emptyList();
+        }
+
         ArrayList<IJsExpression> list = new ArrayList<>(arguments.length);
 
         for (Object argument : arguments) {

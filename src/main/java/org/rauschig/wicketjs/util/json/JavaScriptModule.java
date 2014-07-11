@@ -22,6 +22,9 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
  * {@link org.rauschig.wicketjs.IJavaScript} tokens.
  */
 public class JavaScriptModule extends SimpleModule {
+
+    private static final long serialVersionUID = -4190316093268734772L;
+
     public JavaScriptModule() {
         super("JavaScriptModule");
 

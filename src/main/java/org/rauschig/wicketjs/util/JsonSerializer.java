@@ -15,6 +15,8 @@
  */
 package org.rauschig.wicketjs.util;
 
+import java.io.Serializable;
+
 import org.rauschig.wicketjs.util.json.JavaScriptModule;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +27,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 /**
  * Serializes objects into JSON Strings and treats IJavaScript tokens as raw (unquoted) values.
  */
-public class JsonSerializer {
+public class JsonSerializer implements Serializable {
+
+    private static final long serialVersionUID = 2489213263771537078L;
 
     private static final Logger LOG = LoggerFactory.getLogger(JsonSerializer.class);
 

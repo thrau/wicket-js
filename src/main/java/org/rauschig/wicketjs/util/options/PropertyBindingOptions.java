@@ -15,12 +15,8 @@
  */
 package org.rauschig.wicketjs.util.options;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-
+import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.PropertyModel;
-import org.rauschig.wicketjs.JsLiteral.JsObject;
 
 /**
  * Makes properties of another object accessible as IOptions using PropertyModel instances.
@@ -33,11 +29,16 @@ import org.rauschig.wicketjs.JsLiteral.JsObject;
  * option.get(&quot;someProperty&quot;); // equal to obj.getSomeProperty();
  * </pre>
  */
-public class PropertyBindingOptions implements IOptions {
+public class PropertyBindingOptions extends Options {
 
     private static final long serialVersionUID = -6699404934910922516L;
 
-    private Map<String, PropertyModel<Object>> propertyMap = new HashMap<>();
+    private Object modelObject;
+
+    public PropertyBindingOptions(Object object) {
+        super();
+        this.modelObject = object;
+    }
 
     /**
      * Creates a new IOptions instance that uses the given properties from the given object.
@@ -46,9 +47,47 @@ public class PropertyBindingOptions implements IOptions {
      * @param properties the property expressions to read
      */
     public PropertyBindingOptions(Object object, String... properties) {
+        this(object);
+
         for (String property : properties) {
-            propertyMap.put(property, new PropertyModel<>(object, property));
+            add(property);
         }
+    }
+
+    /**
+     * Adds a new PropertyModel binding to these options using the key as both options key and property expression (on
+     * the object the Options were created with).
+     * 
+     * @param key the key of the option, used also as property expression
+     * @return this for chaining
+     */
+    public PropertyBindingOptions add(String key) {
+        return add(key, new PropertyModel<>(modelObject, key));
+    }
+
+    /**
+     * * Adds a new PropertyModel binding to these options from the key to the property with the given property
+     * expression (on the object the Options were created with).
+     * 
+     * @param key the key of the option
+     * @param propertyExpression the property expression that is used to resolve the value of the property
+     * @return this for chaining
+     */
+    public PropertyBindingOptions add(String key, String propertyExpression) {
+        return add(key, new PropertyModel<>(modelObject, propertyExpression));
+    }
+
+    /**
+     * Adds a new mapping to these options from the key to the given model.
+     * 
+     * @param key the key of the option
+     * @param model the model holding the option value
+     * @param <T> generic model type
+     * @return this for chaining
+     */
+    public <T> PropertyBindingOptions add(String key, IModel<T> model) {
+        getMap().put(key, model);
+        return this;
     }
 
     @Override
@@ -58,35 +97,16 @@ public class PropertyBindingOptions implements IOptions {
 
     @Override
     public Object get(String key) {
-        PropertyModel<Object> property = propertyMap.get(key);
+        Object o = getMap().get(key);
 
-        return (property != null) ? property.getObject() : null;
-    }
+        if (o == null) {
+            return null;
+        } else if (o instanceof IModel) {
+            return ((IModel) o).getObject();
+        } else {
+            throw new IllegalStateException("Content of options map is not an IModel");
+        }
 
-    @Override
-    public PropertyBindingOptions unset(String key) {
-        propertyMap.remove(key);
-        return this;
-    }
-
-    @Override
-    public int size() {
-        return propertyMap.size();
-    }
-
-    @Override
-    public boolean isEmpty() {
-        return propertyMap.isEmpty();
-    }
-
-    @Override
-    public Collection<String> getKeys() {
-        return propertyMap.keySet();
-    }
-
-    @Override
-    public JsObject asObject() {
-        return new JsObject(propertyMap);
     }
 
 }

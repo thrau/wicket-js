@@ -115,6 +115,17 @@ public class WidgetBehavior extends JsBehavior {
         return options;
     }
 
+    /**
+     * Sets the Options for this widget.
+     * 
+     * @param options an Options instance
+     * @return this for chaining
+     */
+    public WidgetBehavior setOptions(IOptions options) {
+        this.options = options;
+        return this;
+    }
+
     @Override
     protected IJavaScript domReadyJs() {
         Object[] params = getCallArguments();

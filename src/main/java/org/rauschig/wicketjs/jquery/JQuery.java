@@ -437,6 +437,10 @@ public class JQuery extends JsCallChain {
         return call("parent", selector);
     }
 
+    public IJsExpression size() {
+        return call("size");
+    }
+
     /* attributes */
 
     public JQuery addClass(String cssClass) {

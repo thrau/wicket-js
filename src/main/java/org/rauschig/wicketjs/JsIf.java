@@ -40,8 +40,12 @@ public class JsIf extends AbstractJsStatement {
         this(new JsExpression(expression), thenBlock);
     }
 
-    public JsIf(IJsExpression expression, IJsStatement thenBlock) {
+    public JsIf(IJsExpression expression, IJavaScript thenBlock) {
         this(expression, thenBlock, null);
+    }
+
+    public JsIf(IJsExpression expression, IJavaScript thenBlock, IJavaScript elseBlock) {
+        this(expression, JsStatement.of(thenBlock), JsStatement.of(elseBlock));
     }
 
     public JsIf(IJsExpression expression, IJsStatement thenBlock, IJsStatement elseBlock) {

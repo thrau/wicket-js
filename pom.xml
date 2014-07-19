@@ -15,7 +15,7 @@
 
   <packaging>bundle</packaging>
 
-  <name>Wicket JavaScript</name>
+  <name>Wicket JavaScript and jQuery</name>
 
   <description>
     Wicket JS is a library that helps you to write and handle JavaScript and jQuery within Wicket
@@ -54,7 +54,7 @@
     <license.year>2014</license.year>
     <license.name>Thomas Rausch</license.name>
 
-    <bundle.name>${project.groupId} :: ${project.artifactId}</bundle.name>
+    <bundle.name>${project.groupId} :: ${project.artifactId} :: ${project.name}</bundle.name>
     <bundle.symbolicName>${project.groupId}.${project.artifactId}</bundle.symbolicName>
     <bundle.namespace>${project.groupId}.wicketjs</bundle.namespace>
 

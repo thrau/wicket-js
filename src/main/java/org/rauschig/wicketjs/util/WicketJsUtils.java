@@ -15,7 +15,6 @@
  */
 package org.rauschig.wicketjs.util;
 
-import org.apache.wicket.ajax.AbstractAjaxResponse;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
@@ -42,20 +41,6 @@ public final class WicketJsUtils {
      * @see AjaxRequestTarget#prependJavaScript(CharSequence)
      */
     public static void prepend(AjaxRequestTarget target, IJavaScript js) {
-        target.appendJavaScript(toString(js));
-    }
-
-    /**
-     * @see AbstractAjaxResponse#appendJavaScript(CharSequence)
-     */
-    public static void append(AbstractAjaxResponse target, IJavaScript js) {
-        target.appendJavaScript(toString(js));
-    }
-
-    /**
-     * @see AbstractAjaxResponse#appendJavaScript(CharSequence)
-     */
-    public static void prepend(AbstractAjaxResponse target, IJavaScript js) {
         target.appendJavaScript(toString(js));
     }
 

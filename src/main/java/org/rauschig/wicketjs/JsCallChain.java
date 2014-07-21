@@ -19,6 +19,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.rauschig.wicketjs.util.JsUtils;
+
 /**
  * A call chain that concatenates multiple expressions with the member operator '<code>.</code>'. It provides several
  * different methods for chaining calls.
@@ -51,6 +53,14 @@ public class JsCallChain extends AbstractJsExpression {
 
     public JsCallChain() {
         this(new ArrayList<IJsExpression>());
+    }
+
+    public JsCallChain(CharSequence identifier) {
+        this(new JsIdentifier(identifier));
+    }
+
+    public JsCallChain(CharSequence... identifiers) {
+        this((List) JsUtils.asIdentifierList(identifiers));
     }
 
     public JsCallChain(IJsExpression expression) {

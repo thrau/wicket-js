@@ -58,14 +58,14 @@ public final class JsUtils {
      * @param identifiers the identifiers
      * @return a list of JsIdentifiers
      */
-    public static List<JsIdentifier> asIdentifierList(String... identifiers) {
+    public static List<JsIdentifier> asIdentifierList(CharSequence... identifiers) {
         if (identifiers == null) {
             return Collections.emptyList();
         }
 
         ArrayList<JsIdentifier> list = new ArrayList<>(identifiers.length);
 
-        for (String identifier : identifiers) {
+        for (CharSequence identifier : identifiers) {
             list.add(new JsIdentifier(identifier));
         }
 

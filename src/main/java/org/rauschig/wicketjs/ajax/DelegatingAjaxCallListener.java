@@ -19,45 +19,51 @@ import org.apache.wicket.Component;
 import org.rauschig.wicketjs.IJavaScript;
 
 /**
- * Stub implementation for IJsAjaxCallListener.
+ * An IJsAjaxCallListener that delegates method calls to an IAjaxCallAware.
  */
-public class JsAjaxCallListener implements IJsAjaxCallListener {
+public class DelegatingAjaxCallListener implements IJsAjaxCallListener {
 
     private static final long serialVersionUID = 1L;
 
+    private IAjaxCallAware delegate;
+
+    public DelegatingAjaxCallListener(IAjaxCallAware delegate) {
+        this.delegate = delegate;
+    }
+
     @Override
     public IJavaScript getBeforeHandler(Component component) {
-        return null;
+        return delegate.onTrigger();
     }
 
     @Override
     public IJavaScript getPrecondition(Component component) {
-        return null;
+        return delegate.precondition();
     }
 
     @Override
     public IJavaScript getBeforeSendHandler(Component component) {
-        return null;
+        return delegate.onBefore();
     }
 
     @Override
     public IJavaScript getAfterHandler(Component component) {
-        return null;
+        return delegate.onAfter();
     }
 
     @Override
     public IJavaScript getSuccessHandler(Component component) {
-        return null;
+        return delegate.onSuccess();
     }
 
     @Override
     public IJavaScript getFailureHandler(Component component) {
-        return null;
+        return delegate.onFail();
     }
 
     @Override
     public IJavaScript getCompleteHandler(Component component) {
-        return null;
+        return delegate.onComplete();
     }
 
 }

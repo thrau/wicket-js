@@ -204,7 +204,15 @@ public abstract class AbstractJsGenerator implements IJsExpressionVisitor, IJsSt
     @Override
     public void visit(JsIf visitable) {
         js.append("if(");
+
+        if(visitable.isNegated()) {
+            js.append("!(");
+        }
         visitable.getExpression().accept(this);
+        if(visitable.isNegated()) {
+            js.append(")");
+        }
+
         js.append(")");
 
         visitBlock(visitable.getThenBlock());

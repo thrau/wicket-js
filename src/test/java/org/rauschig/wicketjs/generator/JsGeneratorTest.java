@@ -35,6 +35,7 @@ import org.rauschig.wicketjs.JsExpressionStatement;
 import org.rauschig.wicketjs.JsFunction;
 import org.rauschig.wicketjs.JsIdentifier;
 import org.rauschig.wicketjs.JsIf;
+import org.rauschig.wicketjs.JsIfNot;
 import org.rauschig.wicketjs.JsLiteral;
 import org.rauschig.wicketjs.JsNamedFunction;
 import org.rauschig.wicketjs.JsReturn;
@@ -348,12 +349,28 @@ public class JsGeneratorTest {
     }
 
     @Test
+    public void generateJsIf_negated_withoutElseBlock_compilesCorrectly() throws Exception {
+        JsIf statement = new JsIf("someCondition()", new JsCall("someAction").terminate()).not();
+
+        generateAndAssert("if(!(someCondition())){someAction();}", statement);
+    }
+
+    @Test
     public void generateJsIf_withElseBlock_compilesCorrectly() throws Exception {
         JsIf statement =
             new JsIf(new JsCall("someCondition"), new JsCall("someAction").terminate(), new JsStatements(new JsCall(
                     "someAlternative"), new JsStatement("return")));
 
         generateAndAssert("if(someCondition()){someAction();}else{someAlternative();return;}", statement);
+    }
+
+    @Test
+    public void generateJsIfNot_withElseBlock_compilesCorrectly() throws Exception {
+        JsIf statement =
+            new JsIfNot(new JsCall("someCondition"), new JsCall("someAction").terminate(), new JsStatements(new JsCall(
+                    "someAlternative"), new JsStatement("return")));
+
+        generateAndAssert("if(!(someCondition())){someAction();}else{someAlternative();return;}", statement);
     }
 
     @Test

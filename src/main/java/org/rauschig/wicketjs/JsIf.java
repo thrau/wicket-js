@@ -36,6 +36,8 @@ public class JsIf extends AbstractJsStatement {
     private IJsStatement thenBlock;
     private IJsStatement elseBlock;
 
+    private boolean negated;
+
     public JsIf(CharSequence expression, IJsStatement thenBlock) {
         this(new JsExpression(expression), thenBlock);
     }
@@ -64,6 +66,20 @@ public class JsIf extends AbstractJsStatement {
 
     public IJsStatement getElseBlock() {
         return elseBlock;
+    }
+
+    public boolean isNegated() {
+        return negated;
+    }
+
+    /**
+     * Negates the if statement by placing a negation around the expression.
+     *
+     * @return this for chaining
+     */
+    public JsIf not() {
+        negated = !negated;
+        return this;
     }
 
     @Override

@@ -59,6 +59,7 @@ public class JsCallChain extends AbstractJsExpression {
         this(new JsIdentifier(identifier));
     }
 
+    @SuppressWarnings("unchecked")
     public JsCallChain(CharSequence... identifiers) {
         this((List) JsUtils.asIdentifierList(identifiers));
     }

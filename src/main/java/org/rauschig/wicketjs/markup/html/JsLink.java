@@ -15,18 +15,15 @@
  */
 package org.rauschig.wicketjs.markup.html;
 
-import org.apache.wicket.markup.ComponentTag;
-import org.apache.wicket.markup.html.link.AbstractLink;
 import org.apache.wicket.model.IModel;
 import org.rauschig.wicketjs.IJavaScript;
 import org.rauschig.wicketjs.behavior.JQueryEventBehavior;
 import org.rauschig.wicketjs.behavior.JsBehavior;
-import org.rauschig.wicketjs.util.MarkupUtils;
 
 /**
  * A component that allows to execute a custom defined JavaScript callback via html anchor tag.
  */
-public abstract class JsLink extends AbstractLink {
+public abstract class JsLink extends AbstractJsLink {
 
     private static final long serialVersionUID = 1L;
 
@@ -67,20 +64,6 @@ public abstract class JsLink extends AbstractLink {
             }
 
         };
-    }
-
-    @Override
-    protected void onComponentTag(ComponentTag tag) {
-        super.onComponentTag(tag);
-
-        if (isLinkEnabled()) {
-            // disable any href attr in markup
-            if (MarkupUtils.tagEquals(tag, "a", "link", "area")) {
-                tag.put("href", "javascript:;");
-            }
-        } else {
-            disableLink(tag);
-        }
     }
 
 }

@@ -20,17 +20,14 @@ import java.util.List;
 import org.rauschig.wicketjs.IJsStatement;
 
 /**
- * An AbstractJsGenerator implementation that compiles a IJsStatement or IJsExpression.
+ * A JsJoiner implementation that takes a list of IJsStatements and joins them.
  */
 public class JsStatementJoiner extends JsJoiner<IJsStatement> {
 
-    public static final String DEFAULT_DELIMITER = ";";
+    public static final String DEFAULT_DELIMITER = ""; // Statements are terminated by the AbstractJsGenerator
 
     public JsStatementJoiner(List<IJsStatement> visitables) {
         super(visitables, DEFAULT_DELIMITER);
     }
 
-    public JsStatementJoiner(List<IJsStatement> visitables, String delimiter) {
-        super(visitables, delimiter);
-    }
 }

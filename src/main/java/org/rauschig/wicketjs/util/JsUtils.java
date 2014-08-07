@@ -28,6 +28,7 @@ import org.rauschig.wicketjs.JsIdentifier;
 import org.rauschig.wicketjs.JsLiteral;
 import org.rauschig.wicketjs.JsStatement;
 import org.rauschig.wicketjs.generator.JsGenerator;
+import org.rauschig.wicketjs.generator.JsStatementJoiner;
 
 /**
  * Utility class.
@@ -38,6 +39,13 @@ public final class JsUtils {
         // static utility class
     }
 
+    /**
+     * Creates a list of IJsStatement from the given JavaScript trees. All IJsExpression are terminated, IJsStatements
+     * are just casted (uses {@link org.rauschig.wicketjs.JsStatement#of(org.rauschig.wicketjs.IJavaScript)});
+     * 
+     * @param javaScript the trees
+     * @return a list of IJsStatement instances
+     */
     public static List<IJsStatement> asStatementList(IJavaScript... javaScript) {
         if (javaScript == null) {
             return Collections.emptyList();
@@ -156,12 +164,32 @@ public final class JsUtils {
     }
 
     /**
-     * Alias for {@code toString(IJavaScript)}.
+     * Generates a concatenated JavaScript source code string from the given IJavaScript trees. Terminates any
+     * IJsExpressions into statements.
+     * 
+     * @param trees the JavaScript trees
+     * @return the generated JavaScript source
+     */
+    public static String toString(IJavaScript... trees) {
+        return new JsStatementJoiner(asStatementList(trees)).generate();
+    }
+
+    /**
+     * Alias for {@link #toString(IJavaScript)}.
      * 
      * @see #toString(org.rauschig.wicketjs.IJavaScript)
      */
     public static String js(IJavaScript tree) {
         return toString(tree);
+    }
+
+    /**
+     * Alias for {@link #toString(IJavaScript...)}.
+     * 
+     * @see #toString(org.rauschig.wicketjs.IJavaScript...)
+     */
+    public static String js(IJavaScript... trees) {
+        return toString(trees);
     }
 
 }

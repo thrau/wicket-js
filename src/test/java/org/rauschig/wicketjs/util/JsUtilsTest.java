@@ -25,8 +25,12 @@ import java.util.Map;
 
 import org.junit.Test;
 import org.rauschig.wicketjs.IJsExpression;
+import org.rauschig.wicketjs.IJsStatement;
+import org.rauschig.wicketjs.JsExpression;
+import org.rauschig.wicketjs.JsExpressionStatement;
 import org.rauschig.wicketjs.JsIdentifier;
 import org.rauschig.wicketjs.JsLiteral;
+import org.rauschig.wicketjs.JsStatement;
 
 /**
  * JsUtilsTest
@@ -153,6 +157,15 @@ public class JsUtilsTest {
         JsLiteral<?> literal = JsUtils.asLiteral(null);
 
         assertSame(JsLiteral.JsNull.INSTANCE, literal);
+    }
+
+    @Test
+    public void toString_multipleTrees_compilesCorrectly() throws Exception {
+        IJsStatement stmt1 = new JsStatement("var foo");
+        IJsStatement stmt2 = new JsStatement("var bar");
+        IJsExpression expr = new JsExpression("foo = bar");
+
+        assertEquals("var foo;var bar;foo = bar;", JsUtils.js(stmt1, stmt2, expr));
     }
 
 }

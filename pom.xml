@@ -11,7 +11,7 @@
 
   <groupId>org.rauschig</groupId>
   <artifactId>wicket-js</artifactId>
-  <version>0.4.0</version>
+  <version>0.5.0-SNAPSHOT</version>
 
   <packaging>bundle</packaging>
 
@@ -29,7 +29,7 @@
     <url>https://github.com/thrau/wicket-js</url>
     <connection>scm:git:git://git@github.com:thrau/wicket-js.git</connection>
     <developerConnection>scm:git:git@github.com:thrau/wicket-js.git</developerConnection>
-    <tag>v0.4.0</tag>
+    <tag>HEAD</tag>
   </scm>
 
   <developers>

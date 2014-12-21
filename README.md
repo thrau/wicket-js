@@ -1,7 +1,7 @@
 Wicket JavaScript and jQuery
 ============================
 
-[![Build Status](https://travis-ci.org/thrau/wicket-js.png?branch=master)](https://travis-ci.org/thrau/wicket-js)
+[![Build Status](https://travis-ci.org/thrau/wicket-js.png?branch=master)](https://travis-ci.org/thrau/wicket-js) &nbsp; [![Coverage Status](https://coveralls.io/repos/thrau/wicket-js/badge.png?branch=master)](https://coveralls.io/r/thrau/wicket-js?branch=master)
 
 wicket-js makes it easy to write and handle custom JavaScript and [jQuery](http://jquery.com/) from within
 [Wicket](http://wicket.apache.org/) Components and Behaviors. It helps to separate Wicket Ajax Behavior listeners from

@@ -50,7 +50,7 @@ public final class WicketJsUtils {
      * @see AjaxRequestTarget#prependJavaScript(CharSequence)
      */
     public static void prepend(AjaxRequestTarget target, IJavaScript js) {
-        target.appendJavaScript(toString(js));
+        target.prependJavaScript(toString(js));
     }
 
     /**

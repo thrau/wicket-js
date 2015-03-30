@@ -22,7 +22,7 @@ import org.rauschig.wicketjs.util.JsUtils;
 
 /**
  * An anonymous function definition.
- * <p/>
+ *
  * The JavaScript of which would look like:
  * 
  * <pre>
@@ -70,6 +70,8 @@ public class JsFunction implements IJsExpression {
     /**
      * Alias for {@link #addParameter(CharSequence)}.
      * 
+     * @param parameter the parameter to add
+     * @return this for chaining
      * @see #addParameter(CharSequence)
      */
     public JsFunction param(CharSequence parameter) {
@@ -79,16 +81,30 @@ public class JsFunction implements IJsExpression {
     /**
      * Alias for {@link #addParameter(JsIdentifier)}.
      * 
+     * @param parameter the parameter to add
+     * @return this for chaining
      * @see #addParameter(JsIdentifier)
      */
     public JsFunction param(JsIdentifier parameter) {
         return addParameter(parameter);
     }
 
+    /**
+     * Interprets the given CharSequence as a JavaScript identifier and adds it as argument to the function call.
+     *
+     * @param parameter the parameter to add
+     * @return this for chaining
+     */
     public JsFunction addParameter(CharSequence parameter) {
         return addParameter(new JsIdentifier(parameter));
     }
 
+    /**
+     * Adds the given identifier as argument to the function call.
+     * 
+     * @param parameter the parameter to add
+     * @return this for chaining
+     */
     public JsFunction addParameter(JsIdentifier parameter) {
         getParameters().add(parameter);
         return this;

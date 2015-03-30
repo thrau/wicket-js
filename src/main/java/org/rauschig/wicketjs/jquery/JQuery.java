@@ -29,11 +29,12 @@ import org.rauschig.wicketjs.util.Strings;
 /**
  * A (not complete) JQuery object. Allows you to conveniently build chained JQuery expressions in a JavaScript type
  * syntax.
- * <p/>
- * 
+ *
+ * <p>
  * Example usage: (Import the {@link #$(String)} function using
  * {@code import static org.rauschig.wicketjs.jquery.JQuery.$})
- * 
+ * </p>
+ *
  * <pre>
  * $(&quot;table&quot;).find(&quot;tr&quot;).click(&quot;console.log(this)&quot;);
  * </pre>
@@ -45,6 +46,7 @@ import org.rauschig.wicketjs.util.Strings;
  *         console.log(this)
  *     });
  * </pre>
+ *
  * 
  * @see <a href="http://api.jquery.com/">http://api.jquery.com/</a>
  */
@@ -60,8 +62,9 @@ public class JQuery extends JsCallChain {
 
     /**
      * Create a new JQuery expression using the given Component's markup id as selector.
-     * <p/>
-     * E.g. if the Component returns the markup id "table0" the initial JQuery selector will be $('#table0').
+     *
+     * E.g. if the Component returns the markup id "table0" the initial JQuery selector will be
+     * <code>$('#table0').</code>
      * 
      * @param component the component to use in the selector
      */
@@ -71,8 +74,10 @@ public class JQuery extends JsCallChain {
 
     /**
      * Create a new JQuery expression using the markup id provided by the given MarkupIdProvider.
-     * <p/>
+     *
+     * <p>
      * This allows convenient calls within anonymous {@code JsBehavior} definitions. E.g.
+     * </p>
      * 
      * <pre>
      * Component c;
@@ -87,7 +92,7 @@ public class JQuery extends JsCallChain {
      * 
      * In this case, the markup id of component {@code c} will be used.
      * 
-     * @param markupIdProvider
+     * @param markupIdProvider something that provides a markup id
      */
     public JQuery(IComponentMarkupIdProvider markupIdProvider) {
         this(getSelector(markupIdProvider));
@@ -95,12 +100,14 @@ public class JQuery extends JsCallChain {
 
     /**
      * Create a new JQuery expression using the given selector.
-     * <p/>
+     *
+     * <p>
      * Note that the selector will be treated as a JavaScript string literal when compiled, s.t. <code>$("this")</code>
      * will compile to <code>$('this')</code>.
-     * <p/>
+     *
      * If you need a reference to {@code this}, then use {@link #JQuery(org.rauschig.wicketjs.IJsExpression)} and
      * {@link org.rauschig.wicketjs.JsExpression#THIS}.
+     * </p>
      * 
      * @param selector the JQuery selector
      */
@@ -119,12 +126,13 @@ public class JQuery extends JsCallChain {
 
     /**
      * Create a new JQuery expression using the given expression as selector and context.
-     * <p/>
+     * <p>
      * Note that the selector will be treated as a JavaScript string literal when compiled, s.t. <code>$("this")</code>
      * will compile to <code>$('this')</code>.
-     * <p/>
+     * 
      * If you need a reference to {@code this}, then use {@link #JQuery(String, org.rauschig.wicketjs.IJsExpression)}
      * and {@link org.rauschig.wicketjs.JsExpression#THIS}.
+     * </p>
      * 
      * @param selector the JQuery selector
      * @param context the selector context
@@ -135,12 +143,14 @@ public class JQuery extends JsCallChain {
 
     /**
      * Create a new JQuery expression using the given expression as selector and context.
-     * <p/>
+     *
+     * <p>
      * Note that the selector will be treated as a JavaScript string literal when compiled, s.t. <code>$("this")</code>
      * will compile to <code>$('this')</code>.
-     * <p/>
+     *
      * If you need a reference to {@code this}, then use {@link #JQuery(String, org.rauschig.wicketjs.IJsExpression)}
      * and {@link org.rauschig.wicketjs.JsExpression#THIS}.
+     * </p>
      * 
      * @param selector the JQuery selector
      * @param context the selector context
@@ -151,13 +161,15 @@ public class JQuery extends JsCallChain {
 
     /**
      * Create a new JQuery expression using the given selector.
-     * <p/>
+     *
+     * <p>
      * Note that both the selector and the context will be treated as a JavaScript string literal when compiled, s.t.
      * <code>$("tr", "this")</code> will compile to <code>$('tr','this')</code>.
-     * <p/>
+     *
      * If you need a reference to {@code this}, then use {@link #JQuery(String, org.rauschig.wicketjs.IJsExpression)}
      * and {@link org.rauschig.wicketjs.JsExpression#THIS}.
-     * 
+     * </p>
+     *
      * @param selector the JQuery selector
      * @param context the selector context
      */

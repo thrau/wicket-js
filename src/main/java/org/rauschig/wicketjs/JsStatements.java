@@ -24,19 +24,24 @@ import org.rauschig.wicketjs.util.JsUtils;
 /**
  * A semi-colon terminated list of statements that can be used where a IJsStatement is expected, but multiple statements
  * should be executed.
- * <p/>
+ * <p>
  * Use the varargs constructor to conveniently concatenate statements
+ * </p>
  * 
  * <pre>
  * new JsStatements(new JsCall(&quot;console.log&quot;, &quot;about to pop up an alert&quot;), new JsCall(&quot;alert&quot;, &quot;calling something&quot;));
  * </pre>
- * <p/>
+ * 
+ * 
+ * <p>
  * The same thing can be done via chaining
+ * </p>
  * 
  * <pre>
  * new JsStatements()._(new JsCall(&quot;console.log&quot;, &quot;about to pop up an alert&quot;))._(
  *         new JsCall(&quot;alert&quot;, &quot;calling something&quot;));
  * </pre>
+ * 
  */
 public class JsStatements implements IJsStatement {
 
@@ -94,6 +99,8 @@ public class JsStatements implements IJsStatement {
     /**
      * Shorthand for {@link #add(CharSequence)}
      * 
+     * @param statement the JavaScript code to chain
+     * @return this for chaining
      * @see #add(CharSequence)
      */
     public JsStatements _(CharSequence statement) {
@@ -103,6 +110,8 @@ public class JsStatements implements IJsStatement {
     /**
      * Shorthand for {@link #add(IJsExpression)}
      * 
+     * @param expression the expression to chain
+     * @return this for chaining
      * @see #add(IJsExpression)
      */
     public JsStatements _(IJsExpression expression) {
@@ -112,6 +121,8 @@ public class JsStatements implements IJsStatement {
     /**
      * Shorthand for {@link #add(IJsStatement)}
      * 
+     * @param statement the JavaScript code to chain
+     * @return this for chaining
      * @see #add(IJsStatement)
      */
     public JsStatements _(IJsStatement statement) {

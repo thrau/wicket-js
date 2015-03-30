@@ -77,7 +77,7 @@ public abstract class AbstractJsBehavior extends AbstractAjaxBehavior implements
 
     /**
      * Executed on events that have an AjaxRequestHandler as payload.
-     * <p/>
+     *
      * This method is also called if other components issue Ajax events that do not directly concern the component this
      * behavior instance is bound to!
      * 

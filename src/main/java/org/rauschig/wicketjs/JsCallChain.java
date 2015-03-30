@@ -24,8 +24,8 @@ import org.rauschig.wicketjs.util.JsUtils;
 /**
  * A call chain that concatenates multiple expressions with the member operator '<code>.</code>'. It provides several
  * different methods for chaining calls.
- * <p>
- * <table>
+ *
+ * <table summary="This table shows various code examples">
  * <tr>
  * <th><strong>Java</strong></th>
  * <th><strong>Compiled JS</strong></th>
@@ -43,7 +43,6 @@ import org.rauschig.wicketjs.util.JsUtils;
  * <td><code>console.log('logging', this)</code></td>
  * </tr>
  * </table>
- * </p>
  */
 public class JsCallChain extends AbstractJsExpression {
 
@@ -79,7 +78,9 @@ public class JsCallChain extends AbstractJsExpression {
 
     /**
      * Alias of {@link #chain(IJsExpression)}.
-     * 
+     *
+     * @param expression the expression to chain
+     * @return this for chaining
      * @see #chain(IJsExpression)
      */
     public JsCallChain _(IJsExpression expression) {
@@ -89,6 +90,8 @@ public class JsCallChain extends AbstractJsExpression {
     /**
      * Alias of {@link #chain(CharSequence)}.
      * 
+     * @param identifier the identifier to chain
+     * @return this for chaining
      * @see #chain(CharSequence)
      */
     public JsCallChain _(CharSequence identifier) {
@@ -97,7 +100,10 @@ public class JsCallChain extends AbstractJsExpression {
 
     /**
      * Alias of {@link #call(CharSequence, Object...)}.
-     * 
+     *
+     * @param functionName the function to call
+     * @param arguments the function arguments
+     * @return this for chaining
      * @see #call(CharSequence, Object...)
      */
     public JsCallChain _(CharSequence functionName, Object... arguments) {

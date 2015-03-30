@@ -20,7 +20,7 @@ import java.util.List;
 
 /**
  * A named function definition.
- * <p/>
+ * 
  * The JavaScript of which would look like:
  * 
  * <pre>

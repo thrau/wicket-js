@@ -19,8 +19,7 @@ import org.rauschig.wicketjs.util.JsUtils;
 
 /**
  * An assignment expression.
- * <p/>
- * 
+ *
  * <pre>
  *     &lt;left&gt; = &lt;right&gt;
  * </pre>

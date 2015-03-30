@@ -20,7 +20,7 @@ import java.util.Map;
 
 /**
  * A value wrapper to map literal semantics of Java to JavaScript.
- * <p/>
+ *
  * TODO: RegularExpression
  */
 public abstract class JsLiteral<T> extends AbstractJsExpression {

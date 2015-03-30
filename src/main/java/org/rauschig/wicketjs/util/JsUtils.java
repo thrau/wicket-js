@@ -119,7 +119,7 @@ public final class JsUtils {
     /**
      * Wraps the given value object into a JsLiteral. If the value is already a JsLiteral instance, it is cast and
      * returned.
-     * <p/>
+     *
      * Java types are mapped to literal types accordingly. E.g. If you call it using a number, you will get a JsNumber.
      * 
      * @param value the value object
@@ -176,7 +176,9 @@ public final class JsUtils {
 
     /**
      * Alias for {@link #toString(IJavaScript)}.
-     * 
+     *
+     * @param tree the JavaScript tree
+     * @return the generated JavaScript source
      * @see #toString(org.rauschig.wicketjs.IJavaScript)
      */
     public static String js(IJavaScript tree) {
@@ -185,7 +187,9 @@ public final class JsUtils {
 
     /**
      * Alias for {@link #toString(IJavaScript...)}.
-     * 
+     *
+     * @param trees the JavaScript trees
+     * @return the generated JavaScript source
      * @see #toString(org.rauschig.wicketjs.IJavaScript...)
      */
     public static String js(IJavaScript... trees) {

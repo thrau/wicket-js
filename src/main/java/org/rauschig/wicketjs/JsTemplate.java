@@ -56,6 +56,9 @@ public class JsTemplate extends JsExpression {
     /**
      * Alias for {@link #setVariable(String, Object)}
      * 
+     * @param key the variable name
+     * @param variable the variable value
+     * @return this for chaining
      * @see #setVariable(String, Object)
      */
     public JsTemplate var(String key, Object variable) {

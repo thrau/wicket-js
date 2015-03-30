@@ -22,8 +22,7 @@ import org.rauschig.wicketjs.util.JsUtils;
 
 /**
  * Represents a member function call.
- * <p/>
- * 
+ *
  * <pre>
  * new JsCall("console.log", "logging", 42, "this", JsExpression.THIS, new JsFunction(...));
  * </pre>
@@ -82,6 +81,8 @@ public class JsCall extends AbstractJsExpression {
     /**
      * Alias for {@link #addArgument(Object)}.
      * 
+     * @param argument the argument to add
+     * @return this for chaining
      * @see #addArgument(Object)
      */
     public JsCall arg(Object argument) {
@@ -91,6 +92,8 @@ public class JsCall extends AbstractJsExpression {
     /**
      * Alias for {@link #addArgument(IJsExpression)}.
      * 
+     * @param argument the argument to add
+     * @return this for chaining
      * @see #addArgument(IJsExpression)
      */
     public JsCall arg(IJsExpression argument) {

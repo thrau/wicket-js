@@ -42,8 +42,9 @@ import org.rauschig.wicketjs.util.JsonSerializer;
 /**
  * Abstract implementation of the {@link org.rauschig.wicketjs.IJavaScript} syntax tree visitors used to generate a
  * JavaScript string from a given syntax tree.
- * <p/>
+ * <p>
  * The implementation is stateful as it uses a {@code StringBuilder} internally and <em>not</em> thread safe.
+ * </p>
  */
 public abstract class AbstractJsGenerator implements IJsExpressionVisitor, IJsStatementVisitor {
 
@@ -83,7 +84,7 @@ public abstract class AbstractJsGenerator implements IJsExpressionVisitor, IJsSt
 
     /**
      * Executes the visitor and returns the generated JavaScript as a string.
-     * <p/>
+     *
      * The method returns the cached result on multiple calls, rather than re-generating the script code.
      * 
      * @return JavaScript code as a String
@@ -205,11 +206,11 @@ public abstract class AbstractJsGenerator implements IJsExpressionVisitor, IJsSt
     public void visit(JsIf visitable) {
         js.append("if(");
 
-        if(visitable.isNegated()) {
+        if (visitable.isNegated()) {
             js.append("!(");
         }
         visitable.getExpression().accept(this);
-        if(visitable.isNegated()) {
+        if (visitable.isNegated()) {
             js.append(")");
         }
 

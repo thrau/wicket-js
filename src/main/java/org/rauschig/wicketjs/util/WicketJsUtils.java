@@ -31,6 +31,11 @@ public final class WicketJsUtils {
     }
 
     /**
+     * Adds javascript that will be evaluated on the client side after components are replaced
+
+     * @param target the target to append the javascript to
+     * @param js the javascript to render
+     *
      * @see AjaxRequestTarget#appendJavaScript(CharSequence)
      */
     public static void append(AjaxRequestTarget target, IJavaScript js) {
@@ -38,6 +43,10 @@ public final class WicketJsUtils {
     }
 
     /**
+     * Adds javascript that will be evaluated on the client side before components are replaced
+     *
+     * @param target the target to prepend the javascript to
+     * @param js the javascript to render
      * @see AjaxRequestTarget#prependJavaScript(CharSequence)
      */
     public static void prepend(AjaxRequestTarget target, IJavaScript js) {
@@ -45,20 +54,37 @@ public final class WicketJsUtils {
     }
 
     /**
-     * @see  JavaScriptHeaderItem#forScript(CharSequence, String) 
+     * Creates a {@link org.apache.wicket.markup.head.JavaScriptContentHeaderItem} for the given content.
+     *
+     * @param js javascript content to be rendered.
+     * @param id unique id for the javascript element. This can be null, however in that case the ajax header
+     *        contribution can't detect duplicate script fragments.
+     * @return A newly created {@link JavaScriptHeaderItem} for the given content.
+     * @see JavaScriptHeaderItem#forScript(CharSequence, String)
      */
     public static JavaScriptHeaderItem asHeaderItem(IJavaScript js, String id) {
         return JavaScriptHeaderItem.forScript(toString(js), id);
     }
 
     /**
-     * @see  JavaScriptHeaderItem#forScript(CharSequence, String, String)
+     * Creates a {@link org.apache.wicket.markup.head.JavaScriptContentHeaderItem} for the given content.
+     *
+     * @param js javascript content to be rendered.
+     * @param id unique id for the javascript element. This can be null, however in that case the ajax header
+     *        contribution can't detect duplicate script fragments.
+     * @param condition the condition to use for Internet Explorer conditional comments. E.g. "IE 7".
+     * @return A newly created {@link JavaScriptHeaderItem} for the given content.
+     * @see JavaScriptHeaderItem#forScript(CharSequence, String, String)
      */
     public static JavaScriptHeaderItem asHeaderItem(IJavaScript js, String id, String condition) {
         return JavaScriptHeaderItem.forScript(toString(js), id, condition);
     }
 
     /**
+     * Creates a {@link OnDomReadyHeaderItem} for the script.
+     * 
+     * @param js The script to execute on the DOM ready event.
+     * @return A newly created {@link OnDomReadyHeaderItem}.
      * @see OnDomReadyHeaderItem#forScript(CharSequence)
      */
     public static OnDomReadyHeaderItem asOnDomReadyHeaderItem(IJavaScript js) {

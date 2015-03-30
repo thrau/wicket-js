@@ -20,10 +20,8 @@ import org.rauschig.wicketjs.jquery.JQuery;
 
 /**
  * JsBehavior that uses JQuery's {@code bind} mechanism to bind an event handler callback to one or more DOM events.
- * 
- * <p/>
  * When this behavior is added to a Wicket Component, the selector can be used to filter child elements.
- * <p/>
+ *
  * Example:
  * 
  * <pre>
